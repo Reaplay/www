@@ -52,7 +52,7 @@ elseif($_GET['action']=="add"){
 else {
 	$res=sql_query("SELECT * FROM `product`;")  or sqlerr(__FILE__, __LINE__);
 	if(mysql_num_rows($res) == 0){
-		stderr("Ошибка","Продукты банка в базе не обнаружены","no");
+		stderr("Ошибка","Продукты банка в базе не обнаружены. <a href='action_admin.php?module=product_bank&action=add'>Добавить</a>","no");
 	}
 	$i=0;
 	while ($row = mysql_fetch_array($res)){

@@ -1,0 +1,6 @@
+Order Allow,Deny
+Allow from all
+AddDefaultCharset utf-8
+php_flag display_errors on
+ErrorDocument 404 http://crm/404.php
+ErrorDocument 500 /500.php

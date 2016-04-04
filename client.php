@@ -1,0 +1,69 @@
+<?php
+/*
+Страница для работы с клиентами
+*/
+require_once("include/connect.php");
+
+dbconn();
+
+if(!$CURUSER){
+	stderr("Ошибка","У вас нет доступа к данной странице");
+}
+elseif (!$_GET['a']) {
+	$REL_TPL->stdhead("Список клиентов");
+	require_once("elements/client/index.php");
+}
+elseif ($_GET['a']=="e") {
+	$REL_TPL->stdhead("Редактирование клиента");
+	if(!$_GET['type']){
+		require_once("elements/client/tpl_basic_action_client.php");
+	}
+	elseif($_GET['type'] == "change"){
+		require_once("elements/client/change.php");
+	}
+}
+elseif ($_GET['a']=="a") {
+	$REL_TPL->stdhead("Добавление клиента");
+	require_once("elements/client/tpl_basic_action_client.php");
+}
+elseif ($_GET['a']=="c" & ($_SERVER['REQUEST_METHOD'] == 'POST')) {
+	$REL_TPL->stdhead("Применение изменений");
+	require_once("elements/client/add_change_client.php");
+}
+elseif ($_GET['a']=="view") {
+	$REL_TPL->stdhead("Просмотр клиента");
+	require_once("elements/client/view_client.php");
+}
+elseif ($_GET['a']=="callback") {
+	if($_GET['id'] OR $_POST['id']){
+		$REL_TPL->stdhead("Контакт с клиентом");
+		require_once("elements/client/callback_client.php");
+	}
+	else {
+		$REL_TPL->stdhead("Список контактов");
+		//require_once("elements/client/callback_client_index.php");
+	}
+}
+elseif ($_GET['a']=="callback_history") {
+	if($_GET['id'] OR $_POST['id']){
+		$REL_TPL->stdhead("История контактов с клиентом");
+		require_once("elements/client/callback_history.php");
+	}
+	else {
+		$REL_TPL->stdhead("Список контактов");
+		//require_once("elements/client/callback_client_index.php");
+	}
+}
+elseif ($_GET['a']=="delete") {
+	require_once("elements/client/delete_client.php");
+}
+elseif ($_GET['a']=="upload") {
+	$REL_TPL->stdhead("Массовая загрузка клиентов");
+	require_once("elements/client/upload_clients.php");
+}
+else{
+	stderr("Ошибка","Такая страница не существует");
+	//запись в лог
+}
+$REL_TPL->stdfoot();
+?>

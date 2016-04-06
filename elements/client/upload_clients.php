@@ -107,19 +107,27 @@ if($_GET['type']=='upload_client'){
 		}
 			//проверяем логин на существование
 		if($data['6']){
-			$res=sql_query("SELECT `id` FROM `users` WHERE `login`='".trim($data['6'])."' AND `department` = '".$department."' ;");
+			if(get_user_class() <= UC_HEAD){
+				$res=sql_query("SELECT `id`,`department` FROM `users` WHERE `login`='".trim($data['6'])."' AND `department` = '".$department$
+			}
+			elseif(get_user_class() == UC_POWER_HEAD){
+				$res=sql_query("SELECT `users.id`,`users.department` FROM `users`LEFT JOIN department ON department.id = users.department WH$
+			}
+			elseif(get_user_class() == UC_ADMINISTRATOR){
+				$res=sql_query("SELECT `id`,`department` FROM `users` WHERE `login`='".trim($data['6'])."';");
+			}
+
 			if(mysql_num_rows($res) == 0) {
 				$num_err['login']++;
 				$text_err[$i]['manager'] = "Такой менеджер не найден";
-
-
 			}
 			$row=mysql_fetch_array($res);
 			if ($row['id']){
 				$manager = $row['id'];
+				$department = $row['department'];
 			}
-			
 		}
+
 		
 		$equid = sqlesc($data['3']);
 		$comment = sqlesc($data['5']);

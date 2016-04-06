@@ -1,6 +1,6 @@
 <div class="alert alert-danger margin-bottom-30">
 	<strong>Внимание</strong> Все загруженные клиенты будут прикреплены к вашей учетной записи.<br>
-	Шаблон для загрузки: <a href="/manual/shablon.csv">Скачать</a>
+	Шаблон для загрузки: <a href="{$REL_CONFIG.defaultbaseurl}/manual/shablon.csv">Скачать</a>
 </div>
 
 <form enctype="multipart/form-data" action="client.php?a=upload&type=upload_client" method="POST" accept-charset="utf-8">

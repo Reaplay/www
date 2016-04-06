@@ -16,7 +16,7 @@
 
 							<!-- PERSONAL INFO TAB -->
 							<div id="info" class="tab-pane fade active in">
-								текст
+								В разработке...
 							</div>
 							<!-- /PERSONAL INFO TAB -->
 
@@ -50,7 +50,9 @@
 
 							<!-- PRIVACY TAB -->
 							<div id="setting" class="tab-pane fade">
-
+								<div class="alert alert-danger margin-bottom-30">
+									Данные опции пока не используются
+								</div>
 								<form method="post" action="#">
 									<div class="sky-form">
 
@@ -61,20 +63,28 @@
 													<td>
 														<div class="inline-group">
 															<label class="radio nomargin-top nomargin-bottom">
-																<input type="radio" checked="" name="radioOption"><i></i> Yes
+																<input type="radio" checked="" name="radioOption"><i></i> Да
 															</label>
 
 															<label class="radio nomargin-top nomargin-bottom">
-																<input type="radio" checked="" name="radioOption"><i></i> No
+																<input type="radio" checked="" name="radioOption"><i></i> Нет
 															</label>
 														</div>
 													</td>
 												</tr>
 												<tr>
-													<td>Уведомления</td>
+													<td>Показывать "чужих" клиентов</td>
 													<td>
 														<label class="checkbox nomargin">
-															<input type="checkbox" checked="" name="checkbox"><i></i> Yes
+															<input type="checkbox" checked="" name="checkbox"><i></i> Да
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td>Показывать уведомления от "системы"</td>
+													<td>
+														<label class="checkbox nomargin">
+															<input type="checkbox" checked="" name="checkbox"><i></i> Да
 														</label>
 													</td>
 												</tr>
@@ -82,15 +92,7 @@
 													<td>Уведомления</td>
 													<td>
 														<label class="checkbox nomargin">
-															<input type="checkbox" checked="" name="checkbox"><i></i> Yes
-														</label>
-													</td>
-												</tr>
-												<tr>
-													<td>Уведомления</td>
-													<td>
-														<label class="checkbox nomargin">
-															<input type="checkbox" checked="" name="checkbox"><i></i> Yes
+															<input type="checkbox" checked="" name="checkbox"><i></i> Да
 														</label>
 													</td>
 												</tr>

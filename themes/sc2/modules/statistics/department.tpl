@@ -1,3 +1,6 @@
+<div class="alert alert-danger margin-bottom-30">
+	<strong>Внимание</strong> Страница в тестовом режиме
+</div>
 <div class="row">
 
     <div class="col-md-6">

@@ -1,6 +1,6 @@
-<div class="alert alert-danger margin-bottom-30"><!-- DANGER -->
+{*<div class="alert alert-danger margin-bottom-30"><!-- DANGER -->
 	<strong>Внимание</strong> Страница в тестовом режиме
-</div>
+</div>*}
 <div class="panel panel-default">
 	<div class="panel-body">
 		Обновления, исправления - все добавляется сюда!<br />

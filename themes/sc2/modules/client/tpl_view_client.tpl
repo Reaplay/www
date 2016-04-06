@@ -1,7 +1,7 @@
-<div class="alert alert-danger margin-bottom-30"><!-- DANGER -->
+{*<div class="alert alert-danger margin-bottom-30"><!-- DANGER -->
 	<strong>Внимание</strong> Страница в тестовом режиме
 </div>
-
+*}
 <div class="col-lg-3 col-md-3 col-sm-4">
 
 

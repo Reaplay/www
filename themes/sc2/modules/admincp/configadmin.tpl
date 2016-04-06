@@ -18,7 +18,7 @@
 	<div class="tab-pane fade in active" id="site">
 		<form method="post" action="action_admin.php?module=configadmin&action=save">
 		<div class="panel-body">
-			<table class="table table-bordered table-striped" id="user">
+			<table class="table table-bordered table-striped" >
 				<tbody> 
 					<tr>         
 						<td width="35%">Сайт включен?</td>
@@ -69,7 +69,7 @@
 	<div class="tab-pane fade" id="crm">
 		<form method="post" action="action_admin.php?module=configadmin&action=save">
 		<div class="panel-body">
-			<table class="table table-bordered table-striped" id="user">
+			<table class="table table-bordered table-striped" >
 				<tbody> 
 					<tr>         
 						<td width="35%">Кол-во клиентов на одной странице:</td>
@@ -99,7 +99,7 @@
 	<div class="tab-pane fade" id="register">
 		<form method="post" action="action_admin.php?module=configadmin&action=save">
 		<div class="panel-body">
-			<table class="table table-bordered table-striped" id="user">
+			<table class="table table-bordered table-striped" >
 				<tbody> 
 					<tr>         
 						<td width="35%">Запретить регистрацию:</td>
@@ -116,7 +116,7 @@
 	<div class="tab-pane fade" id="notify">
 		<form method="post" action="action_admin.php?module=configadmin&action=save">
 		<div class="panel-body">
-			<table class="table table-bordered table-striped" id="user">
+			<table class="table table-bordered table-striped" >
 				<tbody> 
 					<tr>         
 						<td width="35%">Стандартные уведомления (вспл.окно и/или ЛС):</td>
@@ -138,7 +138,7 @@
 	<div class="tab-pane fade" id="limit">
 		<form method="post" action="action_admin.php?module=configadmin&action=save">
 		<div class="panel-body">
-				<table class="table table-bordered table-striped" id="user">
+				<table class="table table-bordered table-striped" >
 					<tbody> 
 						<tr>         
 							<td width="35%">Максимальное количество пользователей:</td>
@@ -160,7 +160,7 @@
 	<div class="tab-pane fade" id="security">
 		<form method="post" action="action_admin.php?module=configadmin&action=save">
 		<div class="panel-body">
-				<table class="table table-bordered table-striped" id="user">
+				<table class="table table-bordered table-striped" >
 					<tbody> 
 						<tr>         
 							<td width="35%">SQL/Cron debug</td>
@@ -182,7 +182,7 @@
 	<div class="tab-pane fade" id="cache">
 		<form method="post" action="action_admin.php?module=configadmin&action=save">
 		<div class="panel-body">
-			<table class="table table-bordered table-striped" id="user">
+			<table class="table table-bordered table-striped" >
 				<tbody>
 				<tr>
 					<td>Включить кеш шаблонов?</td>
@@ -217,7 +217,7 @@
 			<strong>Настройки CRM</strong>
 		</div>
 		<div class="panel-body">
-			<table class="table table-bordered table-striped" id="user">
+			<table class="table table-bordered table-striped" >
 				<tbody> 
 					<tr>         
 						<td width="35%"></td>

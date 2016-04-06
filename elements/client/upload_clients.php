@@ -108,23 +108,31 @@ if($_GET['type']=='upload_client'){
 			//проверяем логин на существование
 		if($data['6']){
 			if(get_user_class() <= UC_HEAD){
-				$res=sql_query("SELECT `id`,`department` FROM `users` WHERE `login`='".trim($data['6'])."' AND `department` = '".$department$
+				$res=sql_query("SELECT `id`,`department` FROM `users` WHERE `login`='".trim($data['6'])."' AND department = '".$CURUSER['department']."'");
+
 			}
 			elseif(get_user_class() == UC_POWER_HEAD){
-				$res=sql_query("SELECT `users.id`,`users.department` FROM `users`LEFT JOIN department ON department.id = users.department WH$
+				$res=sql_query("SELECT users.id,users.department FROM `users`LEFT JOIN department ON department.id = users.department WHERE `login`='".trim($data['6'])."' AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')");
+
 			}
 			elseif(get_user_class() == UC_ADMINISTRATOR){
 				$res=sql_query("SELECT `id`,`department` FROM `users` WHERE `login`='".trim($data['6'])."';");
+
+			}
+			else{
+				die('error');
 			}
 
 			if(mysql_num_rows($res) == 0) {
 				$num_err['login']++;
 				$text_err[$i]['manager'] = "Такой менеджер не найден";
 			}
-			$row=mysql_fetch_array($res);
-			if ($row['id']){
-				$manager = $row['id'];
-				$department = $row['department'];
+			else {
+				$row = mysql_fetch_array ($res);
+				if ($row['id']) {
+					$manager = $row['id'];
+					$department = $row['department'];
+				}
 			}
 		}
 
@@ -133,12 +141,14 @@ if($_GET['type']=='upload_client'){
 		$comment = sqlesc($data['5']);
 
 		if($data['7'] == 1){
-
-			$status = '1';}
+			$status = '1';
+		}
 		elseif($data['7'] == 2){
-			$status = '2';}
+			$status = '2';
+		}
 		else{
-			$status = '0';}
+			$status = '0';
+		}
 		//print $error;
 if ($error == 0) {
 

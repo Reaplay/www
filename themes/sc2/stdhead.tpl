@@ -110,6 +110,7 @@
 						<li>
 							<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs"></i> Мой аккаунт</a>
 							<ul class="dropdown-menu">
+								<li><a tabindex="-1" href="message.php"><i class="fa fa-envelope-o"></i> Сообщения (0)</a></li>
 								<li><a tabindex="-1" href="#"><i class="fa fa-history"></i> История</a></li>
 								<li class="divider"></li>
 								<li><a tabindex="-1" href="#"><i class="fa fa-bookmark"></i> Закладки</a></li>

@@ -1,6 +1,6 @@
-<div class="alert alert-danger margin-bottom-30">
+{*<div class="alert alert-danger margin-bottom-30">
 	<strong>Внимание</strong> Страница в тестовом режиме
-</div>
+</div>*}
 <div class="alert alert-info margin-bottom-30">
 	Данные обновляются раз в {$REL_CONFIG['cache_statistic_all']/60} минут
 </div>

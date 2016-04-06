@@ -6,7 +6,9 @@ if(!$CURUSER['add_client'])
 if($_GET['type']=='upload_client'){
 		//начинаем проверку загрузку файла
 	$allowedExts = array("CSV","csv"); 
-	$extension = end(explode(".", $_FILES["attachment"]["name"]));
+	//$extension = end(explode(".", $_FILES["attachment"]["name"]));
+	$tmp_files = explode(".", $_FILES["attachment"]["name"]);
+	$extension = end($tmp_files);
 	$allowedType = array("csv/plain","application/vnd.ms-excel","text/csv");
 	// загружаем файло application/vnd.ms-excel
 	if ( in_array($_FILES["attachment"]["type"], $allowedType) && ($_FILES["attachment"]["size"] < 180000) && in_array($extension, $allowedExts)) {

@@ -5,8 +5,7 @@
 <div class="row">
 	<div class="col-md-5th">
 		<h4>Работа с базой</h4>
-		<a href="action_admin.php?module=mysqlstats">MySQL status</a><br />
-		<a href="action_admin.php?module=cronadmin">Cron</a>
+		<a href="action_admin.php?module=mysqlstats">MySQL status</a>
 	</div>
 
 	<div class="col-md-5th">

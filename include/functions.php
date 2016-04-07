@@ -269,23 +269,16 @@ function user_session() {
 
 		$CURUSER['access'] = get_user_class();
 
-	/*	$allowed_types = array ('torrents', 'relcomments', 'pollcomments', 'newscomments', 'usercomments', 'reqcomments', 'rgcomments','forumcomments','friends');//,'seeding','leeching','downloaded');
-		if (get_user_class() >= UC_MODERATOR) {
-			$allowed_types_moderator = array('users', 'reports', 'unchecked');
-			$allowed_types = array_merge($allowed_types,$allowed_types_moderator);
-		}
-		$allowed_types=array_merge(array('unread', 'inbox', 'outbox'),array_intersect($allowed_types,explode(',',$CURUSER['notifs'])));
-*/
-		$secs_system = $REL_CRON['pm_delete_sys_days']*86400; // Количество дней
-		$dt_system = time() - $secs_system; // Сегодня минус количество дней
-		$secs_all = $REL_CRON['pm_delete_user_days']*86400; // Количество дней
-		$dt_all = time() - $secs_all; // Сегодня минус количество дней
+		$allowed_types=array('unread', 'inbox', 'outbox');
 
-		/*foreach ($allowed_types as $type) {
-			if ($type=='torrents') {
-				$addition = " AND moderatedby<>0";
-			}
-			elseif ($type=='unread'){
+		$secs_system = $REL_CONFIG['pm_delete_sys_days']*86400; // Количество дней
+		$dt_system = time() - $secs_system; // Сегодня минус количество дней
+		//$dt_system = 0;
+		$secs_all = $REL_CONFIG['pm_delete_user_days']*86400; // Количество дней
+		$dt_all = time() - $secs_all; // Сегодня минус количество дней
+		//$dt_all = 0;
+		foreach ($allowed_types as $type) {
+			if ($type=='unread'){
 				$addition = "location=1 AND receiver={$CURUSER['id']} AND unread=1 AND IF(archived_receiver=1, 1=1, IF(sender=0,added>$dt_system,added>$dt_all))"; $table='messages'; $noadd=true;
 			}
 			elseif ($type=='inbox'){
@@ -298,21 +291,7 @@ function user_session() {
 				$addition = 'moderatedby=0'; $table = 'torrents'; $noadd=true;
 			}
 			elseif ($type=='reports') $noadd=true;
-			elseif ($type=='friends') {
-				$noadd=true; $addition = "friendid={$CURUSER['id']} AND confirmed=0";
-			}
-			elseif($type=='forumcomments') {
-				$addition = " AND type = 'forum' AND forum_categories.class<=".get_user_class(); $table = 'comments LEFT JOIN forum_topics ON forum_topics.id=comments.toid LEFT JOIN forum_categories ON forum_topics.category=forum_categories.id';
-				$sel_id = 'comments.';
-			}
-			elseif (in_array($type,array('relcomments','pollcomments','newscomments',
-			'usercomments','reqcomments','rgcomments'))) {
-			$addition = " AND type = '".str_replace('comments','',$type)."'"; $table = 'comments';
-			}
 
-			//case 'seeding' : $addition = "seeder=1 AND userid={$CURUSER['id']}"; $table= 'peers'; $noadd=true; break;
-			// case 'leeching' : $addition = "seeder=0 AND userid={$CURUSER['id']}"; $table= 'peers'; $noadd=true; break;
-			// case 'downloaded' : $addition = "snatched.finished=1 AND torrents.free=0 AND NOT FIND_IN_SET(torrents.freefor,userid) AND userid={$CURUSER['id']}"; $table = 'peers'; $noadd=true; break;
 
 			$noselect = @implode(',',@array_map("intval",$_SESSION['visited_'.$type]));
 
@@ -325,7 +304,7 @@ function user_session() {
 			unset($noadd);
 			unset($string);
 			unset($noselect);
-		}*/
+		}
 		//if (get_user_class()==UC_ADMINISTRATOR&&$_GET['debug']) {print '<pre>'; print_r($_SESSION); die();}
 		if ($sql_query) {
 			$sql_query = "SELECT ".implode(', ', $sql_query);
@@ -334,6 +313,7 @@ function user_session() {
 			$notifysql = sql_query($sql_query);
 			$notifs = mysql_fetch_assoc($notifysql);
 			foreach ($notifs as $type => $value) if ($value) $CURUSER[$type] = explode(',', $value);
+
 			//$notifs = array_combine($allowed_types,explode(',',$notifs));
 			//foreach ($notifs as $name => $value) $CURUSER[$name] = $value;
 		}

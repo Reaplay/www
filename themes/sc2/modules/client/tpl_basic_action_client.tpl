@@ -60,8 +60,8 @@
 				<div class="fancy-form fancy-form-select">
 					<select class="form-control select2 pointer required" name="gender">
 						<option value="---">Выберите пол</option>
-						<option value="1" {if $gender == "1"} selected = "selected"{/if}>Мужской</option>
-						<option value="2" {if $gender == "2"} selected = "selected"{/if}>Женский</option>
+						<option value="1" {if $data_client.gender == "1"} selected = "selected"{/if}>Мужской</option>
+						<option value="2" {if $data_client.gender == "2"} selected = "selected"{/if}>Женский</option>
 					</select>
 					<i class="fancy-arrow"></i>
 				</div>
@@ -85,7 +85,15 @@
 		{/if}
 		
 			<div class="col-md-6">
-			
+				<div class="fancy-form fancy-form-select">
+					<select class="form-control select2 pointer required" name="status">
+						<option value="---">Статус клиента</option>
+						<option value="0" {if $data_client.status == "0"} selected = "selected"{/if}>Не клиент</option>
+						<option value="1" {if $data_client.status == "1"} selected = "selected"{/if}>Клиент</option>
+						<option value="2" {if $data_client.status == "2"} selected = "selected"{/if}>Отказной</option>
+					</select>
+					<i class="fancy-arrow"></i>
+				</div>
 			</div>
 		
 		</div>

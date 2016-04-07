@@ -48,9 +48,11 @@
 							</td>
 						</tr>
 
-							<tr>
-								<td colspan="6" >{$callback.comment}	</td>
-							</tr>
+					{if {$callback.comment}}
+						<tr>
+							<td colspan="6" >{$callback.comment}	</td>
+						</tr>
+					{/if}
 
 
 				{/foreach}

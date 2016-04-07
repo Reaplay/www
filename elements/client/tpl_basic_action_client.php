@@ -35,8 +35,8 @@ if ($_GET['a']=="e") {
 	}
 	else
 		$data_client['birthday'] = "";
-	$gender = $data_client['gender'];
-	$REL_TPL->assignByRef('gender',$gender);
+	//$gender = $data_client['gender'];
+	//$REL_TPL->assignByRef('gender',$gender);
 	$REL_TPL->assignByRef('action',$action);
 	$REL_TPL->assignByRef('id',$_GET['id']);
 }

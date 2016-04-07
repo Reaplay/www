@@ -102,9 +102,15 @@ if($_POST['action']=='add'){
 	$type_contact = $_POST['type_contact'];
 	$comment = ((string)$_POST["comment"]);
 	$equid = $_POST['equid'];
-	if ($equid){
-		$status = 1;
+	if ($equid) {
+		$update_equid = "equid = ".sqlesc($equid).",";
 	}
+	if ($_POST['status'] != "---") {
+		$update_status = "status = ".$_POST['status'];
+	}
+	else
+		$update_status = "status = 0";
+
 	//$id_product = "1,2,3";
 	//
 	sql_query("INSERT INTO `callback` (`id_client`, `id_user`, `added`, `id_result`,`type_contact`, `next_call`, `comment`,`id_product`) VALUES ('".$id_client."', '".$CURUSER['id']."', '".time()."', '".$id_result."','".$type_contact."', '".$next_call."', ". sqlesc($comment).",'".$id_product."');")  or sqlerr(__FILE__, __LINE__);
@@ -112,8 +118,9 @@ if($_POST['action']=='add'){
 	
 	sql_query("UPDATE `callback` SET status = 1 WHERE id_client = '".$id_client."' AND status = '0' AND id !='".$id_callback."'");
 
-	if($equid)
-		sql_query("UPDATE `client` SET equid = ".sqlesc($equid).", status = 1 WHERE id = '".$id_client."'");
+	if($update_equid OR $update_status)
+		sql_query("UPDATE `client` SET ".$update_equid." ".$update_status." WHERE id = '".$id_client."'");
+
 	
 
 	stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены на страницу клиента через пару секунд. <br /> Если этого не произошло, нажмите <a href=\"client.php?a=view&id=".$id_client."\">здесь</a>");

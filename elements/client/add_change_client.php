@@ -92,7 +92,7 @@ if (strlen($name) < 5)
 
 //проверяем номер телефона
 $mobile = check_mobile($_POST['mobile']);
-	if (!check_unic($mobile,'client','mobile')){
+	if (!check_unic($mobile,'client','mobile',$id)){
 		stderr("Ошибка","В базе уже есть клиент с таким номером. <a href=\"javascript:history.go(-1);\">Назад</a>.","no");
 	}
 
@@ -107,12 +107,15 @@ if ($_POST['gender'] != "---") {
 	}
 	$gender = $_POST['gender'];
 }
+
 $equid = $_POST['equid'];
 $comment = ((string)$_POST["comment"]);
-
-if ($equid) {
+	if ($_POST['status'] != "---") {
+		$status = $_POST['status'];
+	}
+/*if ($equid AND $status) {
 	$status = 1;
-}
+}*/
 if (!$id){
 sql_query("
 INSERT INTO `client`(

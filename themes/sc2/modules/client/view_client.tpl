@@ -115,6 +115,11 @@
 										{$callback.next_call}
 									</td>
 								</tr>
+								{if {$callback.comment}}
+								<tr>
+									<td colspan="6" >{$callback.comment}	</td>
+								</tr>
+								{/if}
 							{/foreach}
 								
 							</tbody>

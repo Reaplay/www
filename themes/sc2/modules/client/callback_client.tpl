@@ -71,7 +71,23 @@
 		</div>
 	</div>
 	{/if}
-	<div class="row">
+		<div class="row">
+			<div class="col-xs-2">
+				Статус клиента
+			</div>
+			<div class="col-xs-6">
+				<div class="fancy-form fancy-form-select">
+
+					<select name="status" class="form-control  select2">
+						<option value="0">Не клиент</option>
+						<option value="1">Клиент</option>
+						<option value="2">Отказной</option>
+					</select>
+					<i class="fancy-arrow"></i>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 		<div class="form-group">
 			<div class="col-md-12 col-sm-12">
 				<label>Комментарий</label>

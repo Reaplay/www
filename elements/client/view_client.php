@@ -34,7 +34,7 @@ $data_client = mysql_fetch_array($res);
 
 	
 $res=sql_query("
-SELECT callback.added,callback.next_call, callback.id_product, callback.type_contact, users.name as u_name, result_call.text as rc_name
+SELECT callback.added,callback.next_call, callback.id_product, callback.type_contact, callback.comment, users.name as u_name, result_call.text as rc_name
 FROM `callback`
 LEFT JOIN users ON users.id = callback.id_user  
 LEFT JOIN result_call ON result_call.id = callback.id_result

@@ -1,11 +1,11 @@
 <h3> {$pm.mailbox_name}</h3>
 <div class="panel panel-default">
     <div class="panel-body">
-        <strong>Ваш ящик заполнен на:</strong><font color="#8da6cf"> {$pm.all_mess}</font><font color="green"> ({$pm.all_mess_procent}%) </font> <small>максимальное количество сообщений - {$REL_CONFIG['pm_max']}</small><br />
+        <strong>Ваш ящик заполнен на:</strong>{$pm.all_mess} ({$pm.all_mess_procent}%)<small>максимальное количество сообщений - {$REL_CONFIG['pm_max']}</small><br />
 
               <a href="{$REL_CONFIG['defaultbaseurl']}/message.php?action=viewmailbox&box=1"><span>Входящие {$pm.inbox_all} ({$pm.inbox_all_procent}%) </span></a><br/>
             <a href="{$REL_CONFIG['defaultbaseurl']}/message.php?action=viewmailbox&box=-1"><span>Отправленные {$pm.outbox_all} ({$pm.outbox_all_procent}%) </span></a>
-            </ul>
+
     </div>
 </div>
 
@@ -29,7 +29,7 @@
         <tr>
             <th></th>
             <th>Тема</th>
-            <th>Отправлено</th>
+            <th>Отправитель</th>
             <th>Дата</th>
             <th>В архиве</th>
             <th>Срок хранения</th>
@@ -42,12 +42,12 @@
 
         <tr data-id="{$message.id}">
             <td>{if $message.unread AND $pm.mailbox != 'PM_SENTBOX'}<i class="fa fa-envelope"></i>{else}<i class="fa fa-envelope-o"></i>{/if}</td>
-            <td>{if $message.subject}{$message.subject}{else}Без темы{/if}</td>
+            <td>{if $message.subject}<a href="message.php?action=viewmessage&id={$message.id}">{$message.subject}</a>{else}Без темы{/if}</td>
             <td>
                 {if $pm.mailbox != PM_SENTBOX}
-                    {if $message.sender != 0}[$message.sender_username}{else}Система{/if}
+                    {if $message.sender != 0}{$message.sender_username}{else}Система{/if}
                 {else}
-                    {if $message.receiver != 0}[$message.receiver_username}{else}Система{/if}
+                    {if $message.receiver != 0}{$message.receiver_username}{else}Система{/if}
                 {/if}
             </td>
             <td>{$message.added}</td>

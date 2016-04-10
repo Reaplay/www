@@ -167,6 +167,10 @@ function userlogin() {
 	sql_query("UPDATE LOW_PRIORITY users SET ".implode(", ", $updateset)." WHERE id=" . $row["id"]);// or die(mysql_error());
 	$row['ip'] = $ip;
 
+	//таймзона на дефолт
+	$row['timezone'] = $REL_CONFIG['site_timezone'];
+
+
 	if (isset($_COOKIE['override_class'])) {
 		$override = (int)$_COOKIE['override_class'];
 		if ($row['class'] >= UC_ADMINISTRATOR && $override<$row['class'] && $override>=0)
@@ -279,18 +283,22 @@ function user_session() {
 		//$dt_all = 0;
 		foreach ($allowed_types as $type) {
 			if ($type=='unread'){
-				$addition = "location=1 AND receiver={$CURUSER['id']} AND unread=1 AND IF(archived_receiver=1, 1=1, IF(sender=0,added>$dt_system,added>$dt_all))"; $table='messages'; $noadd=true;
+				$addition = "location=1 AND receiver={$CURUSER['id']} AND unread=1 AND IF(archived_receiver=1, 1=1, IF(sender=0,added>$dt_system,added>$dt_all))";
+				$table='messages';
+				$noadd=true;
 			}
 			elseif ($type=='inbox'){
-				$addition = "location=1 AND receiver={$CURUSER['id']} AND IF(archived_receiver=1, 1=1, IF(sender=0,added>$dt_system,added>$dt_all))"; $table='messages'; $noadd=true;
+				$addition = "location=1 AND receiver={$CURUSER['id']} AND IF(archived_receiver=1, 1=1, IF(sender=0,added>$dt_system,added>$dt_all))";
+				$table='messages';
+				$noadd=true;
 			}
 			elseif ($type=='outbox'){
-				$addition = "saved=1 AND sender={$CURUSER['id']} AND IF(archived_receiver<>1, 1=1, IF(sender=0,added>$dt_system,added>$dt_all))"; $table = 'messages'; $noadd=true;
+				$addition = "saved=1 AND sender={$CURUSER['id']} AND IF(archived_receiver<>1, 1=1, IF(sender=0,added>$dt_system,added>$dt_all))";
+				$table = 'messages';
+				$noadd=true;
 			}
-			elseif ($type=='unchecked'){
-				$addition = 'moderatedby=0'; $table = 'torrents'; $noadd=true;
-			}
-			elseif ($type=='reports') $noadd=true;
+			elseif ($type=='reports')
+				$noadd=true;
 
 
 			$noselect = @implode(',',@array_map("intval",$_SESSION['visited_'.$type]));
@@ -533,8 +541,8 @@ function hash_pad($hash) {
 }
 function mkprettytime($seconds, $time = true) {
 	global $CURUSER, $REL_CONFIG;
-	$seconds = $seconds+$REL_CONFIG['site_timezone']*3600;
-	//$seconds = $seconds-date("Z")+$CURUSER['timezone']*3600;
+//	$seconds = $seconds+$REL_CONFIG['site_timezone']*3600;
+	$seconds = $seconds-date("Z")+$CURUSER['timezone']*3600;
 	$search = array('January','February','March','April','May','June','July','August','September','October','November','December');
 	$replace = array('января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря');
 	if ($time == true)

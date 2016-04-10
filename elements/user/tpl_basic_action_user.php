@@ -12,11 +12,20 @@
 		}
 	// если мы редактируем пользователя, то надо получить данные для изменения
 		// смотрим, не из ОО Самарский ли чел-к. Если не из него, то запрашиваем только из текущего отделения людей
-		if($CURUSER['department'] != '1'){
+		/*if($CURUSER['department'] != '1'){
 			$department = "`department` = '".$CURUSER['department']."' AND";
-		}
-
-		$res=sql_query("SELECT users.id, users.login, users.name, users.add_client, users.add_user, users.class, department.id as d_id, department.name as d_name FROM `users`  LEFT JOIN department ON department.id = users.department  WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE__);
+		}*/
+	if(get_user_class()<UC_POWER_HEAD){
+		$department = "`department` = '".$CURUSER['department']."' AND";
+	}
+	elseif(get_user_class()==UC_POWER_HEAD){
+		$department = "(department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."') AND";
+	}
+		$res=sql_query("SELECT
+users.id, users.login, users.name, users.add_client, users.add_user, users.class, department.id as d_id, department.name as d_name, department.parent
+FROM `users`
+LEFT JOIN department ON department.id = users.department
+WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE__);
 		if(mysql_num_rows($res) == 0){
 			stderr("Ошибка","Пользователь не найден или у вас нет доступа","no");
 		}
@@ -24,8 +33,8 @@
 		$data_user = mysql_fetch_array($res);
 	}
 	// если выше рукля, то можно выбрать отделение
-	if(get_user_class() > UC_HEAD){
-		$res=sql_query("SELECT * FROM  `department`;")  or sqlerr(__FILE__, __LINE__);
+	if(get_user_class() == UC_POWER_HEAD){
+		$res=sql_query("SELECT *  FROM `department` WHERE (id ='".$CURUSER['department']."' OR parent = '".$CURUSER['department']."');")  or sqlerr(__FILE__, __LINE__);
 	
 		//формируем к какому отделению можно прикрепить пользователя
 		while ($row = mysql_fetch_array($res)) {
@@ -35,7 +44,22 @@
 			}
 			$p_department .= " <option ".$select." value = ".$row['id'].">".$row['name']."</option>";
 		}
+
 	}
+	elseif(get_user_class() == UC_ADMINISTRATOR){
+		$res=sql_query("SELECT *  FROM `department`;")  or sqlerr(__FILE__, __LINE__);
+
+		//формируем к какому отделению можно прикрепить пользователя
+		while ($row = mysql_fetch_array($res)) {
+			$select = "";
+			if ($row['id'] == $data_user['d_id']){
+				$select = "selected = \"selected\"";
+			}
+			$p_department .= " <option ".$select." value = ".$row['id'].">".$row['name']."</option>";
+		}
+	}
+
+
 	function select_class($class_user,$compare_class){
 		if($class_user == $compare_class){
 			return "selected = \"selected\"";

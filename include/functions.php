@@ -342,11 +342,12 @@ function sqlerr($file = '', $line = '') {
 	$err = mysql_error();
 
 	$res = sql_query("SELECT id FROM users WHERE class=".UC_ADMINISTRATOR);
-	while (list($id) = mysql_fetch_array($res)) write_sys_msg($id,'MySQL got error: '.$err.'<br />File: '.$file.'<br />Line: '.$line.'<br />URI: '.$_SERVER['REQUEST_URI'].'<br />User: <a href="'.$REL_SEO->make_link('userdetails','id',$CURUSER['id'],'username',$CURUSER['username']).'">'.get_user_class_color($CURUSER['class'],$CURUSER['username'].'</a>'),'MySQL error detected!');
+	while (list($id) = mysql_fetch_array($res))
+		write_sys_msg($id,'MySQL got error: '.$err.'<br />File: '.$file.'<br />Line: '.$line.'<br />URI: '.$_SERVER['REQUEST_URI'].'<br />User: <a href="'.$REL_SEO->make_link('userdetails','id',$CURUSER['id'],'name',$CURUSER['name']).'">'.get_user_class_color($CURUSER['class'],$CURUSER['name'].'</a><br/>GET: '.print_r($_GET,true).'<br />POST:'.print_r($_POST,true)),'MySQL error detected!');
 	$text = ("<table border=\"0\" bgcolor=\"blue\" align=\"left\" cellspacing=\"0\" cellpadding=\"10\" style=\"background: blue\">" .
 	"<tr><td class=\"embedded\"><font color=\"white\"><h1>Ошибка в SQL</h1>\n" .
 	"<b>Ответ от сервера MySQL: " . $err . ($file != '' && $line != '' ? "<p>в $file, линия $line</p>" : "") . "<p>Запрос номер $queries.</p></b></font></td></tr></table>");
-	write_log("<a href=\"".$REL_SEO->make_link('userdetails','id',$CURUSER['id'],'username',$CURUSER['username'])."\">".get_user_class_color($CURUSER['class'],$CURUSER['username'])."</a> SQL ERROR: $text</font>",'sql_errors');
+	write_log("<a href=\"".$REL_SEO->make_link('userdetails','id',$CURUSER['id'],'name',$CURUSER['name'])."\">".get_user_class_color($CURUSER['class'],$CURUSER['name'])."</a> SQL ERROR: $text</font>",'sql_errors');
 	print $text;
 	return;
 }

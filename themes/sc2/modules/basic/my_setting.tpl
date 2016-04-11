@@ -50,15 +50,13 @@
 
 							<!-- PRIVACY TAB -->
 							<div id="setting" class="tab-pane fade">
-								<div class="alert alert-danger margin-bottom-30">
-									Данные опции пока не используются
-								</div>
-								<form method="post" action="#">
+
+								<form method="post" action="my_setting.php">
 									<div class="sky-form">
 
 										<table class="table table-bordered table-striped">
 											<tbody>
-												<tr>
+												{*<tr>
 													<td>Уведомления по почте</td>
 													<td>
 														<div class="inline-group">
@@ -79,30 +77,32 @@
 															<input type="checkbox" checked="" name="checkbox"><i></i> Да
 														</label>
 													</td>
-												</tr>
+												</tr>*}
 												<tr>
 													<td>Показывать уведомления от "системы"</td>
 													<td>
 														<label class="checkbox nomargin">
-															<input type="checkbox" checked="" name="checkbox"><i></i> Да
+															<input type="checkbox" {if !$CURUSER.notifs}checked=""{/if} name="notify"><i></i> Да
 														</label>
 													</td>
 												</tr>
-												<tr>
+												{*<tr>
 													<td>Уведомления</td>
 													<td>
 														<label class="checkbox nomargin">
 															<input type="checkbox" checked="" name="checkbox"><i></i> Да
 														</label>
 													</td>
-												</tr>
+												</tr>*}
 											</tbody>
 										</table>
 
 									</div>
 
 									<div class="margin-top-10">
-										<a class="btn btn-primary" href="#"><i class="fa fa-check"></i> Сохранить изменения </a>
+										<input type="hidden" value="yes" name="change_setting">
+
+										<button class="btn btn-primary" ><i class="fa fa-check"></i> Сохранить изменения </button>
 										<a class="btn btn-default" href="#">Отмена </a>
 									</div>
 

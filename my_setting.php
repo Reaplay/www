@@ -32,6 +32,18 @@ if($_POST['change_password'] == "yes") {
     }
 
 }
+    if($_POST['change_setting'] == "yes") {
+        if($_POST['notify']){
+            sql_query("UPDATE `users` SET `notifs` = '' WHERE `id` ='".$CURUSER['id']."';")  or sqlerr(__FILE__, __LINE__);
+            $GLOBALS["CURUSER"]['notifs']='';
+        }
+        else{
+            sql_query("UPDATE `users` SET `notifs` = 'no_notify' WHERE `id` ='".$CURUSER['id']."';")  or sqlerr(__FILE__, __LINE__);
+            $GLOBALS["CURUSER"]['notifs']='no_notify';
+        }
+        $msg['class'] = "success";
+        $msg['text'] = "Настройки изменены";
+    }
 
 
 $REL_TPL->stdhead("Настройки");

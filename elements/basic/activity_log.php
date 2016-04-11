@@ -12,8 +12,12 @@ $now_date = strtotime(date("d.m.Y"));
 */
 // упростим запрос, для удобства чтения
 
-$first_part_sql = "SELECT SUM(1) FROM `callback` LEFT JOIN client ON client.id = callback.id_client WHERE client.manager='".$CURUSER['id']."' AND callback.status = 0 AND callback.next_call != 0";
-
+if(get_user_class() == UC_ADMINISTRATOR and $_GET['user_id']){
+	$first_part_sql = "SELECT SUM(1) FROM `callback` LEFT JOIN client ON client.id = callback.id_client WHERE client.manager='".$_GET['user_id']."' AND callback.status = 0 AND callback.next_call != 0";
+}
+else {
+	$first_part_sql = "SELECT SUM(1) FROM `callback` LEFT JOIN client ON client.id = callback.id_client WHERE client.manager='".$CURUSER['id']."' AND callback.status = 0 AND callback.next_call != 0";
+}
 $res=sql_query("
 (".$first_part_sql." AND callback.type_contact = 1 AND client.status=1 AND callback.next_call = '".$now_date."') UNION ALL
 (".$first_part_sql." AND callback.type_contact = 1 AND client.status=1 AND callback.next_call < '".$now_date."') UNION ALL

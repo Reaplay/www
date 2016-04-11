@@ -147,7 +147,15 @@
 						<tr>         
 							<td>Максимальное количество сообщений в Личном ящике:</td>
 							<td><input type="text" name="pm_max" size="4" value="{$REL_CONFIG['pm_max']}">сообщений</td>
-						</tr> 
+						</tr>
+						<tr>
+							<td>Максимальное время хранения системных сообщений:</td>
+							<td><input type="text" name="pm_delete_sys_days" size="4" value="{$REL_CONFIG['pm_delete_sys_days']}">дней</td>
+						</tr>
+						<tr>
+							<td>Максимальное время хранения сообщений от пользователей:</td>
+							<td><input type="text" name="pm_delete_user_days" size="4" value="{$REL_CONFIG['pm_delete_user_days']}">дней</td>
+						</tr>
 					</tbody>
 				</table>
 			<input type="hidden" name="type" value="limit">

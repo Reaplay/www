@@ -38,7 +38,7 @@ elseif ($_GET['action'] == 'save'){
 		$reqparametres=array('default_notifs','default_emailnotifs');
 	}
 	elseif($_POST['type']=="limit"){
-		$reqparametres=array('maxusers','pm_max');
+		$reqparametres=array('maxusers','pm_max','pm_delete_sys_days','pm_delete_user_days');
 	}
 	elseif($_POST['type']=="security"){
 		$reqparametres=array('debug_mode','debug_template');

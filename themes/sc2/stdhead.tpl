@@ -195,7 +195,7 @@
 						<!-- /BUTTONS -->
 
 						<!-- Logo -->
-						<a class="logo pull-left" href="/">
+						<a class="logo pull-left" href="{$REL_CONFIG.defaultbaseurl}">
 							<img src="assets/images/logo_dark.png" alt="" />
 						</a>
 

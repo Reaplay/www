@@ -18,13 +18,12 @@
         }
 
     } else {
-        $res = sql_query ( 'SELECT * FROM messages WHERE messages.id=' . sqlesc ( $pm_id ) );
+        $res = sql_query ( 'SELECT * FROM messages WHERE messages.id=' . sqlesc ( $pm_id ) ) or sqlerr ( __FILE__, __LINE__ );
         if (mysql_num_rows ( $res ) == 0) {
             stderr ( "Ошибка", "Такого сообщения не существует.","no");
         }
         $adminview = 1;
     }
-
 
 //sender отправитель
 //receiver получатель

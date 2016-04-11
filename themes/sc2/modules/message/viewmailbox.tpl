@@ -1,7 +1,7 @@
 <h3> {$pm.mailbox_name}</h3>
 <div class="panel panel-default">
     <div class="panel-body">
-        <strong>Ваш ящик заполнен на:</strong>{$pm.all_mess} ({$pm.all_mess_procent}%)<small>максимальное количество сообщений - {$REL_CONFIG['pm_max']}</small><br />
+        <strong>Ваш ящик заполнен на:</strong>{$pm.all_mess} ({$pm.all_mess_procent}%) <small>максимальное количество сообщений - {$REL_CONFIG['pm_max']}</small><br />
 
               <a href="{$REL_CONFIG['defaultbaseurl']}/message.php?action=viewmailbox&box=1"><span>Входящие {$pm.inbox_all} ({$pm.inbox_all_procent}%) </span></a><br/>
             <a href="{$REL_CONFIG['defaultbaseurl']}/message.php?action=viewmailbox&box=-1"><span>Отправленные {$pm.outbox_all} ({$pm.outbox_all_procent}%) </span></a>

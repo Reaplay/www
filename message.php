@@ -481,37 +481,7 @@
 
 //начало удаление сообщения
 	elseif ($action == "deletemessage") {
-		if (! is_valid_id ( $_GET ["id"] ))
-			stderr ( $REL_LANG->say_by_key('error'), $REL_LANG->say_by_key('invalid_id') );
-		$pm_id = $_GET ['id'];
 
-		// Delete message
-		$res = sql_query ( "SELECT * FROM messages WHERE id=" . sqlesc ( $pm_id ) ) or sqlerr ( __FILE__, __LINE__ );
-		if (! $res) {
-			stderr ( $REL_LANG->say_by_key('error'), "Сообщения с таким ID не существует." );
-		}
-		if (mysql_num_rows ( $res ) == 0) {
-			stderr ( $REL_LANG->say_by_key('error'), "Сообщения с таким ID не существует." );
-		}
-		$message = mysql_fetch_assoc ( $res );
-		if ($message ['receiver'] == $CURUSER ['id'] && ! $message ['saved']) {
-			$res2 = sql_query ( "DELETE FROM messages WHERE id=" . sqlesc ( $pm_id ) ) or sqlerr ( __FILE__, __LINE__ );
-		} elseif ($message ['sender'] == $CURUSER ['id'] && $message ['location'] == PM_DELETED) {
-			$res2 = sql_query ( "DELETE FROM messages WHERE id=" . sqlesc ( $pm_id ) ) or sqlerr ( __FILE__, __LINE__ );
-		} elseif ($message ['receiver'] == $CURUSER ['id'] && $message ['saved']) {
-			$res2 = sql_query ( "UPDATE messages SET location=0 WHERE id=" . sqlesc ( $pm_id ) ) or sqlerr ( __FILE__, __LINE__ );
-		} elseif ($message ['sender'] == $CURUSER ['id'] && $message ['location'] != PM_DELETED) {
-			$res2 = sql_query ( "UPDATE messages SET saved=0 WHERE id=" . sqlesc ( $pm_id ) ) or sqlerr ( __FILE__, __LINE__ );
-		}
-		if (! $res2) {
-			stderr ( $REL_LANG->say_by_key('error'), "Невозможно удалить сообщение." );
-		}
-		if (mysql_affected_rows () == 0) {
-			stderr ( $REL_LANG->say_by_key('error'), "Невозможно удалить сообщение." );
-		} else {
-			safe_redirect($REL_SEO->make_link('message','action','viewmailbox','id',$message['location']));
-			exit ();
-		}
 		//конец удаление сообщения
 	}
 //else stderr("Access Denied.","Unknown action");

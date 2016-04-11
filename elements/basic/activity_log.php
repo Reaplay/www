@@ -24,8 +24,7 @@ $res=sql_query("
 (".$first_part_sql." AND callback.type_contact = 1 AND client.status=1 AND callback.next_call > '".$now_date."') UNION ALL
 (".$first_part_sql." AND callback.type_contact = 2 AND client.status=1 AND callback.next_call = '".$now_date."') UNION ALL
 (".$first_part_sql." AND callback.type_contact = 2 AND client.status=1 AND callback.next_call < '".$now_date."') UNION ALL
-(".$first_part_sql." AND callback.type_contact = 2 AND client.status=1 AND callback.next_call > '".$now_date."') 
-UNION ALL
+(".$first_part_sql." AND callback.type_contact = 2 AND client.status=1 AND callback.next_call > '".$now_date."') UNION ALL
 (".$first_part_sql." AND callback.type_contact = 1 AND client.status=0 AND callback.next_call = '".$now_date."') UNION ALL
 (".$first_part_sql." AND callback.type_contact = 1 AND client.status=0 AND callback.next_call < '".$now_date."') UNION ALL
 (".$first_part_sql." AND callback.type_contact = 1 AND client.status=0 AND callback.next_call > '".$now_date."') UNION ALL

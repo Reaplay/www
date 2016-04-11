@@ -17,5 +17,5 @@ elseif ($_GET['type'] == "manager") {
 	require_once("elements/statistics/manager.php");
 }
 
-$REL_TPL->stdfoot();
+$REL_TPL->stdfoot($js_add);
 ?>

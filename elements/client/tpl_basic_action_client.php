@@ -19,9 +19,13 @@ if ($_GET['a']=="e") {
 	if(get_user_class() <= UC_HEAD){
 		$add_query = "AND client.department ='".$CURUSER['department']."'";
 	}
+	if(get_user_class() == UC_POWER_HEAD){
+		$add_query = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
+
+	}
 	//а выше рукля - всех могут
 	
-	$res=sql_query("SELECT client.*, users.name as u_name, users.id as u_id  FROM `client`  LEFT JOIN users ON users.id = client.manager  WHERE  client.id = '".$_GET['id']."' ".$add_query.";")  or sqlerr(__FILE__, __LINE__);
+	$res=sql_query("SELECT client.*, users.name as u_name, users.id as u_id, department.parent  FROM `client`  LEFT JOIN users ON users.id = client.manager LEFT JOIN department ON department.id = client.department  WHERE  client.id = '".$_GET['id']."' ".$add_query.";")  or sqlerr(__FILE__, __LINE__);
 
 
 	if(mysql_num_rows($res) == 0){

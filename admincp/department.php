@@ -22,12 +22,12 @@ if($_GET['action']=="enable"){
 	
 }
 if($_POST['action']=="edit"){
-	sql_query("UPDATE `department` SET `name` = '".$_POST['name']."', `parent` = '".$_POST['parent']."' WHERE `id` =".$_GET['id'].";");
+	sql_query("UPDATE `department` SET `name` = ".sqlesc($_POST['name']).", `parent` = '".$_POST['id_parent']."' WHERE `id` =".$_GET['id'].";") or sqlerr(__FILE__, __LINE__);
 	$REL_TPL->stdmsg('Выполнено','Название изменено');
 }
 if($_POST['action']=="add"){
 	
-	sql_query("INSERT INTO `department` (`name`,`parent`) VALUES ('".$_POST['name']."','".$_POST['id_parent']."');");
+	sql_query("INSERT INTO `department` (`name`,`parent`) VALUES (".sqlesc($_POST['name']).",'".$_POST['id_parent']."');");
 	$REL_TPL->stdmsg('Выполнено','Отделение добавлено');
 }
 if($_GET['action']=="edit"){

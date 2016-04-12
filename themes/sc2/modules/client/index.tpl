@@ -64,34 +64,24 @@
 							<i class="fancy-arrow"></i>
 						</div>
 					</div>
-					</div>
-			<!--	<div class="row margin-bottom-10">
-					<div class="col-md-6">
-						<h4>По менеджеру</h4>
-						<div class="fancy-form fancy-form-select">
-							<select class="form-control" name="">
-								<option value="">Выберите статус клиента</option>
-								<option value="1">Не клиент</option>
-								<option value="2">Клиент</option>
-								<option value="3">Отказ</option>
-							</select>
-							<i class="fancy-arrow"></i>
-						</div>
-					</div>
-					<div class="col-md-6">
-					<h4>По отделению</h4>
-					<div class="fancy-form fancy-form-select">
-						<select class="form-control" name="">
-							<option value="">Выберите статус клиента</option>
-							<option value="1">Не клиент</option>
-							<option value="2">Клиент</option>
-							<option value="3">Отказ</option>
-						</select>
-						<i class="fancy-arrow"></i>
-					</div>
-					</div>
 				</div>
-				<h4>Статус клиента</h4>
+			<div class="row margin-bottom-10">
+				<div class="col-md-6">
+					<h4>Опции</h4>
+					<label class="checkbox">
+						<input type="checkbox" name="only_my" value="1">
+						<i></i> Только мои
+					</label>
+					{*<label class="checkbox">
+						<input type="checkbox" name="no_contact" value="1">
+						<i></i> Без запланированных контактов
+					</label>*}
+				</div>
+				<div class="col-md-6">
+
+					</div>
+			</div>
+			<!--	<h4>Статус клиента</h4>
 				<p><div class="row margin-bottom-10">
 				<div class="col col-md-6">
 

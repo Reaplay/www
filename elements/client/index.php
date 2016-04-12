@@ -61,6 +61,10 @@ if($_GET['status_client']){
 	
 	
 }
+if($_GET['only_my']){
+	$only_my = "AND client.manager = '".$CURUSER['id']."'";
+	$add_link .= "&only_my=1";
+}
 
 if ($client OR $department){
 	$where = "WHERE";
@@ -73,7 +77,7 @@ LEFT JOIN department ON department.id = client.department
 LEFT JOIN users ON users.id = client.manager
 $left_join 
 $where
-".$department." ".$client." ".$call_back." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
+".$department." ".$only_my." ".$client." ".$call_back." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
 if(mysql_num_rows($res) == 0){
 	stderr("Ошибка","Клиенты не найдены","no");
@@ -83,7 +87,7 @@ while ($row = mysql_fetch_array($res)){
 }
 //необходима оптимизация 
 // узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
-$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $where ".$department." ".$client.";") or sqlerr(__FILE__,__LINE__);
+$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $where ".$department." ".$only_my." ".$no_contact." ".$client.";") or sqlerr(__FILE__,__LINE__);
 $row = mysql_fetch_array($res);
 //всего записей
 $count = $row[0];

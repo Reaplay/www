@@ -6,11 +6,11 @@
      * Time: 22:26
      */
 // Get Mailbox Number
-    $mailbox = ( int ) $_GET ['box'];
-    if (! $mailbox) {
+   $pm['mailbox'] = ( int ) $_GET ['box'];
+    if (!$pm['mailbox']) {
         $pm['mailbox'] = PM_INBOX;
     }
-    if ($mailbox == PM_INBOX) {
+    if ($pm['mailbox'] == PM_INBOX) {
         $pm['mailbox_name'] = "Входящие";
     } else {
         $pm['mailbox_name'] = "Исходящие";

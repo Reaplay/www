@@ -53,7 +53,7 @@
 	}
 	//перемещение, помечание как прочитанного
 	elseif ($action=="moveordel") {
-		$REL_TPL->stdhead("");
+		$REL_TPL->stdhead("Изменение статуса сообщения");
 		require_once("elements/message/moveordel.php");
 	}
 	//пересылка

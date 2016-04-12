@@ -7,7 +7,7 @@
      */
 
     if (! is_valid_id ( $_GET ["id"] ))
-        stderr ("Ошибка", "Не верный ID");
+        stderr ("Ошибка", "Не верный ID","no");
     $pm_id = $_GET ['id'];
 
     // Delete message

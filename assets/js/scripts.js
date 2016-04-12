@@ -2940,4 +2940,13 @@ function disable_user(action,id){
 	
 	});
 }
+// отметить/снять все сообщения
+$(document).ready(function() {
+	$("#check_all_message").click(function () {
 
+		if (!$("#check_all_message").is(":checked"))
+			$(".checkbox").removeAttr("checked");
+		else
+			$(".checkbox").attr("checked","checked");
+	});
+});

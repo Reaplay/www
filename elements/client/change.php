@@ -37,6 +37,11 @@ if($_POST['action'] == 'change_mgr'){
 
 	$manager = $_POST['new_manager'];
 	sql_query("UPDATE `client` SET `department` = '".$department['department']."', `manager` =  '".$manager."' WHERE `id` ='".$_POST['id']."';")  or sqlerr(__FILE__, __LINE__);
+
+	$msg = "Пользователем ".$CURUSER['name']." вам был добавлен клиент. <a href=\"client.php?a=view&id=".$_POST['id']."\">Перейти</a>";
+	$subject = "Назначен новый клиент";
+	sql_query("INSERT INTO messages (receiver, added, msg, subject) VALUES($manager, '" . time() . "', ".sqlesc($msg).", ".sqlesc($subject).")");
+
 	stdmsg("Менеджер изменен.","Для перехода на страницу клиента нажмите <a href=\"client.php?a=view&id=".$_POST['id']."\">тут</a>");
 	safe_redirect("client.php?a=view&id=".$_POST['id']."",1);
 }

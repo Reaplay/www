@@ -1,6 +1,3 @@
-<div class="alert alert-danger margin-bottom-30"><!-- DANGER -->
-	<strong>Внимание</strong> Страница в тестовом режиме
-</div>
 {if $msg}
 	<div class="alert alert-default margin-bottom-30">
 {$msg}

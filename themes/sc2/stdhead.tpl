@@ -30,27 +30,7 @@
 	
 	</head>
 
-	<!--
-		AVAILABLE BODY CLASSES:
-		
-		smoothscroll 			= create a browser smooth scroll
-		enable-animation		= enable WOW animations
 
-		bg-grey					= grey background
-		grain-grey				= grey grain background
-		grain-blue				= blue grain background
-		grain-green				= green grain background
-		grain-blue				= blue grain background
-		grain-orange			= orange grain background
-		grain-yellow			= yellow grain background
-		
-		boxed 					= boxed layout
-		pattern1 ... patern11	= pattern background
-		menu-vertical-hide		= hidden, open on click
-		
-		BACKGROUND IMAGE [together with .boxed class]
-		data-background="assets/images/boxed_background/1.jpg"
-	-->
 	<body class="smoothscroll enable-animation">
 
 		<!-- SLIDE TOP -->
@@ -61,19 +41,19 @@
 				<div class="row">
 
 					<div class="col-md-4">
-						{*<h6><i class="icon-heart"></i> Зачем вы нужны?</h6>
-						<p>Что бы вести более простой учет клиентов и звонков к ним, что бы никто не ушел не обслуженным. Счастье для всех, даром. Ну и прочие разности</p>*}
+						<h6><i class="fa fa-heart-o" aria-hidden="true"></i>Что это за проект и для чего он нужен?</h6>
+						<p>Что бы вести более простой учет клиентов и звонков к ним.</p>
 					</div>
 
 					<div class="col-md-4">
-						{*<h6><i class="icon-attachment"></i> Причины что бы вернутся</h6>
+						<h6><i class="fa fa-paperclip"></i> Что еще?</h6>
 						<ul class="list-unstyled">
-							<li><a href="#"><i class="fa fa-angle-right"></i> У нас что-то тут постоянно обновляется</a></li>
-							<li><a href="#"><i class="fa fa-angle-right"></i> У нас есть котятки (но они спрятаны) </a></li>
-							<li><a href="#"><i class="fa fa-angle-right"></i> Мы любим фидбеки и критику</a></li>
+							<li><a href="#"><i class="fa fa-angle-right"></i> Мы постоянно что-то обновляем</a></li>
+							<li><a href="#"><i class="fa fa-angle-right"></i> Ждем от вас фидбек и критику</a></li>
+							<li><a href="#"><i class="fa fa-angle-right"></i> Попробуйте!</a></li>
 							<li><a href="#"><i class="fa fa-angle-right"></i> ...</a></li>
 							<li><a href="#"><i class="fa fa-angle-right"></i> PROFIT!</a></li>
-						</ul>*}
+						</ul>
 					</div>
 
 					<div class="col-md-4">
@@ -133,32 +113,7 @@
 				</div>
 			</div>
 			<!-- /Top Bar -->
-			<!-- 
-				AVAILABLE HEADER CLASSES
 
-				Default nav height: 96px
-				.header-md 		= 70px nav height
-				.header-sm 		= 60px nav height
-
-				.noborder 		= remove bottom border (only with transparent use)
-				.transparent	= transparent header
-				.translucent	= translucent header
-				.sticky			= sticky header
-				.static			= static header
-				.dark			= dark header
-				.bottom			= header on bottom
-				
-				shadow-before-1 = shadow 1 header top
-				shadow-after-1 	= shadow 1 header bottom
-				shadow-before-2 = shadow 2 header top
-				shadow-after-2 	= shadow 2 header bottom
-				shadow-before-3 = shadow 3 header top
-				shadow-after-3 	= shadow 3 header bottom
-
-				.clearfix		= required for mobile menu, do not remove!
-
-				Example Usage:  class="clearfix sticky header-sm transparent noborder"
-			-->
 			<div id="header" class="sticky clearfix">
 
 				<!-- TOP NAV -->

@@ -61,6 +61,7 @@ if($_GET['status_client']){
 	
 	
 }
+	else
 if($_GET['only_my']){
 	$only_my = "AND client.manager = '".$CURUSER['id']."'";
 	$add_link .= "&only_my=1";
@@ -75,9 +76,9 @@ SELECT client.*, department.name as d_name, department.id as d_id, department.pa
 FROM `client` 
 LEFT JOIN department ON department.id = client.department
 LEFT JOIN users ON users.id = client.manager
-$left_join 
+
 $where
-".$department." ".$only_my." ".$client." ".$call_back." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
+".$department." ".$only_my." ".$client." ".$call_back."   ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
 if(mysql_num_rows($res) == 0){
 	stderr("Ошибка","Клиенты не найдены","no");

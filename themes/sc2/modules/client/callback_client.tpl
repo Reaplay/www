@@ -101,6 +101,7 @@
 		<div class="col-md-12">
 			<input type="hidden" name="id" value="{$id}">
 			<input type="hidden" name="action" value="add">
+			{if $return_url}<input type="hidden" name="return_url" value="{$return_url}">{/if}
 			<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Добавить</button>
 		</div>
 	</div>

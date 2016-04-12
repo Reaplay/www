@@ -2,7 +2,6 @@
 
 // проверка на то, что клиент существует и к нему естьт доступ
 // надо поправить, что бы повер_хеад видел только те, что по корневому дсотупны
-
 if( ($_GET['id'] AND !is_valid_id($_GET['id'])) OR ($_POST['id'] AND !is_valid_id($_POST['id']))){
 	stderr("Ошибка","Ошибка ID клиента","no");		//запись в лог
 }
@@ -123,10 +122,22 @@ if($_POST['action']=='add'){
 
 	
 
-	stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены на страницу клиента через пару секунд. <br /> Если этого не произошло, нажмите <a href=\"client.php?a=view&id=".$id_client."\">здесь</a>");
-	safe_redirect("client.php?a=view&id=".$id_client,2);
+
+	if($_POST['return_url']){
+		stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены обратно на список клиентов. <br /> Если вам нужно попасть в профиль клиента, нажмите <a href=\"client.php?a=view&id=".$id_client."\">здесь</a>");
+		safe_redirect($_POST['return_url'],2);
+	}
+	else {
+		stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены на страницу клиента через пару секунд. <br /> Если этого не произошло, нажмите <a href=\"client.php?a=view&id=".$id_client."\">здесь</a>");
+		safe_redirect ("client.php?a=view&id=" . $id_client, 2);
+	}
 }
 else{
+//$url = explode('&',$_SERVER['QUERY_STRING']);
+	//$s_url = stristr($_SERVER['QUERY_STRING'],"a=");
+	if(!stristr($_SERVER['HTTP_REFERER'],"a=")){
+		$return_url = $_SERVER['HTTP_REFERER'];
+	}
 
 	/*if(!is_valid_id($_GET['id'])){
 		stderr("Ошибка","Ошибка ID клиента","no");		//запись в лог
@@ -192,6 +203,7 @@ if(mysql_num_rows($res) == 0){
 		//$REL_TPL->assignByRef('comment',textbbcode("comment",$arr["body"]));
 		$REL_TPL->assignByRef('id',$_GET['id']);
 		$REL_TPL->assignByRef('data_client',$data_client);
+		$REL_TPL->assignByRef('return_url',$return_url);
 		
 		$t = "callback";
 		$REL_TPL->assignByRef("t",$t);

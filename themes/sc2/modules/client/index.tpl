@@ -118,8 +118,8 @@
 			<th>Отделение</th>
 			{/if}
 			<th>Статус</th>
-			<!--<th>Профиль</th>-->
-			<!--<th>Действия</th>-->
+			{*<th>Дата ближайшего контакта</th>*}
+			<th>Действия</th>
 		</tr>
 	</thead>
 
@@ -141,12 +141,12 @@
 			<td class="center">
 				 {if $client.status == 0}<span class="label label-sm label-danger">Не клиент</span>{elseif $client.status == 1}<span class="label label-sm label-success">Клиент</span>{elseif $client.status == 2}<span class="label label-sm label-warning">Отказ</span>{/if}
 			</td>
-			<!--<td>
-				<i class="fa fa-external-link"></i> <a href="client.php?a=view&amp;id={$client.id}">Link</a>
-			</td>-->
-			<!--<td>
-				<a href="client.php?a=callback&amp;id={$client.id}">Добавить отзвон</a> | <a href="client.php?a=e&amp;id={$client.id}">Редактировать</a> | <a href="client.php?a=delete&amp;id={$client.id}">Удалить</a>
-			</td>-->
+			{*<td>
+				{$client.data_callback}
+			</td>*}
+			<td>
+				<a href="client.php?a=callback&amp;id={$client.id}">Добавить отзвон</a> <i class="fa fa-external-link"></i>
+			</td>
 		</tr>
 		{/foreach}
 	</tbody>

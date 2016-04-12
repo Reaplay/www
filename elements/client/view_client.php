@@ -3,14 +3,14 @@
 if(!is_valid_id($_GET['id'])){
 	stderr("Ошибка","Некоректный ID клиента","no");		//запись в лог
 }
-
+/*
 if(get_user_class() < UC_HEAD){
 	$add_query = "AND client.manager ='".$CURUSER['id']."' AND client.department ='".$CURUSER['department']."'";
-}
+}*/
 //если рукль, то те, кто к ним привязан
-elseif(get_user_class() == UC_HEAD){
-	$add_query = "AND client.department ='".$CURUSER['department']."'";
-}
+	if(get_user_class() <= UC_HEAD){
+		$add_query = "AND client.department ='".$CURUSER['department']."'";
+	}
 	elseif(get_user_class() == UC_POWER_HEAD){
 		$add_query = "AND (department.parent ='".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
 	}

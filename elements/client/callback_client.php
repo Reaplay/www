@@ -12,11 +12,11 @@ if ($_GET['id'])
 elseif($_POST['id'])
 	$id_client = $_POST['id'];
 
-if(get_user_class() < UC_HEAD){
+/*if(get_user_class() < UC_HEAD){
 	$add_query = "AND client.manager ='".$CURUSER['id']."' AND client.department ='".$CURUSER['department']."'";
-}
+}*/
 //если рукль, то те, кто к ним привязан
-elseif(get_user_class() == UC_HEAD){
+if(get_user_class() <= UC_HEAD){
 	$add_query = "AND client.department ='".$CURUSER['department']."'";
 }
 elseif(get_user_class() > UC_HEAD){

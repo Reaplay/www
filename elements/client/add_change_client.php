@@ -19,7 +19,7 @@ if($_POST['id']){
 		write_log("Попытка изменения поступаемого ID при добавлении изменений (специально)","edit_client");
 	}
 	$id = $_POST['id'];
-	$res = sql_query("SELECT department FROM `client` WHERE `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
+	$res = sql_query("SELECT manager,department FROM `client` WHERE `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
 	$data_client = mysql_fetch_array($res);
 	if(!$data_client){
 		stderr("Ошибка","Такой клиент в базе не обнаружен","no");
@@ -33,8 +33,14 @@ if (!$_POST['name'] or !$_POST['mobile'])
 	
 // если пользователь меньше рукля, тогда он только себе может добавить клиента, предопределяем часть значений
 if(get_user_class()<=UC_POWER_USER){
-	$manager = $CURUSER['id'];
-	$department = $CURUSER['department'];
+	if (!$id) {
+		$manager = $CURUSER['id'];
+		$department = $CURUSER['department'];
+	}
+	else{
+		$manager = "`manager` = '".$data_client['manager']."'";
+		$department = "`department` =  '".$data_client['department']."'";
+	}
 }
 // если рукль, тогда отделение уже определено
 elseif(get_user_class() >= UC_HEAD){
@@ -126,7 +132,7 @@ $name, $department, $manager, $mobile, $email, $birthday, $gender, time(), $CURU
 }
 else {
 sql_query("
-UPDATE `client` SET `name` = '".$name."', `department` =  '".$department."', `manager` = '".$manager."', `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+UPDATE `client` SET `name` = '".$name."', $manager, $department, `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 }
 stdmsg("Выполнено","Вы будете перенаправлены на страницу клиента через пару секунд. <br /> Если этого не произошло, нажмите <a href=\"client.php?a=view&id=".$id."\">здесь</a>");
 	safe_redirect("client.php?a=view&id=".$id."",1);

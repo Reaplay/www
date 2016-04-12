@@ -11,12 +11,12 @@ if ($_GET['a']=="e") {
 	//добавялем условия выборки клиента,что бы не каждый мож редактировать, а только те, кому положено
 	
 	//если пользователь - только того, кто за ним и в его отделении
-	if(get_user_class() < UC_HEAD){
+	/*if(get_user_class() < UC_HEAD){
 		$add_query = "AND client.manager ='".$CURUSER['id']."' AND client.department ='".$CURUSER['department']."'";
 		
-	}
+	}*/
 	//если рукль, то те, кто к ним привязан
-	elseif(get_user_class() == UC_HEAD){
+	if(get_user_class() <= UC_HEAD){
 		$add_query = "AND client.department ='".$CURUSER['department']."'";
 	}
 	//а выше рукля - всех могут

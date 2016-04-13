@@ -36,6 +36,7 @@ if($_GET['status_client']){
 	
 	if($_GET['status_action']){
 		$now_date = strtotime(date("d.m.Y"));
+		//$add_select = ", callback.next_call, callback.status, callback.type_contact";
 		$left_join="LEFT JOIN callback ON callback.id_client = client.id";
 		if($_GET['status_action']=='miss'){
 			$call_back .="AND callback.next_call < '".$now_date."' ";
@@ -59,7 +60,7 @@ if($_GET['status_client']){
 		$add_link .= "&type=".$_GET['type'];
 	}
 	
-	
+	$call_back .= "AND callback.next_call != 0";
 }
 	else
 if($_GET['only_my']){
@@ -72,11 +73,11 @@ if ($client OR $department){
 }
 
 $res=sql_query("
-SELECT client.*, department.name as d_name, department.id as d_id, department.parent, users.name as u_name
+SELECT client.*, department.name as d_name, department.id as d_id, department.parent, users.name as u_name 
 FROM `client` 
 LEFT JOIN department ON department.id = client.department
 LEFT JOIN users ON users.id = client.manager
-
+$left_join
 $where
 ".$department." ".$only_my." ".$client." ".$call_back."   ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
@@ -88,7 +89,7 @@ while ($row = mysql_fetch_array($res)){
 }
 //необходима оптимизация 
 // узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
-$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $where ".$department." ".$only_my." ".$no_contact." ".$client.";") or sqlerr(__FILE__,__LINE__);
+$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $left_join $where ".$department." ".$only_my." ".$call_back." ".$client.";") or sqlerr(__FILE__,__LINE__);
 $row = mysql_fetch_array($res);
 //всего записей
 $count = $row[0];

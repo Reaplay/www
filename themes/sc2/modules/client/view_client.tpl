@@ -20,7 +20,7 @@
 						<li class="footer-sprite fa fa-male  fa-fw"></li>Пол:
 					</div>
 					<div class="col-md-5">
-						 {if $data_client.gender = 1}Мужской{elseif $data_client.gender = 2}Женский{else}Не задан{/if}
+						 {if $data_client.gender == 1}Мужской{elseif $data_client.gender == 2}Женский{else}Не задан{/if}
 					</div>
 				</div>
 				<div class="row">

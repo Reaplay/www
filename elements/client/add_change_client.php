@@ -57,6 +57,7 @@ elseif(get_user_class() >= UC_HEAD){
 			stderr("Ошибка","Не выбран менеджер (class mgr)","no");
 			write_log("Попытка изменения поступаемого ID менеджера при добавлении изменений (специально, рук-ль)","edit_client");
 		}
+
 		$manager = $_POST['manager'];
 			
 		if(get_user_class() == UC_HEAD){
@@ -123,14 +124,17 @@ $comment = ((string)$_POST["comment"]);
 	$status = 1;
 }*/
 if (!$id){
-sql_query("
-UPDATE `client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+	sql_query("
+INSERT INTO `client`(
+`name`, `department`, `manager`, `mobile`, `email`, `birthday`, `gender`, `added`, `who_added`, `equid`, `comment`,`status`)
+VALUES (".implode(",", array_map("sqlesc", array(
+			$name, $department, $manager, $mobile, $email, $birthday, $gender, time(), $CURUSER['id'],$equid, $comment, $status))).");")  or sqlerr(__FILE__, __LINE__);
 	$id = mysql_insert_id();
 
 }
 else {
 sql_query("
-UPDATE `client` SET `name` = '".$name."', $manager, $department, `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+UPDATE `client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 
 }
 stdmsg("Выполнено","Вы будете перенаправлены на страницу клиента через пару секунд. <br /> Если этого не произошло, нажмите <a href=\"client.php?a=view&id=".$id."\">здесь</a>");

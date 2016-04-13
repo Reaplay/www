@@ -32,7 +32,7 @@
 	if($_GET['status_client']){
 		$status = (int)($_GET['status_client'] - 1);
 		$client = " AND client.status='".$status."'";
-		$add_link .= "&client=".$_GET['status_client'];
+		$add_link .= "&status_client=".$_GET['status_client'];
 
 		if($_GET['status_action']){
 //			$now_date = strtotime(date("d.m.Y"));

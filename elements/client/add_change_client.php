@@ -33,14 +33,14 @@ if (!$_POST['name'] or !$_POST['mobile'])
 	
 // если пользователь меньше рукля, тогда он только себе может добавить клиента, предопределяем часть значений
 if(get_user_class()<=UC_POWER_USER){
-	if (!$id) {
+//	if (!$id) {
 		$manager = $CURUSER['id'];
 		$department = $CURUSER['department'];
-	}
+/*	}
 	else{
 		$manager = "`manager` = '".$data_client['manager']."'";
 		$department = "`department` =  '".$data_client['department']."'";
-	}
+	}*/
 }
 // если рукль, тогда отделение уже определено
 elseif(get_user_class() >= UC_HEAD){
@@ -124,10 +124,7 @@ $comment = ((string)$_POST["comment"]);
 }*/
 if (!$id){
 sql_query("
-INSERT INTO `client`(
-`name`, `department`, `manager`, `mobile`, `email`, `birthday`, `gender`, `added`, `who_added`, `equid`, `comment`,`status`)
-VALUES (".implode(",", array_map("sqlesc", array(
-$name, $department, $manager, $mobile, $email, $birthday, $gender, time(), $CURUSER['id'],$equid, $comment, $status))).");")  or sqlerr(__FILE__, __LINE__);
+UPDATE `client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 	$id = mysql_insert_id();
 
 }

@@ -47,7 +47,11 @@ $i=0;
 while ($row = mysql_fetch_array($res)){
 	$data_callback[$i]=$row;
 	$data_callback[$i]['added']=date("d-m-Y",$row['added']);
-	$data_callback[$i]['next_call']=date("d-m-Y",$row['next_call']);
+		if ($row['next_call']){
+		$data_callback[$i]['next_call']=date("d-m-Y",$row['next_call']);
+	}
+	else
+		$data_callback[$i]['next_call']="N/A";
 	
 	$product= "";
 	if ($data_callback[$i]['id_product']){

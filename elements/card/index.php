@@ -23,31 +23,33 @@
     //выводим список всех пользователей, которых мы можем редактировать
     // всех пользователей могут редактировать лишь принадлежащие к ОО Самарский
     if(get_user_class()==UC_HEAD){
-        $department = "card.department = '".$CURUSER['department']."' AND";
+        $department = "AND card_client.department = '".$CURUSER['department']."' ";
     }
     elseif(get_user_class()==UC_POWER_HEAD){
-        $department = "(department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')  AND";
-        $left_join = "LEFT JOIN department ON department.id = card.department";
+        $department = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
+        $left_join = "LEFT JOIN department ON department.id = card_client.department";
     }
     if(get_user_class() <= UC_ADMINISTRATOR){
         //$banned = "AND users.banned = '0' ";
     }
 
 
-    $res=sql_query("SELECT card.*, department.name as d_name, department.parent FROM `card` LEFT JOIN department ON department.id = card.department  WHERE ".$department." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
+    $res=sql_query("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager,(SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.id_manager WHERE card_client.status = 0  ".$department." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
     if(mysql_num_rows($res) == 0){
         stderr("Ошибка","Карты не найдены","no");
     }
-
+    $i=0;
     while ($row = mysql_fetch_array($res)){
         $data_card[]=$row;
+        $data_card[$i]['next_call']=mkprettytime($row['next_call'],false);
+        $i++;
     }
 
 
     //необходима оптимизация
     // узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
-    $res = sql_query("SELECT SUM(1) FROM card $left_join WHERE ".$department." ;") or sqlerr(__FILE__,__LINE__);
+    $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.status = 0 ".$department." ;") or sqlerr(__FILE__,__LINE__);
     $row = mysql_fetch_array($res);
     //всего записей
     $count = $row[0];

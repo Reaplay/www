@@ -73,19 +73,23 @@
 				<tbody> 
 					<tr>         
 						<td width="35%">Кол-во клиентов на одной странице:</td>
-						<td width="65%"><input type="text" name="clients_per_page" size="30" value="{$REL_CONFIG['per_page_clients']}"></td>
+						<td width="65%"><input type="text" name="per_page_clients" size="30" value="{$REL_CONFIG['per_page_clients']}"></td>
 					</tr>
 					<tr>         
 						<td width="35%">Кол-во пользователей на одной странице:</td>
-						<td width="65%"><input type="text" name="users_per_page" size="30" value="{$REL_CONFIG['per_page_users']}"></td>
+						<td width="65%"><input type="text" name="per_page_users" size="30" value="{$REL_CONFIG['per_page_users']}"></td>
 					</tr>
 					<tr>
 						<td width="35%">Кол-во отделений на одной странице:</td>
-						<td width="65%"><input type="text" name="department_per_page" size="30" value="{$REL_CONFIG['per_page_department']}"></td>
+						<td width="65%"><input type="text" name="per_page_department" size="30" value="{$REL_CONFIG['per_page_department']}"></td>
 					</tr>
 					<tr>
 						<td width="35%">Кол-во отзвонов на одной странице:</td>
-						<td width="65%"><input type="text" name="callback_per_page" size="30" value="{$REL_CONFIG['per_page_callback']}"></td>
+						<td width="65%"><input type="text" name="per_page_callback" size="30" value="{$REL_CONFIG['per_page_callback']}"></td>
+					</tr>
+					<tr>
+						<td width="35%">Кол-во карт на одной странице:</td>
+						<td width="65%"><input type="text" name="per_page_card" size="30" value="{$REL_CONFIG['per_page_card']}"></td>
 					</tr>
 				</tbody>
 			</table>

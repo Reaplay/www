@@ -29,7 +29,7 @@ elseif ($_GET['action'] == 'save'){
 		$reqparametres=array('siteonline','defaultbaseurl','siteemail','adminemail','default_theme','yourcopy','use_blocks','use_gzip');
 	}
 	elseif($_POST['type']=="crm"){
-		$reqparametres=array('per_page_clients','per_page_users','per_page_department','per_page_callback');
+		$reqparametres=array('per_page_clients','per_page_users','per_page_department','per_page_callback','per_page_card');
 	}
 	elseif($_POST['type']=="register"){
 		$reqparametres=array('deny_signup');

@@ -139,6 +139,31 @@ WHERE client.name LIKE '%".$_GET['search']."%' OR client.mobile LIKE '%".$_GET['
 		die($json);
 	}
 }
+elseif($_GET['action']=='issue_card'){
+	if(!is_valid_id($_GET['id']))
+		die("error");
+	$id = $_GET['id'];
+
+	if($CURUSER['use_card'] != "1"){
+		die("error");
+	}
+	if (get_user_class() < UC_POWER_HEAD){
+		$res = sql_query("SELECT id FROM  `card_client` WHERE `id` = '".$id."' AND department = '".$CURUSER['department']."';")  or sqlerr(__FILE__, __LINE__);
+		$row = mysql_fetch_array($res);
+		if(!$row){
+			die("error");
+		}
+	}
+	elseif(get_user_class()==UC_POWER_HEAD) {
+		$res = sql_query ("SELECT id FROM  `card_client` LEFT JOIN department ON department.id = users.department WHERE `users.id` = '" . $id . "' AND department.parent = '" . $CURUSER['department'] . "';") or sqlerr (__FILE__, __LINE__);
+		$row = mysql_fetch_array ($res);
+		if (!$row) {
+			die("error");
+		}
+	}
+	sql_query("UPDATE `card_client` SET `status` = '1' WHERE `id` = '".$id."';") or sqlerr(__FILE__,__LINE__);
+	die("success");
+}
 	/*
 
 

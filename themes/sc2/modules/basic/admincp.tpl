@@ -38,7 +38,8 @@
 <div class="row">
 	<div class="col-md-5th">
 		<h4>Новости</h4>
-		<a href="action_admin.php?module=news">Добавить новость</a> <br /> <a href="action_admin.php?module=newsarchive">Показать все новости</a>
+		<a href="action_admin.php?module=news">Добавить новость</a> <br />
+		<a href="action_admin.php?module=newsarchive">Показать все новости</a>
 	</div>
 
 	<div class="col-md-5th">
@@ -48,7 +49,7 @@
 	</div>
 
 	<div class="col-md-5th">
-		<h4>Five Columns</h4>
+		<a href="action_admin.php?module=cobrand">Кобрендовые карты</a>
 	</div>
 
 	<div class="col-md-5th">

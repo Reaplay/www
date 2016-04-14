@@ -2950,3 +2950,29 @@ $(document).ready(function() {
 			$(".checkbox").attr("checked","checked");
 	});
 });
+//выдача карты
+function issue_card(id){
+
+
+
+	var url = "elements/ajax.php?action=issue_card&id="+id;
+
+	//$('table').find('tr').eq(id).remove();
+	//$('tr').getElementsByTagName("data-id=/"+id+/"").remove();
+	document.getElementById("card_"+id).remove();
+	$.get(url, function (data) {
+		if (data == "success") {
+			_toastr("Карта выдана", "top-right", "info", false);
+
+
+
+		}
+
+		else {
+			_toastr("Ошибка выполнения", "top-right", "error", false);
+		}
+		//	});
+
+
+	});
+}

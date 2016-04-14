@@ -1,3 +1,6 @@
+<div class="alert alert-danger margin-bottom-30">
+    <strong>Внимание</strong> Страница в тестовом режиме
+</div>
 <!-- HTML DATATABLES -->
 <div class="table-responsive">
     <table class="table table-bordered table-striped" id="table">

@@ -6,10 +6,11 @@ require_once("include/connect.php");
 
 dbconn();
 
-if(!$CURUSER){
+loggedinorreturn();
+if(!$CURUSER['add_client'])
 	stderr("Ошибка","У вас нет доступа к данной странице");
-}
-elseif (!$_GET['a']) {
+
+if (!$_GET['a']) {
 	$REL_TPL->stdhead("Список клиентов");
 	require_once("elements/client/index.php");
 }

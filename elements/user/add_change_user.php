@@ -57,6 +57,12 @@ if ($_POST['add_user']){
 else
 	$add_user = '0';
 
+	//работает ли с картами
+    if ($_POST['use_card'])
+        $use_card = 1;
+    else
+        $use_card = '0';
+
 // уровень доступа
 $class = $_POST['class'];
 // провеярем что числовой
@@ -117,16 +123,16 @@ if ($_POST['password']){
 if (!$id){
 $ret = sql_query("
 INSERT INTO `users`( 
-`login`, `department`, `passhash`, `secret`, `name`, `add_user`, `add_client`, `added`, `who_added`, `class`) 
+`login`, `department`, `passhash`, `secret`, `name`, `add_user`, `add_client`,`use_card`, `added`, `who_added`, `class`)
 VALUES (".implode(",", array_map("sqlesc", array(
-$login, $department, $password, $secret, $name, $add_user, $add_client, time(), $CURUSER['id'],$class))).");");//  or sqlerr(__FILE__, __LINE__);
+$login, $department, $password, $secret, $name, $add_user, $add_client, $use_card, time(), $CURUSER['id'],$class))).");");//  or sqlerr(__FILE__, __LINE__);
 
 
 }
 else {
 
 sql_query("
-UPDATE `users` SET `department` = '".$department."', `class` =  '".$class."', `name` = '".$name."', `add_user` = '".$add_user."', `add_client` = '".$add_client."', ".$passhash." `last_update` = '".time()."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+UPDATE `users` SET `department` = '".$department."', `class` =  '".$class."', `name` = '".$name."', `add_user` = '".$add_user."', `add_client` = '".$add_client."', `use_card`='".$use_card."', ".$passhash." `last_update` = '".time()."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 	}
 stdmsg("Выполнено.","Ошибок не обнаружено");
 	safe_redirect("user.php",2);

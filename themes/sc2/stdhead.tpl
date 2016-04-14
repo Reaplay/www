@@ -180,7 +180,7 @@
 											Главная
 										</a>
 									</li>
-									{if $CURUSER}
+									{if $CURUSER.add_client}
 									<!-- CLIENTS -->
 									<li class="dropdown">
 										<a class="dropdown-toggle" href="#">
@@ -188,11 +188,25 @@
 										</a>
 										<ul class="dropdown-menu">
 											<li><a href="client.php">Список клиентов</a></li>
-										{if $CURUSER.add_client}<li><a href="client.php?a=a">Добавить клиента</a></li>{/if}
-										{if $CURUSER.add_client AND $IS_HEAD}<li><a href="client.php?a=upload">Массовая загрузка</a></li>{/if}
+											<li><a href="client.php?a=a">Добавить клиента</a></li>
+										{if $IS_HEAD}<li><a href="client.php?a=upload">Массовая загрузка</a></li>{/if}
 										</ul>
 									</li>
-									{if $IS_POWER_USER}
+									{/if}
+									{if $CURUSER.use_card}
+										<!-- CLIENTS -->
+										<li class="dropdown">
+											<a class="dropdown-toggle" href="#">
+												Карты
+											</a>
+											<ul class="dropdown-menu">
+												<li><a href="card.php">Список карт</a></li>
+												<li><a href="card.php?action=add">Добавить карту</a></li>
+												{if $IS_HEAD}<li><a href="card.php?action=upload">Массовая загрузка</a></li>{/if}
+											</ul>
+										</li>
+									{/if}
+									{if $IS_POWER_USER AND $CURUSER.add_client}
 									<!-- STATISTICS -->
 									<li class="dropdown">
 										<a class="dropdown-toggle" href="#">
@@ -205,7 +219,7 @@
 										</ul>
 									</li>
 									{/if}
-									{/if}
+
 									{if $CURUSER.add_user}
 									<!-- USERS -->
 									<li class="dropdown">

@@ -1,7 +1,5 @@
 <?php
 
-if(!$CURUSER['add_client'])
-	stderr("Ошибка","У вас нет доступа к данной странице","no");
 
 if ($_GET['a']=="e") {
 	if(!is_valid_id($_GET['id'])){

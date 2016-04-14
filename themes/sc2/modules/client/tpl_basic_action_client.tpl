@@ -113,7 +113,9 @@
 
 	<div class="row margin-bottom-20">
 		<div class="col-md-12">
+			{if $data_client.id}
 			<input type="hidden" name = "id" value="{$data_client.id}">
+			{/if}
 			<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> {if $data_client}Изменить{else}Добавить{/if}</button>
 		</div>
 	</div>

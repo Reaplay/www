@@ -73,17 +73,17 @@
         <td colspan="6" align="right" width="100%" class="colhead" />
         <input type="hidden" name="box" value="{$pm.mailbox}" />
 
-        <form action="message.php" method="post">
-        <button type="submit" name="delete"  title="Удалить помеченные сообщения" value="delete" onClick="return confirm('Точно удалить все сообщения?')" type="button" class="btn btn-default">Удалить</button>
-        <button type="submit" name="markread"  title="Отметить как прочитанные" value="mark_read" onClick="return confirm('Вы уверены, что хотите пометить выбранные сообщения как прочитанные?')" type="button" class="btn btn-default">Отметить как прочитанные</button>
+        <form action="{$REL_CONFIG['defaultbaseurl']}/message.php" method="post">
+        <button type="submit" name="delete"  title="Удалить помеченные сообщения" value="delete" onClick="return confirm('Точно удалить все сообщения?')"  class="btn btn-default">Удалить</button>
+        <button type="submit" name="markread"  title="Отметить как прочитанные" value="mark_read" onClick="return confirm('Вы уверены, что хотите пометить выбранные сообщения как прочитанные?')" class="btn btn-default">Отметить как прочитанные</button>
         {*<button type="submit" name="archive"  title="Архивировать" value="archive" onClick="return confirm('Архивировать выбранные сообщения? (они не будут удалены системой автоматически)')" type="button" class="btn btn-default">Архивировать</button>
         <button type="submit" name="unarchive"  title="Разархивировать сообщения" value="un_archive" onClick="return confirm('Разархивировать выбранные сообщения? (они будут удалены системой автоматически)')" type="button" class="btn btn-default">Разархивировать</button>
 *}
-
+        </form>
         </td>
 
     </tr>
-    </form>
+
 {/if}
 {*
   if ($row['receiver']==$CURUSER['id']) {

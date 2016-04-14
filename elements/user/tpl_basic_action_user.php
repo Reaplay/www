@@ -22,7 +22,7 @@
 		$department = "(department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."') AND";
 	}
 		$res=sql_query("SELECT
-users.id, users.login, users.name, users.add_client, users.add_user, users.use_card, users.class, department.id as d_id, department.name as d_name, department.parent
+users.id, users.login, users.name, users.add_client, users.add_user, users.class, department.id as d_id, department.name as d_name, department.parent
 FROM `users`
 LEFT JOIN department ON department.id = users.department
 WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE__);
@@ -78,7 +78,7 @@ WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE_
 		$p_class .='<option value ="3" '.select_class($data_user['class'],3).'>Руководитель направления</option>';
 		$p_class .='<option value ="5" '.select_class($data_user['class'],5).'>Администратор</option>';
 	}
-	
+
 	
 	$REL_TPL->assignByRef('p_department',$p_department);
 	$REL_TPL->assignByRef('p_class',$p_class);

@@ -87,8 +87,13 @@ $where
 	if(mysql_num_rows($res) == 0){
 		stderr("Ошибка","Клиенты не найдены","no");
 	}
+	$i=0;
 	while ($row = mysql_fetch_array($res)){
 		$data_client[]=$row;
+		if ($row['cb_next_call']){
+			$data_client[$i]['time_callback']=mkprettytime($row['cb_next_call'],false);
+		}
+		$i++;
 	}
 	//необходима оптимизация
 	// узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц

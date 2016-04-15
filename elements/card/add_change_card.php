@@ -102,9 +102,9 @@ if (strlen($name)<5)
     }
     //телефон
     $mobile = check_mobile($_POST['mobile']);
-    if (!check_unic($mobile,'client','mobile',$id)){
+   /* if (!check_unic($mobile,'client','mobile',$id)){
         stderr("Ошибка","В базе уже есть клиент с таким номером. <a href=\"javascript:history.go(-1);\">Назад</a>.","no");
-    }
+    }*/
     //тип карты
     $id_card = $_POST['card'];
     $res = sql_query("SELECT id FROM `card_cobrand` WHERE `id` = '".$id_card."';")  or sqlerr(__FILE__, __LINE__);

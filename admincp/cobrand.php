@@ -47,7 +47,7 @@ if($_GET['action']=="edit"){
     $REL_TPL->assignByRef("action",$action);
     $REL_TPL->assignByRef("id",$_GET['id']);
     $REL_TPL->assignByRef('data_card_cobrand',$data_card_cobrand);
-    $REL_TPL->output("card_cobrand_bank_add_edit","admincp");
+    $REL_TPL->output("card_cobrand_add_edit","admincp");
 
 }
 elseif($_GET['action']=="add"){

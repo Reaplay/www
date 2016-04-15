@@ -44,7 +44,7 @@
 								{$callback.rc_name}
 							</td>
 							<td>
-								{$callback.next_call}
+								{if $callback.next_call}{$callback.next_call}{else}N/A{/if}
 							</td>
 						</tr>
 

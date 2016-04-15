@@ -238,7 +238,7 @@ function user_session() {
 		$class = -1;
 	} else {
 		$uid = $CURUSER['id'];
-		$username = $CURUSER['username'];
+		$username = $CURUSER['name'];
 		$class = $CURUSER['class'];
 	}
 

@@ -55,19 +55,19 @@
     <ul class="pagination pagination-sm">
         <!--<li class="disabled"><a href="#">Пред</a></li>-->
         {if ($page > 2)}
-            <li><a href="user.php?page=1{$add_link}">Первая</a></li>
-            <li><a href="user.php?page={$page - 2}{$add_link}">{$page - 2}</a></li>
+            <li><a href="card.php?page=1{$add_link}">Первая</a></li>
+            <li><a href="card.php?page={$page - 2}{$add_link}">{$page - 2}</a></li>
         {/if}
         {if ($page > 1)}
-            <li><a href="user.php?page={$page - 1}{$add_link}">{$page - 1}</a></li>
+            <li><a href="card.php?page={$page - 1}{$add_link}">{$page - 1}</a></li>
         {/if}
         <li class="active"><a href="#">{$page}</a></li>
         {if ($page < ($max_page + 1) AND $page < $max_page)}
-            <li><a href="user.php?page={$page + 1}{$add_link}">{$page + 1}</a></li>
+            <li><a href="card.php?page={$page + 1}{$add_link}">{$page + 1}</a></li>
         {/if}
         {if ($page < ($max_page + 2)  AND ($page+1) < $max_page)}
-            <li><a href="user.php?page={$page + 2}{$add_link}">{$page + 2}</a></li>
-            <li><a href="user.php?page={$max_page}{$add_link}">Последняя</a></li>
+            <li><a href="card.php?page={$page + 2}{$add_link}">{$page + 2}</a></li>
+            <li><a href="card.php?page={$max_page}{$add_link}">Последняя</a></li>
         {/if}
         <!--<li><a href="#">След</a></li>-->
     </ul>

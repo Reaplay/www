@@ -705,4 +705,18 @@ function check_mobile($number,$check=true){
 
 	}
 
+	//функция вывода менеджреов отделения
+	function get_manager($class,$department){
+		if($class == UC_HEAD){
+			$add = "WHERE department = '".$department."'";
+		}
+		elseif($class == UC_POWER_HEAD){
+			$add = "WHERE (department.parent = '".$department."' OR department.id = '".$department."')";
+		}
+		// where вынесено на тот случай, если список получает администратор
+		$res = sql_query("SELECT users.id,users.name, department.name as d_name, department.parent FROM  `users` LEFT JOIN department ON department.id = users.department  ".$add.";")  or sqlerr(__FILE__, __LINE__);
+		return $res;
+	}
+
+
 ?>

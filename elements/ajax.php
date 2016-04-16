@@ -161,9 +161,20 @@ elseif($_GET['action']=='issue_card'){
 			die("error");
 		}
 	}
-	sql_query("UPDATE `card_client` SET `status` = '1' WHERE `id` = '".$id."';") or sqlerr(__FILE__,__LINE__);
+	if($_GET['status']=="issue") {
+		sql_query ("UPDATE `card_client` SET `status` = '1' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
+	}
+	elseif($_GET['status']=="destroy") {
+		sql_query ("UPDATE `card_client` SET `status` = '2' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
+	}
 	die("success");
 }
+	elseif($_GET['action']=='transfer_call') {
+
+print $_GET['id'];
+
+	}
+
 	/*
 
 

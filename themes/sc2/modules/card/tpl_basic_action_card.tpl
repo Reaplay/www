@@ -70,6 +70,7 @@
 
         <div class="row margin-bottom-10">
             {if $IS_HEAD}
+            {if !$data_card.id}
                 <div class="col-md-6">
                     <label class="input">
                         <i class="ico-prepend fa fa-calendar"></i>
@@ -77,6 +78,7 @@
                        {* <b class="tooltip tooltip-bottom-left">Назначенный EQUID</b>*}
                     </label>
                 </div>
+                {/if}
             {/if}
             {if $IS_HEAD}
             <div class="col-md-6">

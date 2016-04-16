@@ -22,7 +22,7 @@ if($_POST['id']){
     $res = sql_query("SELECT next_call FROM  `card_client` WHERE `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
     $data_client = mysql_fetch_array($res);
     if(!$data_client){
-        stderr("Ошибка","Такой клиент в базе не обнаружен","no");
+        stderr("Ошибка","Такая карта в базе не обнаружена","no");
     }
 
 }
@@ -122,12 +122,12 @@ $name, $manager, $department, $equid, time(), $comment, $next_call, $mobile, $id
 ))).");")  or sqlerr(__FILE__, __LINE__);
 
 
-}/*
+}
 else {
 
-    sql_query("
-UPDATE `users` SET `department` = '".$department."', `class` =  '".$class."', `name` = '".$name."', `add_user` = '".$add_user."', `add_client` = '".$add_client."', `use_card`='".$use_card."', ".$passhash." `last_update` = '".time()."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
-}*/
+ /*   sql_query("
+UPDATE `card_client` SET `name` = '".name."', `id_manager` = '".$manager."', `department` = '".$department."', `equid` = '".$equid."', `` = '".."', `` = '".."', `` = '".."', `` = '".."', WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);*/
+}
 stdmsg("Выполнено.","Ошибок не обнаружено");
 	safe_redirect("card.php",2);
 ?>

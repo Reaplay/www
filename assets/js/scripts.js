@@ -2951,28 +2951,31 @@ $(document).ready(function() {
 	});
 });
 //выдача карты
-function issue_card(id){
+function issue_card(id,action){
 
 
 
-	var url = "elements/ajax.php?action=issue_card&id="+id;
+	var url = "elements/ajax.php?action=issue_card&id="+id+"&status="+action;
 
 	//$('table').find('tr').eq(id).remove();
 	//$('tr').getElementsByTagName("data-id=/"+id+/"").remove();
-	document.getElementById("card_"+id).remove();
+
 	$.get(url, function (data) {
 		if (data == "success") {
-			_toastr("Карта выдана", "top-right", "info", false);
-
-
-
+			if(action == "issue") {
+				_toastr("Карта выдана", "top-right", "info", false);
+				document.getElementById("card_"+id).remove();
+			}
+			else if(action == "destroy") {
+				_toastr("Карта уничтожена", "top-right", "info", false);
+				document.getElementById("card_"+id).remove();
+			}
+			else{
+				_toastr("Ошибка выполнения", "top-right", "error", false);
+			}
 		}
-
 		else {
 			_toastr("Ошибка выполнения", "top-right", "error", false);
 		}
-		//	});
-
-
 	});
 }

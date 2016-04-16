@@ -4,8 +4,8 @@
     формируем список дополнительных опций, таких как отделение или права опций.
     если мы редактируем, то делаем доп. запросы в базу для проверки корректности запроса
     */
-    /*
-    if ($_GET['a']=="e") {
+
+    if ($_GET['action']=="edit") {
         // проверям ID на корретность
         if(!is_valid_id($_GET['id'])){
             stderr("Ошибка","Не хорошо так делать","no");		//запись в лог
@@ -19,18 +19,18 @@
             $department = "(department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."') AND";
         }
         $res=sql_query("SELECT
-users.id, users.login, users.name, users.add_client, users.add_user, users.use_card, users.class, department.id as d_id, department.name as d_name, department.parent
-FROM `users`
-LEFT JOIN department ON department.id = users.department
-WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE__);
+card_client.*, department.id as d_id, department.name as d_name, department.parent
+FROM `card_client`
+LEFT JOIN department ON department.id = card_client.department
+WHERE ".$department." card_client.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE__);
         if(mysql_num_rows($res) == 0){
-            stderr("Ошибка","Пользователь не найден или у вас нет доступа","no");
+            stderr("Ошибка","Карта не найдена или у вас нет доступа","no");
         }
 
-        $data_user = mysql_fetch_array($res);
+        $data_card = mysql_fetch_array($res);
     }
     // если выше рукля, то можно выбрать отделение
-    */
+
     // если рукль или выше, то можно сменить менеджера (и соответственно с ним меняется привязка к отделению)
     if(get_user_class() >= UC_HEAD){
         if(get_user_class() == UC_HEAD){
@@ -44,7 +44,7 @@ WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE_
         //формируем к какому отделению можно прикрепить пользователя
         while ($row = mysql_fetch_array($res)) {
             $select = "";
-            if ($row['id'] == $data_client['u_id']){
+            if ($row['id'] == $data_card['id_manager']){
                 $select = "selected = \"selected\"";
             }
             $manager .= " <option ".$select." value = ".$row['id'].">".$row['name']." (".$row['d_name'].")</option>";
@@ -56,9 +56,9 @@ WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE_
     //формируем к какому отделению можно прикрепить пользователя
     while ($row = mysql_fetch_array($card_res)) {
         $select = "";
-        /*if ($row['id'] == $data_card['u_id']){
+        if ($row['id'] == $data_card['id_cobrand']){
             $select = "selected = \"selected\"";
-        }*/
+        }
         $card .= " <option ".$select." value = ".$row['id'].">".$row['name']."</option>";
     }
 

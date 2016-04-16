@@ -54,7 +54,7 @@
 						<li class="footer-sprite fa fa-users  fa-fw"></li>Менеджер:
 					</div>
 					<div class="col-md-5">
-						 {$data_client.u_name} {if $IS_HEAD_POWER}({$data_client.d_name}){/if}
+						 {$data_client.u_name} {if $IS_POWER_HEAD}({$data_client.d_name}){/if}
 					</div>
 				</div>
 				<div class="row">

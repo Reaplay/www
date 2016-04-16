@@ -89,7 +89,8 @@ elseif(get_user_class() >= UC_HEAD){
 
 
 $email = trim($_POST["email"]);
-$name = trim($_POST["name"]);
+$name = mb_convert_case(trim($_POST["name"]),MB_CASE_TITLE);
+
 // проверяем e-mail на корректность
 if ($email AND !validemail($email))
 	stderr("Ошибка","Не правильный формат e-mail. <a href=\"javascript:history.go(-1);\">Назад</a>.","no");

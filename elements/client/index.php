@@ -21,11 +21,11 @@
 	if(get_user_class() <= UC_HEAD){
 		$department = "  client.department = '".$CURUSER['department']."' ";
 	}
-	if(get_user_class() == UC_POWER_HEAD){
+	elseif(get_user_class() == UC_POWER_HEAD){
 		$department = "  (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."') ";
 		//$department = "  client.department = department.id ";
 	}
-	if(get_user_class() == UC_ADMINISTRATOR){
+	elseif(get_user_class() == UC_ADMINISTRATOR){
 		$department = "  client.department != '0' ";
 	}
 	$now_date = strtotime(date("d.m.Y"));
@@ -64,11 +64,15 @@
 
 
 	}
-	else
+
 		if($_GET['only_my']){
 			$only_my = "AND client.manager = '".$CURUSER['id']."'";
 			$add_link .= "&only_my=1";
 		}
+	if($_GET['manager'] AND is_valid_id($_GET['manager'])){
+		$flt_manager = "AND client.manager = '".$_GET['manager']."'";
+		$add_link .= "&manager=".$_GET['manager'];
+	}
 
 	if ($client OR $department){
 		$where = "WHERE";
@@ -81,7 +85,7 @@ LEFT JOIN department ON department.id = client.department
 LEFT JOIN users ON users.id = client.manager
 $left_join
 $where
-".$department." ".$only_my." ".$client." ".$call_back."   ".$limit.";")  or sqlerr(__FILE__, __LINE__);
+".$department." ".$only_my." ".$client." ".$call_back." ".$flt_manager."  ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
 
 	if(mysql_num_rows($res) == 0){
@@ -95,9 +99,19 @@ $where
 		}
 		$i++;
 	}
+
+	//формируем список менеджеров для фильтра
+	$get_mgr = get_manager(get_user_class(),$CURUSER['department']);
+	while ($mgr = mysql_fetch_array($get_mgr)) {
+		$select = "";
+		if ($mgr['id'] == $_GET['manager']){
+			$select = "selected = \"selected\"";
+		}
+		$manager .= " <option ".$select." value = ".$mgr['id'].">".$mgr['name']."</option>";
+	}
 	//необходима оптимизация
 	// узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
-	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $left_join $where ".$department." ".$only_my." ".$call_back." ".$client.";") or sqlerr(__FILE__,__LINE__);
+	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $left_join $where ".$department." ".$only_my." ".$call_back." ".$client." ".$flt_manager.";") or sqlerr(__FILE__,__LINE__);
 	$row = mysql_fetch_array($res);
 	//всего записей
 	$count = $row[0];
@@ -109,6 +123,7 @@ $where
 	$REL_TPL->assignByRef('data_client',$data_client);
 	$REL_TPL->assignByRef('now_date',$now_date);
 	//$REL_TPL->assignByRef('js_add',$js_add);
+	$REL_TPL->assignByRef('manager',$manager);
 	$REL_TPL->assignByRef('cpp',$cpp);
 	$REL_TPL->assignByRef('page',$page);
 	$REL_TPL->assignByRef('add_link',$add_link);

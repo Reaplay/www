@@ -67,20 +67,44 @@
 				</div>
 			<div class="row margin-bottom-10">
 				<div class="col-md-6">
-					<h4>Опции</h4>
-					<label class="checkbox">
-						<input type="checkbox" name="only_my" value="1">
-						<i></i> Только мои
-					</label>
-					{*<label class="checkbox">
-						<input type="checkbox" name="no_contact" value="1">
-						<i></i> Без запланированных контактов
-					</label>*}
+					<h4>Фильтр по менеджерам</h4>
+					<div class="fancy-form fancy-form-select">
+						<select class="form-control" name="manager">
+							<option value="">Выберите менеджера</option>
+							{$manager}
+						</select>
+						<i class="fancy-arrow"></i>
+					</div>
 				</div>
 				<div class="col-md-6">
+					{if $IS_POWER_HEAD}
+					<h4>Фильтр по отделениям</h4>
+					<div class="fancy-form fancy-form-select">
+						<select class="form-control" name="department">
+							<option value="">Выберите отделение</option>
+							{$select_department}
+						</select>
+						<i class="fancy-arrow"></i>
+					</div>
+					{/if}
+				</div>
+			</div>
+				<div class="row margin-bottom-10">
+					<div class="col-md-6">
+						<h4>Опции</h4>
+						<label class="checkbox">
+							<input type="checkbox" name="only_my" value="1">
+							<i></i> Только мои
+						</label>
+						{*<label class="checkbox">
+                            <input type="checkbox" name="no_contact" value="1">
+                            <i></i> Без запланированных контактов
+                        </label>*}
+					</div>
+					<div class="col-md-6">
 
 					</div>
-			</div>
+				</div>
 			<!--	<h4>Статус клиента</h4>
 				<p><div class="row margin-bottom-10">
 				<div class="col col-md-6">

@@ -1,13 +1,7 @@
 <?php
 
 
-require "include/connect.php";
 
-dbconn();
-//loggedinorreturn();
-
-if (get_user_class() < UC_ADMINISTRATOR)
-stderr("Ошибка","В доступе отказано");
 
 $action = (string)$_GET["action"];
 $REL_TPL->stdhead("ChangeLog");

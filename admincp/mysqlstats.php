@@ -1,12 +1,5 @@
-<?
+<?php
 
-require "include/connect.php";
-dbconn();
-//loggedinorreturn();
-//httpauth();
-
-if (get_user_class() < UC_ADMINISTRATOR)
-stderr("Ошибка", "Доступ запрещен.");
 
 $GLOBALS["byteUnits"] = array('байт', 'КБ', 'МБ', 'ГБ', 'ТБ', 'ПБ', 'EБ');
 

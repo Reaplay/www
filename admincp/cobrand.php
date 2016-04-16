@@ -6,11 +6,6 @@
      * Time: 20:12
      */
     
-require "include/connect.php";
-
-dbconn();
-if (get_user_class() < UC_HEAD)
-    stderr("Ошибка","В доступе отказано");
 
 if($_GET['id'] and !is_valid_id($_GET['id'])){
     stderr("Ошибка","Ошибка ID продукта");		//запись в лог

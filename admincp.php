@@ -7,7 +7,7 @@ dbconn();
 
 //httpauth();
 
-if(!$CURUSER){
+if(get_user_class() < UC_ADMINISTRATOR){
 	stderr("Ошибка","У вас нет доступа к данной странице");
 }
 

@@ -72,8 +72,29 @@ foreach ($params as $param) {
 	list($value) = mysql_fetch_array($res);
 	$activity_log[$param] = $value;
 }
+
+if ($CURUSER['use_card']) {
+	$first_part_sql = "SELECT SUM(1) FROM `card_client` WHERE card_client.department='".$CURUSER['department']."' AND card_client.status = 0 AND card_client.next_call != 0";
+
+	$res=sql_query("
+(".$first_part_sql." AND card_client.next_call = '".$now_date."') UNION ALL
+(".$first_part_sql." AND card_client.next_call < '".$now_date."') UNION ALL
+(".$first_part_sql." AND card_client.next_call > '".$now_date."')
+
+;")	or sqlerr(__FILE__, __LINE__);
+	$params = array(
+		'card_now',
+		'card_lost',
+		'card_next');
+	foreach ($params as $param) {
+		list($value) = mysql_fetch_array($res);
+		$activity_card[$param] = $value;
+	}
+}
+
 	//var_dump($activity_log);
 $REL_TPL->assignByRef('activity_log',$activity_log);
+	$REL_TPL->assignByRef('activity_card',$activity_card);
 /*
 активные (пропущено-сегодня)
 потенциальные

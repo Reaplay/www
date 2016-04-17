@@ -1,5 +1,29 @@
 <div class="table-responsive">
 	<table class="table table-condensed nomargin">
+		{if $CURUSER.use_card}
+		<thead>
+			<tr>
+				<th>Выдача карт</th>
+				<th>На сегодня</th>
+				<th>Пропущено</th>
+				<th>Запланировано</th>
+
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Всего: {$activity_card.card_now + $activity_card.card_lost + $activity_card.card_next}
+				</td>
+				<td>{if $activity_card.card_now}{$activity_card.card_now}{else}N/A{/if}</td>
+				<td>{if $activity_card.card_lost}{$activity_card.card_lost}{else}N/A{/if}</td>
+				<td>{if $activity_card.card_next}{$activity_card.card_next}{else}N/A{/if}</td>
+
+			</tr>
+		</tbody>
+		{/if}
+
 		<thead>
 			<tr>
 				<th>Тип действия</th>
@@ -10,47 +34,6 @@
 			</tr>
 		</thead>
 		<tbody>
-	{*	{if $IS_HEAD}
-			<tr>
-				<td>
-				<strong>Статистика по отделению</strong>
-				</td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>
-					<div>Пропущенные действия</div>
-					<!--<small>lost text, sorry</small>-->
-				</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				
-			</tr>
-			<tr>
-				<td>
-					<div>Действия на сегодня</div>
-					
-				</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				
-			</tr>
-			<tr>
-				<td>
-					<div>Дальнейшие действия</div>
-					
-				</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				
-			</tr>
-		
-		{/if} *}
 			<tr>
 				<td>
 					<div><a href="client.php?status_client=2" class="text-success">Активные клиенты</a> <i class="fa fa-external-link"></i></div>
@@ -124,47 +107,7 @@
 				<td>{$activity_log.pot_mt_next + $activity_log.pot_call_next}</td>
 				
 			</tr>
-			
-			
-		{*	<tr>
-				<td>
-				<strong>Моя база + Рекомендации</strong>
-				</td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>
-					<div>Пропущенные действия</div>
-					<!--<small></small>-->
-				</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				
-			</tr>
-			<tr>
-				<td>
-					<div>Действия на сегодня</div>
-					
-				</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				
-			</tr>
-			<tr>
-				<td>
-					<div>Дальнейшие действия</div>
-					
-				</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				<td>{if $activity_log}{$activity_log.na}{else}N/A{/if}</td>
-				
-			</tr>
+
 		</tbody>
-		*}
 	</table>
 </div>

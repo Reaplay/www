@@ -28,10 +28,17 @@
                     <li class="footer-sprite fa fa-credit-card  fa-fw"></li>Тип карты
                 </div>
                 <div class="col-md-5">
-                    {$data_card.name_card}
+                    {$data_card.name_card} ({if $cobrand.type == 1}Дебетовая{elseif $cobrand.type == 2}Кредитная{else}N/A{/if})
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-md-3">
+                    <li class="footer-sprite fa fa-calendar-times-o  fa-fw"></li>Следующий звонок
+                </div>
+                <div class="col-md-5">
+                    {$data_card.next_call}
+                </div>
+            </div>
             </p>
             <p>
             <div class="row">

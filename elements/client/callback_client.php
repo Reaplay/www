@@ -18,14 +18,15 @@ elseif($_POST['id'])
 if(get_user_class() <= UC_HEAD){
 	$add_query = "AND client.department ='".$CURUSER['department']."'";
 }
-elseif(get_user_class() > UC_HEAD){
-	$add_query = "";
+elseif(get_user_class()==UC_POWER_HEAD){
+	$add_query = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
 }
 	
 	
 	$res=sql_query("
-	SELECT client.equid
-	FROM `client`  
+	SELECT client.equid, depatment.parent, department.id
+	FROM `client`
+	LEFT JOIN department ON department.id = users.department
 	WHERE  client.id = '".$id_client."' ".$add_query.";")  
 	or sqlerr(__FILE__, __LINE__);
 

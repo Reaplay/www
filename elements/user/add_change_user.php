@@ -11,7 +11,15 @@ if($_POST['id']){
 			write_log("Попытка изменения поступаемого ID при добавлении изменений (специально)","edit_user");
 	}
 	$id = $_POST['id'];
-	$res = sql_query("SELECT id FROM  `users` WHERE `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
+
+	if(get_user_class() <= UC_HEAD){
+		$add_query = "AND users.department ='".$CURUSER['department']."'";
+	}
+	elseif(get_user_class()==UC_POWER_HEAD){
+		$add_query = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
+	}
+
+	$res = sql_query("SELECT users.id, department.parent, department.id as d_id FROM  `users` LEFT JOIN department ON department.id = users.department WHERE users.id = '".$id."' $add_query;")  or sqlerr(__FILE__, __LINE__);
 	$row = mysql_fetch_array($res);
 	if(!$row){
 		stderr("Ошибка","Такой пользователь в базе не обнаружен","no");
@@ -46,22 +54,28 @@ if (strlen($name)<5)
 
 //может ли добавлять клиентов
 if ($_POST['add_client'])
-	$add_client = 1;
+	$add_client = '1';
 else
 	$add_client = '0';
 	
 //может ли добавлять пользователей
 if ($_POST['add_user']){
-	$add_user = 1;
+	$add_user = '1';
 }
 else
 	$add_user = '0';
 
 	//работает ли с картами
     if ($_POST['use_card'])
-        $use_card = 1;
+        $use_card = '1';
     else
         $use_card = '0';
+
+	//только просмотр
+	if ($_POST['only_view'])
+		$only_view = '1';
+	else
+		$only_view = '0';
 
 // уровень доступа
 $class = $_POST['class'];
@@ -123,17 +137,17 @@ if ($_POST['password']){
 if (!$id){
 $ret = sql_query("
 INSERT INTO `users`( 
-`login`, `department`, `passhash`, `secret`, `name`, `add_user`, `add_client`,`use_card`, `added`, `who_added`, `class`)
+`login`, `department`, `passhash`, `secret`, `name`, `add_user`, `add_client`,`use_card`,`only_view`, `added`, `who_added`, `class`)
 VALUES (".implode(",", array_map("sqlesc", array(
-$login, $department, $password, $secret, $name, $add_user, $add_client, $use_card, time(), $CURUSER['id'],$class))).");");//  or sqlerr(__FILE__, __LINE__);
+$login, $department, $password, $secret, $name, $add_user, $add_client, $use_card, $only_view, time(), $CURUSER['id'],$class))).");");//  or sqlerr(__FILE__, __LINE__);
 
 
 }
 else {
 
 sql_query("
-UPDATE `users` SET `department` = '".$department."', `class` =  '".$class."', `name` = '".$name."', `add_user` = '".$add_user."', `add_client` = '".$add_client."', `use_card`='".$use_card."', ".$passhash." `last_update` = '".time()."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+UPDATE `users` SET `department` = '".$department."', `class` =  '".$class."', `name` = '".$name."', `add_user` = '".$add_user."', `add_client` = '".$add_client."', `use_card`='".$use_card."', `only_view` = '".$only_view."', ".$passhash." `last_update` = '".time()."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 	}
-stdmsg("Выполнено.","Ошибок не обнаружено");
-	safe_redirect("user.php",2);
+//stdmsg("Выполнено.","Ошибок не обнаружено");
+	safe_redirect("user.php");
 ?>

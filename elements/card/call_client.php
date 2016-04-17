@@ -15,7 +15,14 @@
     else
         $id_client = $_GET['id'];
 
-    $res = sql_query("SELECT `id` FROM  `card_client` WHERE `id` = '".$id_client."';")  or sqlerr(__FILE__, __LINE__);
+    if(get_user_class() <= UC_HEAD){
+        $add_query = "AND users.department ='".$CURUSER['department']."'";
+    }
+    elseif(get_user_class()==UC_POWER_HEAD){
+        $add_query = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
+    }
+
+    $res = sql_query("SELECT card_client.id, department.parent, department.id as d_id FROM  `card_client` LEFT JOIN department ON department.id = card_client.department WHERE card_client.id = '".$id_client."' $add_query;")  or sqlerr(__FILE__, __LINE__);
     $data_client = mysql_fetch_array($res);
     if(!$data_client){
         stderr("Ошибка","Такая карта в базе не обнаружена","no");

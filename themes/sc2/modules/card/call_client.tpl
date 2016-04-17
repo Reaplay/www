@@ -29,7 +29,7 @@
                     </div>
                 {/if}
             {/if}
-            {if $IS_HEAD}
+            {* {if $IS_HEAD}
                 <div class="col-md-6">
                     <div class="fancy-form fancy-form-select">
                         <select class="form-control select2 pointer required" name="manager">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             {/if}
-
+            *}
         </div>
         <div class="row">
             <div class="form-group">

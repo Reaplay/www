@@ -84,6 +84,7 @@
 			<label class="checkbox nomargin"><input type="checkbox" name="add_client" {if $data_user.add_client or !$data_user}checked="checked"{/if}><i></i>Добавляет новых клиентов</a></label>
 			<label class="checkbox nomargin"><input type="checkbox" name="add_user"{if $data_user.add_user}checked="checked"{/if}><i></i>Добавляет новых пользователей</label>
 			<label class="checkbox nomargin"><input type="checkbox" name="use_card"{if $data_user.use_card}checked="checked"{/if}><i></i>Выдача карт (СОКР)</label>
+			<label class="checkbox nomargin"><input type="checkbox" name="only_view"{if $data_user.only_view}checked="checked"{/if}><i></i>Только просмотр</label>
 		</div>
 	</fieldset>
 

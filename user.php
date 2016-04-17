@@ -19,24 +19,24 @@ elseif (!$_GET['a']) {
 	require_once("elements/user/index.php");
 }
 // это идет след. т.к. единственно возможная страница без ID
-elseif ($_GET['a']=="a") {
+elseif ($_GET['a']=="a" AND !$CURUSER['only_view']) {
 	$REL_TPL->stdhead("Добавление нового пользователя");
 	require_once("elements/user/tpl_basic_action_user.php");
 }
-elseif ($_GET['a']=="e") {
+elseif ($_GET['a']=="e" AND !$CURUSER['only_view']) {
 	$REL_TPL->stdhead("Редактирование пользователя");
 	require_once("elements/user/tpl_basic_action_user.php");
 }
-elseif ($_GET['a']=="c" AND ($_SERVER['REQUEST_METHOD'] == 'POST')) {
+elseif ($_GET['a']=="c" AND ($_SERVER['REQUEST_METHOD'] == 'POST') AND !$CURUSER['only_view']) {
 	$REL_TPL->stdhead("Применение изменений");
 	require_once("elements/user/add_change_user.php");
 }
-elseif ($_GET['a']=="d") {
+elseif ($_GET['a']=="d" AND !$CURUSER['only_view']) {
 	require_once("elements/user/delete_user.php");
 }
 //все пролетели
 else{
-	stderr("Ошибка","Не хорошо так делать");
+	stderr("Ошибка","В доступе отказано");
 	//запись в лог
 }
 $REL_TPL->stdfoot();

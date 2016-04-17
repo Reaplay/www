@@ -32,7 +32,10 @@
     elseif(get_user_class() <= UC_ADMINISTRATOR){
         //$banned = "AND users.banned = '0' ";
     }
-
+    if($_GET['type_card'] AND is_valid_id($_GET['type_card'])){
+        $flt_card = "AND card_client.id_cobrand = '".$_GET['type_card']."'";
+        $add_link .= "&type_card=".$_GET['type_card'];
+    }
     if($_GET['manager'] AND is_valid_id($_GET['manager'])){
         $flt_manager = "AND card_client.id_manager = '".$_GET['manager']."'";
         $add_link .= "&manager=".$_GET['manager'];
@@ -45,7 +48,7 @@
         $only_my = "AND card_client.id_manager = '".$CURUSER['id']."'";
         $add_link .= "&only_my=1";
     }
-    $res=sql_query("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager,(SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.id_manager WHERE card_client.status = 0  ".$department." ".$only_my." ".$flt_manager." ".$flt_department." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
+    $res=sql_query("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager,(SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.id_manager WHERE card_client.status = 0  ".$department." ".$only_my." ".$flt_manager." ".$flt_department." $flt_card ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
     if(mysql_num_rows($res) == 0){
         stderr("Ошибка","Карты не найдены","no");
@@ -57,10 +60,29 @@
         $i++;
     }
 
+    //формируем список менеджеров для фильтра
+    $get_mgr = get_manager(get_user_class(),$CURUSER['department']);
+    while ($mgr = mysql_fetch_array($get_mgr)) {
+        $select = "";
+        if ($mgr['id'] == $_GET['manager']){
+            $select = "selected = \"selected\"";
+        }
+        $list_manager .= " <option ".$select." value = ".$mgr['id'].">".$mgr['name']."</option>";
+    }
+//
+    $get_card = sql_query("SELECT `id`, `name` FROM card_cobrand WHERE disable = '0'")  or sqlerr(__FILE__, __LINE__);
+
+    while ($card = mysql_fetch_array($get_card)) {
+        $select = "";
+        if ($card['id'] == $_GET['type_card']){
+            $select = "selected = \"selected\"";
+        }
+        $list_card .= " <option ".$select." value = ".$card['id'].">".$card['name']."</option>";
+    }
 
     //необходима оптимизация
     // узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
-    $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.status = 0 ".$department." ".$only_my." ".$flt_manager." ".$flt_department.";") or sqlerr(__FILE__,__LINE__);
+    $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.status = 0 ".$department." ".$only_my." ".$flt_manager." ".$flt_department." $flt_card;") or sqlerr(__FILE__,__LINE__);
     $row = mysql_fetch_array($res);
     //всего записей
     $count = $row[0];
@@ -70,8 +92,10 @@
 
 
 
-    $REL_TPL->assignByRef('data_card',$data_card);
 
+    $REL_TPL->assignByRef('data_card',$data_card);
+    $REL_TPL->assignByRef('list_manager',$list_manager);
+    $REL_TPL->assignByRef('list_card',$list_card);
     $REL_TPL->assignByRef('cpp',$cpp);
     $REL_TPL->assignByRef('page',$page);
     $REL_TPL->assignByRef('add_link',$add_link);

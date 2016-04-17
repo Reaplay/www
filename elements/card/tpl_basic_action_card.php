@@ -33,6 +33,8 @@ WHERE ".$department." card_client.id='".$_GET['id']."';")  or sqlerr(__FILE__, _
 
     // если рукль или выше, то можно сменить менеджера (и соответственно с ним меняется привязка к отделению)
     if(get_user_class() >= UC_HEAD){
+        $get_mgr = get_manager(get_user_class(),$CURUSER['department']);
+        /*
         if(get_user_class() == UC_HEAD){
             $dep = "WHERE department = ".$CURUSER['department'];
         }
@@ -40,9 +42,9 @@ WHERE ".$department." card_client.id='".$_GET['id']."';")  or sqlerr(__FILE__, _
             $dep = "WHERE department.parent = ".$CURUSER['department'];
         }
         $res=sql_query("SELECT users.id,users.name, department.name as d_name, department.parent FROM  `users` LEFT JOIN department ON department.id = users.department ".$dep.";")  or sqlerr(__FILE__, __LINE__);
-
+*/
         //формируем к какому отделению можно прикрепить пользователя
-        while ($row = mysql_fetch_array($res)) {
+        while ($row = mysql_fetch_array($get_mgr)) {
             $select = "";
             if ($row['id'] == $data_card['id_manager']){
                 $select = "selected = \"selected\"";

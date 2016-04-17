@@ -30,7 +30,7 @@ if($_POST['id']){
 //общее
 
 //проверяем фио
-$name = trim($_POST["name"]);
+    $name = mb_convert_case(trim($_POST["name"]),MB_CASE_TITLE);
 //длину
 if (strlen($name)<5)
     stderr("Ошибка","ФИО должно быть не короче 5 символов","no");
@@ -82,7 +82,7 @@ if (strlen($name)<5)
             elseif(get_user_class() == UC_POWER_HEAD){
                 $add_select = ", department.parent";
                 $left_join = "LEFT JOIN department ON department.id = users.department";
-                $addition_sql = "AND department.parent = ".$CURUSER['department'];
+                $addition_sql = "AND (department.parent = ".$CURUSER['department']." OR department.id =".$CURUSER['department'].")";
             }
 
 
@@ -110,23 +110,38 @@ if (strlen($name)<5)
     $res = sql_query("SELECT id FROM `card_cobrand` WHERE `id` = '".$id_card."';")  or sqlerr(__FILE__, __LINE__);
     $data_card = mysql_fetch_array($res);
     if(!$data_card){
-        stderr("Ошибка","Такой клиент в базе не обнаружен","no");
+        stderr("Ошибка","Такая карта в базе не обнаружена","no");
     }
 
+
+
 if (!$id){
-    $ret = sql_query("
+// добавляем в базу
+        $ret = sql_query("
 INSERT INTO `card_client`(
-`name`,`id_manager`, `department`, `equid`,`added`,`comment`,`next_call`,`mobile`,`id_cobrand`)
+`name`,`id_manager`, `department`, `equid`,`added`,`comment`,`next_call`,`mobile`,`id_cobrand`,`id_callback`)
 VALUES (".implode(",", array_map("sqlesc", array(
-$name, $manager, $department, $equid, time(), $comment, $next_call, $mobile, $id_card
+$name, $manager, $department, $equid, time(), $comment, $next_call, $mobile, $id_card, $id_callback
 ))).");")  or sqlerr(__FILE__, __LINE__);
-
-
+    // получаем ид
+    $id_client = mysql_insert_id();
+    // добавляем как колбек
+    sql_query("
+INSERT INTO `card_callback`(
+`id_client`,`id_manager`, `added`, `next_call`,`comment`)
+VALUES (".implode(",", array_map("sqlesc", array(
+            $id_client, $manager, time(), $next_call,"Карта добавлена"
+        ))).");")  or sqlerr(__FILE__, __LINE__);
+    // получаем ид коллбека
+    $id_callback = mysql_insert_id();
+    //обновляем запись
+    sql_query("
+UPDATE `card_client` SET `id_callback` = '".$id_callback."' WHERE `id` ='".$id_client."';")  or sqlerr(__FILE__, __LINE__);
 }
 else {
 
- /*   sql_query("
-UPDATE `card_client` SET `name` = '".name."', `id_manager` = '".$manager."', `department` = '".$department."', `equid` = '".$equid."', `` = '".."', `` = '".."', `` = '".."', `` = '".."', WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);*/
+    sql_query("
+UPDATE `card_client` SET `name` = '".$name."', `id_manager` = '".$manager."', `department` = '".$department."', `equid` = '".$equid."', `comment` = '".$comment."' `mobile` = '".$mobile."', `id_card` = '".$id_card."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 }
 stdmsg("Выполнено.","Ошибок не обнаружено");
 	safe_redirect("card.php",2);

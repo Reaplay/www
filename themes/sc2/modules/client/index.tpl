@@ -82,7 +82,7 @@
 					<div class="fancy-form fancy-form-select">
 						<select class="form-control" name="department">
 							<option value="">Выберите отделение</option>
-							{$select_department}
+							{$list_department}
 						</select>
 						<i class="fancy-arrow"></i>
 					</div>

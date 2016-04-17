@@ -30,11 +30,11 @@
         require_once("elements/card/add_change_card.php");
     }
     elseif ($_GET['action'] == 'call_client') {
-        $REL_TPL->stdhead("Добавить карту клиента");
+        $REL_TPL->stdhead("Добавить звонок по карте");
         require_once("elements/card/call_client.php");
     }
     elseif ($_GET['action'] == 'view') {
-        $REL_TPL->stdhead("Добавить карту клиента");
+        $REL_TPL->stdhead("Просмотр карты клиента");
         require_once("elements/card/view_card.php");
     }
     $REL_TPL->stdfoot();

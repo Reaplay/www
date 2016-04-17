@@ -70,10 +70,7 @@
                         <thead>
                         <tr>
                             <th>Дата</th>
-                            <th>Тип контакта</th>
                             <th>Сотрудник</th>
-                            <th>Продукты</th>
-                            <th>Результат</th>
                             <th>След. звонок</th>
                         </tr>
                         </thead>
@@ -85,17 +82,9 @@
                                     {$callback.added}
                                 </td>
                                 <td>
-                                    {if $callback.type_contact == 1}Звонок{elseif $callback.type_contact == 2}Встреча{else}Не известно{/if}
-                                </td>
-                                <td>
                                     {$callback.u_name}
                                 </td>
-                                <td class="center">
-                                    {$callback.product}
-                                </td>
-                                <td>
-                                    {$callback.rc_name}
-                                </td>
+
                                 <td>
                                     {$callback.next_call}
                                 </td>

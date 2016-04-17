@@ -25,8 +25,8 @@
                             <h4>Фильтр по картам</h4>
                             <div class="fancy-form fancy-form-select">
                                 <select class="form-control" name="type_card">
-                                    <option value="">Выберите менеджера</option>
-                                    {$type_card}
+                                    <option value="">Выберите карту</option>
+                                    {$list_card}
                                 </select>
                                 <i class="fancy-arrow"></i>
                             </div>
@@ -36,7 +36,7 @@
                             <div class="fancy-form fancy-form-select">
                                 <select class="form-control" name="manager">
                                     <option value="">Выберите менеджера</option>
-                                    {$manager}
+                                    {$list_manager}
                                 </select>
                                 <i class="fancy-arrow"></i>
                             </div>
@@ -49,7 +49,7 @@
                                 <div class="fancy-form fancy-form-select">
                                     <select class="form-control" name="department">
                                         <option value="">Выберите отделение</option>
-                                        {$select_department}
+                                        {$list_department}
                                     </select>
                                     <i class="fancy-arrow"></i>
                                 </div>

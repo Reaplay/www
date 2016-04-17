@@ -155,17 +155,23 @@ elseif($_GET['action']=='issue_card'){
 		}
 	}
 	elseif(get_user_class()==UC_POWER_HEAD) {
-		$res = sql_query ("SELECT id FROM  `card_client` LEFT JOIN department ON department.id = users.department WHERE `users.id` = '" . $id . "' AND department.parent = '" . $CURUSER['department'] . "';") or sqlerr (__FILE__, __LINE__);
+		$res = sql_query ("SELECT id FROM  `card_client` LEFT JOIN department ON department.id = users.department WHERE `card_client.id` = '" . $id . "' AND (department.parent = '" . $CURUSER['department']."' OR department.id = '".$CURUSER['department']."');") or sqlerr (__FILE__, __LINE__);
 		$row = mysql_fetch_array ($res);
 		if (!$row) {
 			die("error");
 		}
 	}
+
 	if($_GET['status']=="issue") {
-		sql_query ("UPDATE `card_client` SET `status` = '1' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
+		sql_query("INSERT INTO `card_callback`(`id_client`,`id_manager`, `added`,`comment`)VALUES (".implode(",", array_map("sqlesc", array($id, $CURUSER['department'], time(), "Карта выдана"))).");")  or sqlerr(__FILE__, __LINE__);
+		$id_callback = mysql_insert_id();
+
+		sql_query ("UPDATE `card_client` SET `status` = '1', `id_callback` = '".$id_callback."' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
 	}
 	elseif($_GET['status']=="destroy") {
-		sql_query ("UPDATE `card_client` SET `status` = '2' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
+		sql_query("INSERT INTO `card_callback`(`id_client`,`id_manager`, `added`,`comment`)VALUES (".implode(",", array_map("sqlesc", array($id, $CURUSER['department'], time(), "Карта уничтожена"))).");")  or sqlerr(__FILE__, __LINE__);
+		$id_callback = mysql_insert_id();
+		sql_query ("UPDATE `card_client` SET `status` = '2', `id_callback` = '".$id_callback."' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
 	}
 	die("success");
 }

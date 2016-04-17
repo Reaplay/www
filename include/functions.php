@@ -447,7 +447,7 @@ function debug() {
 	if (($REL_CONFIG['debug_mode']) && ($CURUSER['class'] >= UC_ADMINISTRATOR)) {
 		//var_dump($REL_DB->query);
 		$REL_TPL->assignByRef('query',$REL_DB->query);
-		//$REL_TPL->assignByRef('tstart',$tstart);
+		$REL_TPL->assignByRef('tstart',$tstart);
 		$seconds = (microtime(true) - $tstart);
 		$display_debug=true;
 
@@ -455,8 +455,9 @@ function debug() {
 		$query_time = 	$REL_DB->query[0]['seconds'];
 		$percentphp = 	number_format(($phptime/$seconds) * 100, 2);
 		$percentsql = 	number_format(($query_time/$seconds) * 100, 2);
+		$online = mysql_fetch_row(sql_query("SELECT SUM(1) FROM sessions"));
 		$REL_TPL->assignByRef('REL_CRON',$REL_CRON);
-		$REL_TPL->assign('PAGE_GENERATED',((get_user_class()>=UC_ADMINISTRATOR)?sprintf("Страница сгенерирована за %f секунд. Выполнено %d запросов (%s%% PHP / %s%% MySQL)", $seconds, count($REL_DB->query), $percentphp, $percentsql):''));
+		$REL_TPL->assign('PAGE_GENERATED',((get_user_class()>=UC_ADMINISTRATOR)?sprintf("Страница сгенерирована за %f секунд. Выполнено %d запросов (%s%% PHP / %s%% MySQL)", $seconds, count($REL_DB->query), $percentphp, $percentsql).". Сейчас на сайте ".$online['0']." человек(-а) ":''));
 	} 
 	else 
 		$display_debug=false;

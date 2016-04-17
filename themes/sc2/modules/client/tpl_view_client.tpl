@@ -12,14 +12,13 @@
 		<li {if $t==history}class="active"{/if}>
 			<a href="client.php?a=callback_history&id={$id}"><i class="fa fa-history"></i> История контактов</a>
 		</li>
-		{if $CURUSER.only_view}
 		<li {if $t==callback}class="active"{/if}>
 			<a href="client.php?a=callback&amp;id={$id}" ><i class="fa fa-plus"></i> Добавить контакт</a>
 		</li>
 		<li>
 			<a href="client.php?a=e&amp;id={$id}" tabindex="-1"><i class="fa fa-pencil-square-o"></i>Редактировать</a>
 		</li>
-		{/if}
+
 		{*{if $t==view}*}
 		{if $IS_HEAD}
 		<li class="dropdown">

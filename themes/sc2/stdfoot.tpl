@@ -26,7 +26,7 @@
 							<li>&bull;</li>
 							<li><a href="changelog.php">Список изменений</a></li>
 						</ul>
-						{$COPYRIGHT}
+						{$COPYRIGHT}<div class="copyright">{$PAGE_GENERATED}</div>
 					</div>
 				</div>
 			</footer>

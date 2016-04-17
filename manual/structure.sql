@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 14 2016 г., 23:31
+-- Время создания: Апр 17 2016 г., 21:18
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -56,6 +56,23 @@ CREATE TABLE IF NOT EXISTS `callback` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `card_callback`
+--
+
+CREATE TABLE IF NOT EXISTS `card_callback` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id_client` int(10) NOT NULL,
+  `id_manager` int(10) NOT NULL,
+  `added` int(10) NOT NULL,
+  `next_call` int(10) DEFAULT NULL,
+  `result` tinyint(1) NOT NULL,
+  `comment` text,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `card_client`
 --
 
@@ -72,8 +89,9 @@ CREATE TABLE IF NOT EXISTS `card_client` (
   `mobile` int(10) DEFAULT NULL,
   `id_cobrand` int(10) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
+  `id_callback` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -89,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `card_cobrand` (
   `disable` smallint(1) NOT NULL DEFAULT '0',
   `edited` int(10) NOT NULL,
   UNIQUE KEY `id_3` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -131,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `equid` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `mobile` (`mobile`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=60 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;
 
 -- --------------------------------------------------------
 
@@ -201,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   KEY `receiver` (`receiver`),
   KEY `sender` (`sender`),
   KEY `poster` (`poster`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=60 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=93 ;
 
 -- --------------------------------------------------------
 
@@ -426,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `sitelog` (
   `type` varchar(80) NOT NULL DEFAULT 'site',
   PRIMARY KEY (`id`),
   KEY `added` (`added`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
 
 -- --------------------------------------------------------
 
@@ -468,6 +486,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_update` int(10) NOT NULL,
   `notifs` varchar(100) NOT NULL,
   `use_card` tinyint(1) NOT NULL DEFAULT '0',
+  `only_view` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`login`),
   KEY `status_added` (`added`),

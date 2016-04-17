@@ -101,9 +101,9 @@ class REL_TPL extends Smarty {
      */
     function stdfoot() {
         $this->assign('COPYRIGHT',CRM_VERSION.(BETA?BETA_NOTICE:""));
-        generate_post_javascript();
+      //  generate_post_javascript();
         close_sessions();
-        run_cronjobs();
+        //run_cronjobs();
         debug();
         if (REL_AJAX) {
            // $this->display($this->config['stdfoot_ajax']);

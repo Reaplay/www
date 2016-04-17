@@ -10,7 +10,7 @@
 		<form method="post" action="action_admin.php?module=result_call{if $action=="edit"}&id={$id}{/if}">
 			<div class="row">
 				<div class="form">
-					<div class="col-md-4 col-sm-4">
+					<div class="col-md-3 col-sm-3">
 							<div class="fancy-form fancy-form-select">
 								<select class="form-control  select2" name="type_contact">
 								{$data_contact}
@@ -18,11 +18,13 @@
 								<i class="fancy-arrow"></i>
 							</div>
 					</div>
-					<div class="col-md-4 col-sm-4">
+					<div class="col-md-3 col-sm-3">
 						<input type="text" name="text" class="form-control" placeholder="Введите название контакта" value="{$data_result_call.text}">
 					</div>
-				
-					<div class="col-md-4 col-sm-4">
+					<div class="col-md-3 col-sm-3">
+						<label class="checkbox nomargin"><input type="checkbox" name="sale"{if $data_result_call.sale}checked="checked"{/if}><i></i>Продажа</label>
+					</div>
+					<div class="col-md-3 col-sm-3">
 						<button type="submit" class="btn btn-primary" type="submit">{if $action=="add"}Добавить{else}Изменить{/if}</button>
 						<input type="hidden" name="action" value="{$action}">
 					</div>

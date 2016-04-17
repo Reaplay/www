@@ -10,6 +10,7 @@
 		<th>Название</th>
 		<th>Тип контакта</th>
 		<th>Статус</th>
+		<th>Продажа</th>
 		<th>Действия</th>
 	</tr>
 </thead>
@@ -27,7 +28,9 @@
 		<td class="center">
 			{if $result_call.disable==0}<span class="label label-sm label-success">Активен</span>{else}<span class="label label-sm label-default">Выключен</span>{/if}
 		</td>
-
+		<td>
+			{if $result_call.sale==0}<span class="label label-sm label-default">Нет</span>{elseif $result_call.sale==1}<span class="label label-sm label-success">Да</span>{/if}
+		</td>
 		<td>
 			{if $result_call.disable==0}<a href="action_admin.php?module=result_call&action=disable&id={$result_call.id}">Отключить</a>{else} <a href="action_admin.php?module=result_call&action=enable&id={$result_call.id}">Включить</a>{/if} | <a href="action_admin.php?module=result_call&action=edit&id={$result_call.id}">Изменить</a>
 		</td>

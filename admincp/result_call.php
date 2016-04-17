@@ -17,13 +17,19 @@ if($_GET['action']=="enable"){
 	
 }
 if($_POST['action']=="edit"){
-	sql_query("UPDATE `result_call` SET `text` = '".$_POST['text']."', `type_contact` = '".$_POST['type_contact']."' WHERE `id` =".$_GET['id'].";");
+	if ($_POST['sale']){
+		$sale = '1';
+	}
+	sql_query("UPDATE `result_call` SET `text` = '".$_POST['text']."', `type_contact` = '".$_POST['type_contact']."', `sale`='".$sale."' WHERE `id` =".$_GET['id'].";");
 	$REL_TPL->stdmsg('Выполнено','Контакт изменен');
 }
 if($_POST['action']=="add"){
 	if(!is_valid_id($_POST['type_contact']))
 		stderr("Ошибка","Ошибка типа контакта","no");
-	sql_query("INSERT INTO `result_call` (`text`, `type_contact`) VALUES ('".$_POST['text']."', '".$_POST['type_contact']."');");
+	if ($_POST['sale']){
+		$sale = '1';
+	}
+	sql_query("INSERT INTO `result_call` (`text`, `type_contact`,`salw`) VALUES ('".$_POST['text']."', '".$_POST['type_contact']."','".$sale."');");
 	$REL_TPL->stdmsg('Выполнено','Контакт добавлен');
 }
 if($_GET['action']=="edit"){

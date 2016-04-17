@@ -22,7 +22,7 @@
 		$department = "(department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."') AND";
 	}
 		$res=sql_query("SELECT
-users.id, users.login, users.name, users.add_client, users.add_user, users.class, users.use_card, users.only_view, department.id as d_id, department.name as d_name, department.parent
+users.id, users.login, users.name, users.add_client, users.add_user, users.class, users.department, users.use_card, users.only_view, department.id as d_id, department.name as d_name, department.parent
 FROM `users`
 LEFT JOIN department ON department.id = users.department
 WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE__);
@@ -32,6 +32,7 @@ WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE_
 
 		$data_user = mysql_fetch_array($res);
 	}
+	/*
 	// если выше рукля, то можно выбрать отделение
 	if(get_user_class() == UC_POWER_HEAD){
 		$res=sql_query("SELECT *  FROM `department` WHERE (id ='".$CURUSER['department']."' OR parent = '".$CURUSER['department']."');")  or sqlerr(__FILE__, __LINE__);
@@ -58,7 +59,9 @@ WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE_
 			$p_department .= " <option ".$select." value = ".$row['id'].">".$row['name']."</option>";
 		}
 	}
-
+*/
+	// спиcок отделений
+	$list_department = get_department(get_user_class(),$data_user['department'],$data_user['department']);
 
 	function select_class($class_user,$compare_class){
 		if($class_user == $compare_class){
@@ -80,7 +83,7 @@ WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE_
 	}
 
 	
-	$REL_TPL->assignByRef('p_department',$p_department);
+	$REL_TPL->assignByRef('list_department',$list_department);
 	$REL_TPL->assignByRef('p_class',$p_class);
 	$REL_TPL->assignByRef('data_user',$data_user);
 

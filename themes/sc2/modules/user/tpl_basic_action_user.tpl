@@ -55,12 +55,12 @@
 		
 
 		<div class="row margin-bottom-10">
-		{if $p_department}
+		{if $list_department}
 			<div class="col-md-6" >
 				<div class="fancy-form fancy-form-select">
 					<select class="form-control select2 pointer required" name="department">
 					<option value="---">Отделение</option>
-					{$p_department}
+					{$list_department}
 					</select>
 					<i class="fancy-arrow"></i>
 				</div>

@@ -80,6 +80,8 @@
         $list_card .= " <option ".$select." value = ".$card['id'].">".$card['name']."</option>";
     }
 
+    // спиcок отделений дял фильтра
+    $list_department = get_department(get_user_class(),$CURUSER['department'],$_GET['department']);
     //необходима оптимизация
     // узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
     $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.status = 0 ".$department." ".$only_my." ".$flt_manager." ".$flt_department." $flt_card;") or sqlerr(__FILE__,__LINE__);
@@ -96,6 +98,7 @@
     $REL_TPL->assignByRef('data_card',$data_card);
     $REL_TPL->assignByRef('list_manager',$list_manager);
     $REL_TPL->assignByRef('list_card',$list_card);
+    $REL_TPL->assignByRef('list_department',$list_department);
     $REL_TPL->assignByRef('cpp',$cpp);
     $REL_TPL->assignByRef('page',$page);
     $REL_TPL->assignByRef('add_link',$add_link);

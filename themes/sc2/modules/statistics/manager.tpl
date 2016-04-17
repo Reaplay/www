@@ -1,3 +1,6 @@
+<div class="alert alert-danger margin-bottom-30">
+    <strong>Внимание!</strong> Данная статистика не доступна
+</div>
 <form  action="statistic.php?type=manager" method="post">
     <div class="col-md-6" >
         <div class="fancy-form fancy-form-select">

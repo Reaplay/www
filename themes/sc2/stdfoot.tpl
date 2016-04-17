@@ -61,9 +61,7 @@
 			{/if}
 		<!-- STYLESWITCHER - REMOVE 
 		<script async type="text/javascript" src="assets/plugins/styleswitcher/styleswitcher.js"></script>-->
-		
 
 		{$js_add}
-
 	</body>
 </html>

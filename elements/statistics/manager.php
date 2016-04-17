@@ -26,6 +26,6 @@
         $data_user[]=$row;
     }
 
-
     $REL_TPL->assignByRef('data_user',$data_user);
     $REL_TPL->output("manager","statistics");
+    ?>

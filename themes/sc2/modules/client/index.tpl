@@ -71,7 +71,7 @@
 					<div class="fancy-form fancy-form-select">
 						<select class="form-control" name="manager">
 							<option value="">Выберите менеджера</option>
-							{$manager}
+							{$list_manager}
 						</select>
 						<i class="fancy-arrow"></i>
 					</div>

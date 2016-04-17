@@ -73,7 +73,10 @@
 		$flt_manager = "AND client.manager = '".$_GET['manager']."'";
 		$add_link .= "&manager=".$_GET['manager'];
 	}
-
+	if($_GET['department'] AND is_valid_id($_GET['department'])){
+		$flt_department = "AND client.department = '".$_GET['department']."'";
+		$add_link .= "&department=".$_GET['department'];
+	}
 	if ($client OR $department){
 		$where = "WHERE";
 	}
@@ -85,7 +88,7 @@ LEFT JOIN department ON department.id = client.department
 LEFT JOIN users ON users.id = client.manager
 $left_join
 $where
-".$department." ".$only_my." ".$client." ".$call_back." ".$flt_manager."  ".$limit.";")  or sqlerr(__FILE__, __LINE__);
+".$department." ".$only_my." ".$client." ".$call_back." ".$flt_manager." ".$flt_department." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
 
 	if(mysql_num_rows($res) == 0){
@@ -107,11 +110,15 @@ $where
 		if ($mgr['id'] == $_GET['manager']){
 			$select = "selected = \"selected\"";
 		}
-		$manager .= " <option ".$select." value = ".$mgr['id'].">".$mgr['name']."</option>";
+		$list_manager .= " <option ".$select." value = ".$mgr['id'].">".$mgr['name']."</option>";
 	}
+
+	// спиcок отделений для фильтра
+	$list_department = get_department(get_user_class(),$CURUSER['department'],$_GET['department']);
+
 	//необходима оптимизация
 	// узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
-	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $left_join $where ".$department." ".$only_my." ".$call_back." ".$client." ".$flt_manager.";") or sqlerr(__FILE__,__LINE__);
+	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $left_join $where ".$department." ".$only_my." ".$call_back." ".$client." ".$flt_manager." ".$flt_department.";") or sqlerr(__FILE__,__LINE__);
 	$row = mysql_fetch_array($res);
 	//всего записей
 	$count = $row[0];
@@ -123,7 +130,8 @@ $where
 	$REL_TPL->assignByRef('data_client',$data_client);
 	$REL_TPL->assignByRef('now_date',$now_date);
 	//$REL_TPL->assignByRef('js_add',$js_add);
-	$REL_TPL->assignByRef('manager',$manager);
+	$REL_TPL->assignByRef('list_manager',$list_manager);
+	$REL_TPL->assignByRef('list_department',$list_department);
 	$REL_TPL->assignByRef('cpp',$cpp);
 	$REL_TPL->assignByRef('page',$page);
 	$REL_TPL->assignByRef('add_link',$add_link);

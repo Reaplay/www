@@ -99,17 +99,19 @@ class REL_TPL extends Smarty {
     /**
      * Outputs theme footer
      */
-    function stdfoot() {
+    function stdfoot($js_add="") {
         $this->assign('COPYRIGHT',CRM_VERSION.(BETA?BETA_NOTICE:""));
       //  generate_post_javascript();
         close_sessions();
         //run_cronjobs();
         debug();
+        $this->assign('js_add',$js_add);
         if (REL_AJAX) {
            // $this->display($this->config['stdfoot_ajax']);
         } else {
             $this->display($this->config['stdfoot']);
         }
+
     }
 
     /**

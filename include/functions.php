@@ -9,7 +9,7 @@
 if (!defined("IN_SITE")) die("Direct access to this page not allowed");
 define ("BETA", true);
 define ("BETA_NOTICE", " This isn't complete release of source!");
-define("RELVERSION","0.2.3");
+define("RELVERSION","0.2.3.1");
 
 /**
  * Checks that page is loading with ajax and defines boolean constant REL_AJAX
@@ -719,5 +719,24 @@ function check_mobile($number,$check=true){
 		return $res;
 	}
 
+function get_department($class,$department,$id_select=""){
+	if($class == UC_POWER_HEAD){
+		$res=sql_query("SELECT *  FROM `department` WHERE (id ='".$department."' OR parent = '".$department."');")  or sqlerr(__FILE__, __LINE__);
 
+	}
+	elseif($class == UC_ADMINISTRATOR) {
+		$res = sql_query ("SELECT *  FROM `department`;") or sqlerr (__FILE__, __LINE__);
+	}
+		//формируем к какому отделению можно прикрепить пользователя
+		while ($row = mysql_fetch_array($res)) {
+			$select = "";
+			if ($row['id'] == $id_select){
+				$select = "selected = \"selected\"";
+
+			}
+			$list_department .= " <option ".$select." value = ".$row['id'].">".$row['name']."</option>";
+		}
+
+	return $list_department;
+}
 ?>

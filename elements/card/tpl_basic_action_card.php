@@ -55,13 +55,22 @@ WHERE ".$department." card_client.id='".$_GET['id']."';")  or sqlerr(__FILE__, _
 
     $card_res=sql_query("SELECT * FROM  `card_cobrand` WHERE disable = 0;")  or sqlerr(__FILE__, __LINE__);
 
-    //формируем к какому отделению можно прикрепить пользователя
+    //формируем выбор карты
     while ($row = mysql_fetch_array($card_res)) {
         $select = "";
         if ($row['id'] == $data_card['id_cobrand']){
             $select = "selected = \"selected\"";
         }
-        $card .= " <option ".$select." value = ".$row['id'].">".$row['name']."</option>";
+        if($row['type']== "1"){
+            $type="Дебетовая";
+        }
+        elseif($row['type']== "2"){
+            $type="Кредитная";
+        }
+        else{
+            $type="N/A";
+        }
+        $card .= " <option ".$select." value = ".$row['id'].">".$row['name']." (".$type.")</option>";
     }
 
 

@@ -34,7 +34,7 @@ WHERE card_client.id = '".$_GET['id']."'  ".$department." ;
         stderr("Ошибка","Клиент не найден или у вас нет доступа","no");
     }
     $data_card = mysql_fetch_array($res);
-
+    $data_card['next_call'] = mkprettytime($data_card['next_call'],false);
     $res=sql_query("
 SELECT card_callback.*, users.name as u_name
 FROM `card_callback`

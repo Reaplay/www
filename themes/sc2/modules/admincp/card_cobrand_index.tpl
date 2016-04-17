@@ -8,6 +8,7 @@
     <thead>
     <tr>
         <th>Название</th>
+        <th>Тип карты</th>
         <th>Дата добавления</th>
         <th>Последнее изменение</th>
         <th>Статус</th>
@@ -22,6 +23,9 @@
         <tr data-id="{$cobrand.id}">
             <td>
                 {$cobrand.name}
+            </td>
+            <td>
+                {if $cobrand.type == 1}Дебетовая{elseif $cobrand.type == 2}Кредитная{else}N/A{/if}
             </td>
             <td>
                 {$cobrand.added}

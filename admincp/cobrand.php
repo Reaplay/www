@@ -24,11 +24,11 @@ if($_GET['action']=="enable"){
 
 }
 if($_POST['action']=="edit"){
-    sql_query("UPDATE `card_cobrand` SET `name` = '".$_POST['name']."', `edited` = '".time()."' WHERE `id` =".$_GET['id'].";") or sqlerr(__FILE__, __LINE__);
+    sql_query("UPDATE `card_cobrand` SET `name` = '".$_POST['name']."', `edited` = '".time()."', `type` = '".$_POST['type_card']."' WHERE `id` =".$_GET['id'].";") or sqlerr(__FILE__, __LINE__);
     $REL_TPL->stdmsg('Выполнено','Название изменено');
 }
 if($_POST['action']=="add"){
-    sql_query("INSERT INTO `card_cobrand` (`name`, `added`) VALUES ('".$_POST['name']."', '".time()."');") or sqlerr(__FILE__, __LINE__);
+    sql_query("INSERT INTO `card_cobrand` (`name`, `added`, `type`) VALUES ('".$_POST['name']."', '".time()."', '".$_POST['type_card']."' );") or sqlerr(__FILE__, __LINE__);
     $REL_TPL->stdmsg('Выполнено','Название изменено');
 }
 if($_GET['action']=="edit"){

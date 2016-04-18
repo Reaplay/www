@@ -22,7 +22,7 @@
         $add_query = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
     }
 
-    $res = sql_query("SELECT card_client.id, department.parent, department.id as d_id FROM  `card_client` LEFT JOIN department ON department.id = card_client.department WHERE card_client.id = '".$id_client."' $add_query;")  or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT card_client.id,card_client.mobile, department.parent, department.id as d_id FROM  `card_client` LEFT JOIN department ON department.id = card_client.department WHERE card_client.id = '".$id_client."' $add_query;")  or sqlerr(__FILE__, __LINE__);
     $data_client = mysql_fetch_array($res);
     if(!$data_client){
         stderr("Ошибка","Такая карта в базе не обнаружена","no");
@@ -88,6 +88,7 @@ VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $
 
         $REL_TPL->assignByRef('manager',$manager);*/
         $REL_TPL->assignByRef('id',$id_client);
+        $REL_TPL->assignByRef('mobile',$data_client['mobile']);
         $REL_TPL->assignByRef('return_url',$return_url);
         $REL_TPL->output ("call_client", "card");
     }

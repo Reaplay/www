@@ -1,4 +1,17 @@
+<div class="col-lg-3 col-md-3 col-sm-4">
 
+
+	<ul class="nav nav-tabs nav-stacked">
+		
+		<li>
+			<a href="card.php?action=call_client&amp;id={$id}" ><i class="fa fa-plus"></i> Добавить контакт</a>
+		</li>
+		
+
+
+	</ul>
+
+</div>
 
 <!-- RIGHT -->
 <div class="col-lg-9 col-md-9 col-sm-8">

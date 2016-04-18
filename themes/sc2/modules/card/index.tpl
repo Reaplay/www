@@ -68,7 +68,16 @@
                             </label>
                         </div>
                         <div class="col-md-6">
-
+                                <div class="search-box">
+									<form action="search.php?type=card" method="get">
+										<div class="input-group ">
+											<input type="text" name="s" placeholder="Поиск" class="form-control typeahead" />
+											<span class="input-group-btn">
+												<button class="btn btn-primary" type="submit">Найти</button>
+											</span>
+										</div>
+									</form>
+								</div> 
                         </div>
                     </div>
 

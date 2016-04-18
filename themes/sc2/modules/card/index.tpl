@@ -108,6 +108,7 @@
             <th>EQUID</th>
             <th>Тип карты</th>
             <th>След. звонок</th>
+            <th>Послед. комментарий</th>
             <th>Действие</th>
         </tr>
         </thead>
@@ -136,6 +137,10 @@
                 <td>
                     {if $card.next_call}{$card.next_call}{else}N/A{/if}
                 </td>
+                <td>
+                    {$card.card_comment}
+                </td>
+                
                 <td>
                     <i class="fa fa-times" aria-hidden="true"></i>
                     <a href="#" onclick="issue_card({$card.id},'issue')">Выдать </a> | <a href="#" onclick="issue_card({$card.id},'destroy')">Уничтожить </a> | <a href="card.php?action=edit&id={$card.id}">Редактировать</a> | <a href="card.php?action=call_client&id={$card.id}">Звонок</a>

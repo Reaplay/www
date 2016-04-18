@@ -4,7 +4,7 @@
 	<ul class="nav nav-tabs nav-stacked">
 		
 		<li>
-			<a href="card.php?action=call_client&amp;id={$id}" ><i class="fa fa-plus"></i> Добавить контакт</a>
+			<a href="card.php?action=call_client&amp;id={$data_card.id}" ><i class="fa fa-plus"></i> Добавить контакт</a>
 		</li>
 		
 

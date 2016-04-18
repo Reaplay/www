@@ -102,6 +102,9 @@ if (strlen($name)<5)
     }
     //телефон
     $mobile = check_mobile($_POST['mobile']);
+    	if (strlen($mobile) < 9){
+		$mobile = 'NULL';
+	}
    /* if (!check_unic($mobile,'client','mobile',$id)){
         stderr("Ошибка","В базе уже есть клиент с таким номером. <a href=\"javascript:history.go(-1);\">Назад</a>.","no");
     }*/
@@ -141,7 +144,7 @@ UPDATE `card_client` SET `id_callback` = '".$id_callback."' WHERE `id` ='".$id_c
 else {
 
     sql_query("
-UPDATE `card_client` SET `name` = '".$name."', `id_manager` = '".$manager."', `department` = '".$department."', `equid` = '".$equid."', `comment` = '".$comment."' `mobile` = '".$mobile."', `id_card` = '".$id_card."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+UPDATE `card_client` SET `name` = '".$name."', `id_manager` = '".$manager."', `department` = '".$department."', `equid` = '".$equid."', `comment` = '".$comment."' `mobile` = ".$mobile.", `id_card` = '".$id_card."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 }
 stdmsg("Выполнено.","Ошибок не обнаружено");
 	safe_redirect("card.php",2);

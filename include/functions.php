@@ -727,6 +727,8 @@ function get_department($class,$department,$id_select=""){
 	elseif($class == UC_ADMINISTRATOR) {
 		$res = sql_query ("SELECT *  FROM `department`;") or sqlerr (__FILE__, __LINE__);
 	}
+	else
+		return;
 		//формируем к какому отделению можно прикрепить пользователя
 		while ($row = mysql_fetch_array($res)) {
 			$select = "";

@@ -42,7 +42,12 @@
 
 			<tr data-id="{$search.id}">
 				<td>
-					{$search.name}
+					{if $type == "card"}
+				<a href="card.php?action=view&id={$search.id}">{$search.name}</a>
+				{else}
+				<a href="client.php?a=view&id={$search.id}">{$search.name}</a>
+				{/if}
+					<i class="fa fa-external-link"></i>
 				</td>
 				<td>
 					{$search.u_name}

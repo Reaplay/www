@@ -6,7 +6,10 @@
 		<li>
 			<a href="card.php?action=call_client&amp;id={$data_card.id}" ><i class="fa fa-plus"></i> Добавить контакт</a>
 		</li>
-		
+		<li>
+			<a href="card.php?action=edit&id={$data_card.id}" ><i class="fa fa-plus"></i> Редактировать</a>
+		</li>
+	
 
 
 	</ul>

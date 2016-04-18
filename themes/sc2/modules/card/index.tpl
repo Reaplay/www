@@ -125,7 +125,7 @@
                     {$card.name_card}
                 </td>
                 <td>
-                    {$card.next_call}
+                    {if $card.next_call}{$card.next_call}{else}N/A{/if}
                 </td>
                 <td>
                     <i class="fa fa-times" aria-hidden="true"></i>

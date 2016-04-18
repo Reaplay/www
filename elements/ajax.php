@@ -3,6 +3,9 @@
 require_once("../include/connect.php");
 dbconn();
 
+if($CURUSER['only_view']){
+	die("error");
+}
 
 if($_GET['action']=='getresultcall'){
 	

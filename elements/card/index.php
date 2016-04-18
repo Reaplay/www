@@ -6,6 +6,10 @@
      * Time: 19:34
      */
     
+if($_GET['s']){
+		safe_redirect("search.php?type=card&s=".$_GET['s']);
+		die();
+	}
 
     $page = (int) $_GET["page"];
 

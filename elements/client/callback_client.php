@@ -24,7 +24,7 @@ elseif(get_user_class()==UC_POWER_HEAD){
 	
 	
 	$res=sql_query("
-	SELECT client.equid, depatment.parent, department.id
+	SELECT client.equid, department.parent, department.id
 	FROM `client`
 	LEFT JOIN department ON department.id = users.department
 	WHERE  client.id = '".$id_client."' ".$add_query.";")  

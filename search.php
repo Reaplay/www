@@ -25,6 +25,8 @@ FROM `card_client`
 LEFT JOIN department ON department.id = card_client.department
 LEFT JOIN users ON users.id = card_client.id_manager
 WHERE card_client.name LIKE '%".$_GET['s']."%' OR card_client.mobile LIKE '%".$_GET['s']."%' OR card_client.equid LIKE '%".$_GET['s']."%' LIMIT 0 , 30")  or sqlerr(__FILE__,__LINE__);
+		$REL_TPL->assignByRef('type',$_GET['type']);
+			
 		}
 		else{
         $res = sql_query("

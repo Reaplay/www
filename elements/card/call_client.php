@@ -62,7 +62,7 @@ VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $
         safe_redirect($_POST['return_url'],2);
     }
     else {
-        stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены на страницу клиента через пару секунд. <br /> Если этого не произошло, нажмите <a href=\"card.php?action=view&id=".$id_client."\">здесь</a>");
+        stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены на список карт. <br /> Если этого не произошло, нажмите <a href=\"card.php?action=view&id=".$id_client."\">здесь</a>");
         safe_redirect ("card.php", 2);
     }
 }

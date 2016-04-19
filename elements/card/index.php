@@ -23,7 +23,7 @@
 
     //выводим список всех пользователей, которых мы можем редактировать
     // всех пользователей могут редактировать лишь принадлежащие к ОО Самарский
-    if(get_user_class()==UC_HEAD){
+    if(get_user_class()<=UC_HEAD){
         $department = "AND card_client.department = '".$CURUSER['department']."' ";
     }
     elseif(get_user_class()==UC_POWER_HEAD){

@@ -82,7 +82,7 @@ function dbconn($lightmode = false) {
    
 	 */
 	//define ("CRM_VERSION", ($REL_CONFIG['yourcopy']?str_replace("{datenow}",date("Y"),$REL_CONFIG['yourcopy']).". ":"")."<br />Powered by IT Samara ".RELVERSION." &copy; 2015-".date("Y").".");
-	define ("CRM_VERSION", "&copy; 2015-".date("Y")." Powered by IT Samara (v".RELVERSION.") .");
+	define ("CRM_VERSION", "&copy; 2015-".date("Y")." Created by IT Samara (v".RELVERSION.") .");
 	
 	return;
 }

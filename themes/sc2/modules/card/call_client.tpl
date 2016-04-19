@@ -30,7 +30,8 @@
             
             
             <div class="col-md-6">
-                    Номер телефона: {$mobile}
+                    <b>ФИО:</b> {$data_client.name} <br />
+				<b>Номер телефона:</b> {$data_client.mobile}
                    
                 </div>
             {* {if $IS_HEAD}

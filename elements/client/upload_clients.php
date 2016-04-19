@@ -11,7 +11,7 @@ if($_GET['type']=='upload_client'){
 	$extension = end($tmp_files);
 	$allowedType = array("csv/plain","application/vnd.ms-excel","text/csv");
 	// загружаем файло application/vnd.ms-excel
-	if ( in_array($_FILES["attachment"]["type"], $allowedType) && ($_FILES["attachment"]["size"] < 180000) && in_array($extension, $allowedExts)) {
+	if ( in_array($_FILES["attachment"]["type"], $allowedType) && ($_FILES["attachment"]["size"] < 1800000) && in_array($extension, $allowedExts)) {
 		if ($_FILES["attachment"]["error"] > 0) { 
 			echo "Return Code: " . $_FILES["attachment"]["error"] . "<br>"; 
 		} 
@@ -60,7 +60,7 @@ if($_GET['type']=='upload_client'){
 		$department = $CURUSER['department'];
 
 			// проверяем имя
-		$name = trim($data["0"]);
+		$name = mb_convert_case(trim($data["0"]),MB_CASE_TITLE);
 
 		if (iconv_strlen($name,'utf-8') < 5){
 			$num_err['name']++;

@@ -692,13 +692,9 @@ function check_mobile($number,$check=true){
 	return $mobile;
 }
 
-	function check_unic($data,$table,$column,$id){
+	function check_unic($data,$table,$column){
 		$res = sql_query("SELECT id FROM ".$table." WHERE ".$column." = '".$data."' ");
 		if(mysql_num_rows($res) != 0) {
-			$row = mysql_fetch_array($res);
-			if($row['id'] == $id)
-				return true;
-			else
 			return false;
 		}
 		else

@@ -26,8 +26,8 @@ SELECT card_client.*, department.name as d_name, department.parent, users.name a
 (SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card
 FROM `card_client`
 LEFT JOIN department ON department.id = card_client.department
-LEFT JOIN users ON users.id = card_client.id_manager
-WHERE card_client.id = '".$_GET['id']."'  ".$department." ;
+LEFT JOIN users ON users.id = card_client.manager
+WHERE card_client.delete = '0' AND card_client.id = '".$_GET['id']."'  ".$department." ;
 ")  or sqlerr(__FILE__, __LINE__);
 
     if(mysql_num_rows($res) == 0){
@@ -35,10 +35,11 @@ WHERE card_client.id = '".$_GET['id']."'  ".$department." ;
     }
     $data_card = mysql_fetch_array($res);
     $data_card['next_call'] = mkprettytime($data_card['next_call'],false);
+    $data_card['added'] = mkprettytime($data_card['added'],false);
     $res=sql_query("
 SELECT card_callback.*, users.name as u_name
 FROM `card_callback`
-LEFT JOIN users ON users.id = card_callback.id_manager
+LEFT JOIN users ON users.id = card_callback.manager
 
 WHERE  card_callback.id_client = '".$_GET['id']."'
 ORDER BY `added` DESC
@@ -58,11 +59,31 @@ LIMIT 0,15
         $i++;
     }
 
+// смена манаргера
+    if(get_user_class() >= UC_POWER_USER){
+        if(get_user_class() <= UC_HEAD){
+            $dep = "WHERE department = ".$CURUSER['department'];
+        }
+        elseif(get_user_class() == UC_POWER_HEAD){
+            $dep = "WHERE (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
+        }
+        $res=sql_query("SELECT users.id,users.name, department.name as d_name FROM  `users` LEFT JOIN department ON department.id = users.department ".$dep.";")  or sqlerr(__FILE__, __LINE__);
+
+        //формируем к какому отделению можно прикрепить пользователя
+        while ($row = mysql_fetch_array($res)) {
+            $select = "";
+            if ($row['id'] == $data_client['u_id']){
+                $select = "selected = \"selected\"";
+            }
+            $data_manager .= " <option ".$select." value = ".$row['id'].">".$row['name']."</option>";
+        }
+    }
 
 
 
         $REL_TPL->assignByRef('data_card',$data_card);
         $REL_TPL->assignByRef('data_callback',$data_callback);
+        $REL_TPL->assignByRef('data_manager',$data_manager);
         //$REL_TPL->assignByRef('data_mgr',$mgr);
 
          $REL_TPL->output("view_card","card");

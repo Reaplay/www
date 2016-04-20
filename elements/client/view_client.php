@@ -3,10 +3,7 @@
 if(!is_valid_id($_GET['id'])){
 	stderr("Ошибка","Некоректный ID клиента","no");		//запись в лог
 }
-/*
-if(get_user_class() < UC_HEAD){
-	$add_query = "AND client.manager ='".$CURUSER['id']."' AND client.department ='".$CURUSER['department']."'";
-}*/
+
 //если рукль, то те, кто к ним привязан
 	if(get_user_class() <= UC_HEAD){
 		$add_query = "AND client.department ='".$CURUSER['department']."'";
@@ -21,12 +18,10 @@ $res=sql_query("
 	FROM `client`  
 	LEFT JOIN users ON users.id = client.manager  
 	LEFT JOIN department ON department.id = client.department  
-	WHERE  client.id = '".$_GET['id']."' ".$add_query.";")  
+	WHERE  client.delete = '0' AND client.id = '".$_GET['id']."' ".$add_query.";")
 	or sqlerr(__FILE__, __LINE__);
 
 
-	//	$res=sql_query("SELECT client.*, users.name as u_name, users.id as u_id  FROM `client` LEFT JOIN users ON users.id = client.manager  WHERE  id = '".$_GET['id']."' ".$add_query.";")  or sqlerr(__FILE__, __LINE__);
-//$res=sql_query("SELECT users.id, users.login, users.name, users.add_client, users.add_user, department.id as d_id, department.name as d_name FROM `users`  LEFT JOIN department ON department.id = users.department  WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE__);
 if(mysql_num_rows($res) == 0){
 	stderr("Ошибка","Клиент не найден или у вас нет доступа","no");
 }
@@ -38,7 +33,7 @@ SELECT callback.added,callback.next_call, callback.id_product, callback.type_con
 FROM `callback`
 LEFT JOIN users ON users.id = callback.id_user  
 LEFT JOIN result_call ON result_call.id = callback.id_result
-WHERE  id_client = '".$_GET['id']."'
+WHERE id_client = '".$_GET['id']."'
 ORDER BY `added` DESC
 LIMIT 0,15
 ;") 
@@ -84,12 +79,12 @@ while ($data_mgr = mysql_fetch_array($res)) {
 
 	
 	// если рукль или выше, то можно сменить менеджера (и соответственно с ним меняется привязка к отделению)
-	if(get_user_class() >= UC_HEAD){
-		if(get_user_class() == UC_HEAD){
+	if(get_user_class() >= UC_POWER_USER){
+		if(get_user_class() <= UC_HEAD){
 			$dep = "WHERE department = ".$CURUSER['department'];
 		}
 		elseif(get_user_class() == UC_POWER_HEAD){
-			$dep = "WHERE department.parent = ".$CURUSER['department'];
+			$dep = "WHERE (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
 		}
 		$res=sql_query("SELECT users.id,users.name, department.name as d_name FROM  `users` LEFT JOIN department ON department.id = users.department ".$dep.";")  or sqlerr(__FILE__, __LINE__);
 	
@@ -99,7 +94,7 @@ while ($data_mgr = mysql_fetch_array($res)) {
 			if ($row['id'] == $data_client['u_id']){
 				$select = "selected = \"selected\"";
 			}
-			$data_manager .= " <option ".$select." value = ".$row['id'].">".$row['name']." (".$row['d_name'].")</option>";
+			$data_manager .= " <option ".$select." value = ".$row['id'].">".$row['name']."</option>";
 		}
 	}
 	

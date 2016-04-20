@@ -15,11 +15,11 @@ if(!$CURUSER['add_client'])
 // если есть эта переменная, значит мы редактируем
 if($_POST['id']){
 	if(!is_valid_id($_POST['id'])){
-		stderr("Ошибка","Ошибка ID клиента)","no");
+		stderr("Ошибка","Ошибка ID клиента","no");
 		write_log("Попытка изменения поступаемого ID при добавлении изменений (специально)","edit_client");
 	}
 	$id = $_POST['id'];
-	$res = sql_query("SELECT manager,department FROM `client` WHERE `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
+	$res = sql_query("SELECT manager,department FROM `client` WHERE `delete` = '0' AND `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
 	$data_client = mysql_fetch_array($res);
 	if(!$data_client){
 		stderr("Ошибка","Такой клиент в базе не обнаружен","no");
@@ -121,21 +121,27 @@ $comment = ((string)$_POST["comment"]);
 	if ($_POST['status'] != "---") {
 		$status = $_POST['status'];
 	}
+
+	if($_POST['vip']){
+		$vip = 1;
+	}
+	else
+		$vip = 0;
 /*if ($equid AND $status) {
 	$status = 1;
 }*/
 if (!$id){
 	sql_query("
 INSERT INTO `client`(
-`name`, `department`, `manager`, `mobile`, `email`, `birthday`, `gender`, `added`, `who_added`, `equid`, `comment`,`status`)
+`name`, `department`, `manager`, `mobile`, `email`, `birthday`, `gender`, `added`, `who_added`, `equid`, `comment`,`status`,`vip`)
 VALUES (".implode(",", array_map("sqlesc", array(
-			$name, $department, $manager, $mobile, $email, $birthday, $gender, time(), $CURUSER['id'],$equid, $comment, $status))).");")  or sqlerr(__FILE__, __LINE__);
+			$name, $department, $manager, $mobile, $email, $birthday, $gender, time(), $CURUSER['id'],$equid, $comment, $status, $vip))).");")  or sqlerr(__FILE__, __LINE__);
 	$id = mysql_insert_id();
 
 }
 else {
 sql_query("
-UPDATE `client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+UPDATE `client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."', `vip`='".$vip."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 
 }
 stdmsg("Выполнено","Вы будете перенаправлены на страницу клиента через пару секунд. <br /> Если этого не произошло, нажмите <a href=\"client.php?a=view&id=".$id."\">здесь</a>");

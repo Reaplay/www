@@ -2,14 +2,29 @@
 
 
 	<ul class="nav nav-tabs nav-stacked">
-		
+        <li class="active">
+            <a href="#tab_a" data-toggle="tab"><i class="fa fa-eye"></i> Профиль</a>
+        </li>
 		<li>
 			<a href="card.php?action=call_client&amp;id={$data_card.id}" ><i class="fa fa-plus"></i> Добавить контакт</a>
 		</li>
 		<li>
-			<a href="card.php?action=edit&id={$data_card.id}" ><i class="fa fa-plus"></i> Редактировать</a>
+			<a href="card.php?action=edit&id={$data_card.id}" ><i class="fa  fa-pencil-square-o"></i> Редактировать</a>
 		</li>
-	
+
+        {if $IS_POWER_USER}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Действия<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+
+
+                    <li><a href="#change_mgr" tabindex="-1" data-toggle="tab">Сменить менеджера</a></li>
+                    <li><a href="card.php?action=delete&id={$data_card.id}" ><i class="fa  fa-trash-o"></i> Удалить</a></li>
+
+                </ul>
+            </li>
+        {/if}
+
 
 
 	</ul>
@@ -21,7 +36,7 @@
     <div class="tab-content tab-stacked">
         <div id="tab_a" class="tab-pane active">
             <h4>Профиль карты</h4>
-            {if $data_card.status == 0}<span class="label label-sm label-danger">Не выдана</span>{elseif $data_card.status == 1}<span class="label label-sm label-success">Выдана</span>{elseif $data_card.status == 2}<span class="label label-sm label-warning">Уничтожена</span>{/if}
+            {if $data_card.status == 0}<span class="label label-sm label-danger">Не выдана</span>{elseif $data_card.status == 1}<span class="label label-sm label-success">Выдана</span>{elseif $data_card.status == 2}<span class="label label-sm label-warning">Уничтожена</span>{/if} {if $data_card.vip}<span class="label label-purple">VIP</span>{/if}
             <p>
             <div class="row">
                 <div class="col-md-3">
@@ -53,6 +68,14 @@
                 </div>
                 <div class="col-md-5">
                     {$data_card.next_call}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <li class="footer-sprite fa fa-calendar  fa-fw"></li>Карта добавлена
+                </div>
+                <div class="col-md-5">
+                    {$data_card.added}
                 </div>
             </div>
             </p>
@@ -177,18 +200,18 @@
             {/if}
             </p>
         </div>
-        {if $IS_HEAD}
+        {if $IS_POWER_USER}
             <div id="change_mgr" class="tab-pane">
                 <h4>Изменить менеджера</h4>
                 <p>
-                    Текущий: {$data_card.u_name} {if $IS_HEAD_POWER}({$data_card.d_name}){/if}
+                    Текущий: {$data_card.u_manager} {if $IS_HEAD_POWER}({$data_card.d_name}){/if}
                     <br />
 
                 <div class="row">
                     <div class="col-md-2">
                         Сменить на
                     </div>
-                    <form class="nomargin sky-form" action="client.php?a=e&type=change" method="post">
+                    <form class="nomargin sky-form" action="card.php?action=change_mgr" method="post">
                         <div class="col-md-6">
                             <div class="fancy-form fancy-form-select" >
                                 <select name="new_manager" class="form-control  select2" style="width: 100%;">

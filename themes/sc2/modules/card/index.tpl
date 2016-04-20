@@ -137,7 +137,7 @@
 
             <tr data-id="{$card.id}" id="card_{$card.id}" >
                 <td>
-                   <a href="card.php?action=view&amp;id={$card.id}"> {$card.name}</a>	<i class="fa fa-external-link"></i>
+                   <a href="card.php?action=view&amp;id={$card.id}"> {$card.name}</a>	<i class="fa fa-external-link"></i> {if $card.vip}<span class="label label-purple">VIP</span>{/if}
                 </td>
                 <td>
                     {$card.manager}

@@ -40,20 +40,14 @@ elseif ($_GET['a']=="callback" AND !$CURUSER['only_view']) {
 		$REL_TPL->stdhead("Контакт с клиентом");
 		require_once("elements/client/callback_client.php");
 	}
-	else {
-		$REL_TPL->stdhead("Список контактов");
-		//require_once("elements/client/callback_client_index.php");
-	}
+
 }
 elseif ($_GET['a']=="callback_history") {
 	if($_GET['id'] OR $_POST['id']){
 		$REL_TPL->stdhead("История контактов с клиентом");
 		require_once("elements/client/callback_history.php");
 	}
-	else {
-		$REL_TPL->stdhead("Список контактов");
-		//require_once("elements/client/callback_client_index.php");
-	}
+
 }
 elseif ($_GET['a']=="delete" AND !$CURUSER['only_view']) {
 	require_once("elements/client/delete_client.php");

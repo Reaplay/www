@@ -23,7 +23,7 @@ if ($_GET['a']=="e") {
 	}
 	//а выше рукля - всех могут
 	
-	$res=sql_query("SELECT client.*, users.name as u_name, users.id as u_id, department.parent  FROM `client`  LEFT JOIN users ON users.id = client.manager LEFT JOIN department ON department.id = client.department  WHERE  client.id = '".$_GET['id']."' ".$add_query.";")  or sqlerr(__FILE__, __LINE__);
+	$res=sql_query("SELECT client.*, users.name as u_name, users.id as u_id, department.parent  FROM `client`  LEFT JOIN users ON users.id = client.manager LEFT JOIN department ON department.id = client.department  WHERE client.delete = '0' AND client.id = '".$_GET['id']."' ".$add_query.";")  or sqlerr(__FILE__, __LINE__);
 
 
 	if(mysql_num_rows($res) == 0){

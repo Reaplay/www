@@ -1,0 +1,7 @@
+ALTER TABLE `card_client` ADD `delete` TINYINT( 1 ) NOT NULL DEFAULT '0';
+ALTER TABLE `client` ADD `delete` TINYINT( 1 ) NOT NULL DEFAULT '0';
+ALTER TABLE `client`  DROP `disable`;
+ALTER TABLE `card_client` CHANGE `id_manager` `manager` INT( 10 ) NOT NULL;
+ALTER TABLE `card_callback` CHANGE `id_manager` `manager` INT( 10 ) NOT NULL;
+ALTER TABLE `client` ADD `vip` TINYINT( 1 ) NOT NULL DEFAULT '0';
+ALTER TABLE `card_client` ADD `vip` TINYINT( 1 ) NOT NULL DEFAULT '0';

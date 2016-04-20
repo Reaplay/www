@@ -27,7 +27,7 @@ elseif(get_user_class()==UC_POWER_HEAD){
 	SELECT client.equid, department.parent, department.id
 	FROM `client`
 	LEFT JOIN department ON department.id = client.department
-	WHERE  client.id = '".$id_client."' ".$add_query.";")  
+	WHERE client.delete = '0' AND client.id = '".$id_client."' ".$add_query.";")
 	or sqlerr(__FILE__, __LINE__);
 
 if(mysql_num_rows($res) == 0){

@@ -3,10 +3,10 @@
 //выводим список всех пользователей, которых мы можем редактировать
 // всех пользователей могут редактировать лишь принадлежащие к ОО Самарский
 if(get_user_class() < UC_HEAD){
-	$department = "WHERE client.department = '".$CURUSER['department']."' AND client.manager = '".$CURUSER['id']."'";
+	$department = "AND client.department = '".$CURUSER['department']."' AND client.manager = '".$CURUSER['id']."'";
 }
 if(get_user_class() == UC_HEAD){
-	$department = "WHERE client.department = '".$CURUSER['department']."'";
+	$department = "AND client.department = '".$CURUSER['department']."'";
 }
 
 $res=sql_query("SELECT client.*, department.name as d_name, users.name as u_name FROM `client` LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager ".$department.";")  or sqlerr(__FILE__, __LINE__);

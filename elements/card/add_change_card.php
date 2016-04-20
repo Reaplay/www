@@ -19,7 +19,7 @@ if($_POST['id']){
        // write_log("Попытка изменения поступаемого ID при добавлении изменений (специально)","edit_user");
     }
     $id = $_POST['id'];
-    $res = sql_query("SELECT next_call FROM  `card_client` WHERE `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT next_call FROM  `card_client` WHERE card_client.delete = '0' AND  `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
     $data_client = mysql_fetch_array($res);
     if(!$data_client){
         stderr("Ошибка","Такая карта в базе не обнаружена","no");
@@ -115,23 +115,27 @@ if (strlen($name)<5)
     if(!$data_card){
         stderr("Ошибка","Такая карта в базе не обнаружена","no");
     }
-
+if($_POST['vip']){
+    $vip = 1;
+}
+else
+    $vip = 0;
 
 
 if (!$id){
 // добавляем в базу
         $ret = sql_query("
 INSERT INTO `card_client`(
-`name`,`id_manager`, `department`, `equid`,`added`,`comment`,`next_call`,`mobile`,`id_cobrand`,`id_callback`)
+`name`,`manager`, `department`, `equid`,`added`,`comment`,`next_call`,`mobile`,`id_cobrand`,`id_callback`,`vip`)
 VALUES (".implode(",", array_map("sqlesc", array(
-$name, $manager, $department, $equid, time(), $comment, $next_call, $mobile, $id_card, $id_callback
+$name, $manager, $department, $equid, time(), $comment, $next_call, $mobile, $id_card, $id_callback, $vip
 ))).");")  or sqlerr(__FILE__, __LINE__);
     // получаем ид
     $id_client = mysql_insert_id();
     // добавляем как колбек
     sql_query("
 INSERT INTO `card_callback`(
-`id_client`,`id_manager`, `added`, `next_call`,`comment`)
+`id_client`,`manager`, `added`, `next_call`,`comment`)
 VALUES (".implode(",", array_map("sqlesc", array(
             $id_client, $manager, time(), $next_call,"Карта добавлена"
         ))).");")  or sqlerr(__FILE__, __LINE__);
@@ -144,8 +148,9 @@ UPDATE `card_client` SET `id_callback` = '".$id_callback."' WHERE `id` ='".$id_c
 else {
 
     sql_query("
-UPDATE `card_client` SET `name` = '".$name."', `id_manager` = '".$manager."', `department` = '".$department."', `equid` = '".$equid."', `comment` = '".$comment."' `mobile` = ".$mobile.", `id_card` = '".$id_card."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+UPDATE `card_client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `equid` = '".$equid."', `comment` = '".$comment."', `mobile` = '".$mobile."', `id_cobrand` = '".$id_card."',`vip` = '".$vip."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 }
-stdmsg("Выполнено.","Ошибок не обнаружено");
-	safe_redirect("card.php",2);
+//stdmsg("Выполнено.","Ошибок не обнаружено");
+	safe_redirect("card.php",0);
+
 ?>

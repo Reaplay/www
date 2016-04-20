@@ -8,24 +8,24 @@ if(!is_valid_id($_POST['new_manager'])){
 	write_log("Попытка изменения поступаемого ID менеджера при добавлении изменений (специально)","change_user");
 }
 if($_POST['action'] == 'change_mgr'){
-	if(get_user_class() < UC_HEAD){
+	if(get_user_class() < UC_POWER_USER){
 		stderr("Ошибка","Вы не имеете доступа к данной операции","no");
 	}
-	if(get_user_class() == UC_HEAD){
+	if(get_user_class() <= UC_HEAD){
 		$addition = "AND department = '".$CURUSER['department']."'";
 		$department = $CURUSER['department'];
 	}
-	elseif(get_user_class() == UC_POWER_HEADHEAD){
-		$addition = "AND department.parent = '".$CURUSER['department']."'";
-		//$department = $CURUSER['department'];
+	elseif(get_user_class() == UC_POWER_HEAD){
+		$addition = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
+
 	}
-	$res=sql_query("SELECT name FROM `client`  WHERE  id = '".$_POST['id']."' ".$addition.";")  or sqlerr(__FILE__, __LINE__);
+	$res=sql_query("SELECT `client`.`name` FROM `client` LEFT JOIN department ON department.id = client.department WHERE client.delete = '0' AND client.id = '".$_POST['id']."' ".$addition.";")  or sqlerr(__FILE__, __LINE__);
 	
 	if(mysql_num_rows($res) == 0){
 		stderr("Ошибка","Клиент не найден или у вас нет доступа","no");
 	}
 	
-	$res=sql_query("SELECT department FROM `users`  WHERE  users.id = '".$_POST['new_manager']."' ".$addition.";")  or sqlerr(__FILE__, __LINE__);
+	$res=sql_query("SELECT department FROM `users`  LEFT JOIN department ON department.id = users.department WHERE  users.id = '".$_POST['new_manager']."' ".$addition.";")  or sqlerr(__FILE__, __LINE__);
 	
 	if(mysql_num_rows($res) == 0){
 		stderr("Ошибка","Менеджер не найден или у вас нет доступа","no");

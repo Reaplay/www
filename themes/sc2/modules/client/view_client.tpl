@@ -5,7 +5,7 @@
 	<div class="tab-content tab-stacked">
 		<div id="tab_a" class="tab-pane active">
 			<h4>Профиль</h4>
-			{if $data_client.status == 0}<span class="label label-sm label-danger">Не клиент</span>{elseif $data_client.status == 1}<span class="label label-sm label-success">Клиент</span>{elseif $data_client.status == 2}<span class="label label-sm label-warning">Отказ</span>{/if}
+			{if $data_client.status == 0}<span class="label label-sm label-danger">Не клиент</span>{elseif $data_client.status == 1}<span class="label label-sm label-success">Клиент</span>{elseif $data_client.status == 2}<span class="label label-sm label-warning">Отказ</span>{/if}  {if $data_client.vip}<span class="label label-purple">VIP</span>{/if}
 			<p>
 				<div class="row">
 					<div class="col-md-3">
@@ -131,7 +131,7 @@
 				</div>
 			</p>
 		</div>
-		<div id="tab_b" class="tab-pane">
+	{*	<div id="tab_b" class="tab-pane">
 			<h4>История контактов</h4>
 			<a href="client.php?a=callback&amp;id={$data_client.id}" tabindex="-1">Добавить контакт</a>
 			<p>
@@ -179,8 +179,8 @@
 				</table>
 				{/if}
 			</p>
-		</div>
-		{if $IS_HEAD}
+		</div>*}
+		{if $IS_POWER_USER}
 		<div id="change_mgr" class="tab-pane">
 			<h4>Изменить менеджера</h4>
 			<p>

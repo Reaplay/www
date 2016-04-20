@@ -33,7 +33,7 @@ $res=sql_query("
 	SELECT client.id, department.parent
 	FROM `client`  
 	LEFT JOIN department ON department.id = client.department 
-	WHERE  client.id = '".$_GET['id']."' ".$add_query.";")  
+	WHERE client.delete = '0' AND client.id = '".$_GET['id']."' ".$add_query.";")
 	or sqlerr(__FILE__, __LINE__);
 
 if(mysql_num_rows($res) == 0){
@@ -47,7 +47,7 @@ SELECT callback.id,callback.added,callback.next_call, callback.id_product, callb
 FROM `callback`
 LEFT JOIN users ON users.id = callback.id_user  
 LEFT JOIN result_call ON result_call.id = callback.id_result
-WHERE  id_client = '".$_GET['id']."'
+WHERE id_client = '".$_GET['id']."'
 ORDER BY `added` DESC
 ".$limit."
 ;") 

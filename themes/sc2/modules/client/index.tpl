@@ -152,7 +152,7 @@
 			
 		<tr data-id="{$client.id}">
 			<td>
-				<a href="client.php?a=view&amp;id={$client.id}">{$client.name}</a>	<i class="fa fa-external-link"></i> {if $client.cb_next_call}{if $now_date>$client.cb_next_call}<span class="label label-sm label-danger">Контакт просрочен</span>{elseif $now_date==$client.cb_next_call}<span class="label label-sm label-warning">Контакт сегодня</span>{/if}{/if}
+				<a href="client.php?a=view&amp;id={$client.id}">{$client.name}</a>	<i class="fa fa-external-link"></i> {if $client.cb_next_call}{if $now_date>$client.cb_next_call}<span class="label label-sm label-danger">Пропущен</span>{elseif $now_date==$client.cb_next_call}<span class="label label-sm label-warning">Сегодня</span>{/if}{/if} {if $client.vip}<span class="label label-purple">VIP</span>{/if}
 			</td>
 			<td>
 				  {$client.u_name}

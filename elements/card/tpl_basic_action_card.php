@@ -22,7 +22,7 @@
 card_client.*, department.id as d_id, department.name as d_name, department.parent
 FROM `card_client`
 LEFT JOIN department ON department.id = card_client.department
-WHERE ".$department." card_client.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE__);
+WHERE ".$department." card_client.id='".$_GET['id']."' AND card_client.delete = '0';")  or sqlerr(__FILE__, __LINE__);
         if(mysql_num_rows($res) == 0){
             stderr("Ошибка","Карта не найдена или у вас нет доступа","no");
         }
@@ -46,7 +46,7 @@ WHERE ".$department." card_client.id='".$_GET['id']."';")  or sqlerr(__FILE__, _
         //формируем к какому отделению можно прикрепить пользователя
         while ($row = mysql_fetch_array($get_mgr)) {
             $select = "";
-            if ($row['id'] == $data_card['id_manager']){
+            if ($row['id'] == $data_card['manager']){
                 $select = "selected = \"selected\"";
             }
             $manager .= " <option ".$select." value = ".$row['id'].">".$row['name']." (".$row['d_name'].")</option>";

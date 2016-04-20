@@ -19,15 +19,13 @@
         $department = "  client.department = '".$CURUSER['department']."' AND client.manager = '".$CURUSER['id']."' ";
     }*/
 	if(get_user_class() <= UC_HEAD){
-		$department = "  client.department = '".$CURUSER['department']."' ";
+		$department = " AND client.department = '".$CURUSER['department']."' ";
 	}
 	elseif(get_user_class() == UC_POWER_HEAD){
-		$department = "  (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."') ";
+		$department = " AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."') ";
 		//$department = "  client.department = department.id ";
 	}
-	elseif(get_user_class() == UC_ADMINISTRATOR){
-		$department = "  client.department != '0' ";
-	}
+
 	$now_date = strtotime(date("d.m.Y"));
 	if($_GET['status_client']){
 		$status = (int)($_GET['status_client'] - 1);
@@ -65,7 +63,7 @@
 
 	}
 
-		if($_GET['only_my']){
+		if($_GET['only_my'] AND is_valid_id($_GET['only_my'])){
 			$only_my = "AND client.manager = '".$CURUSER['id']."'";
 			$add_link .= "&only_my=1";
 		}
@@ -77,9 +75,9 @@
 		$flt_department = "AND client.department = '".$_GET['department']."'";
 		$add_link .= "&department=".$_GET['department'];
 	}
-	if ($client OR $department){
+/*	if ($client OR $department){
 		$where = "WHERE";
-	}
+	}*/
 
 	$res=sql_query("
 SELECT client.*, department.name as d_name, department.id as d_id, department.parent, users.name as u_name, (SELECT callback.next_call FROM callback WHERE callback.id_client=client.id AND callback.status = 0) AS cb_next_call
@@ -87,7 +85,8 @@ FROM `client`
 LEFT JOIN department ON department.id = client.department
 LEFT JOIN users ON users.id = client.manager
 $left_join
-$where
+WHERE
+client.delete = '0'
 ".$department." ".$only_my." ".$client." ".$call_back." ".$flt_manager." ".$flt_department." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
 
@@ -118,7 +117,8 @@ $where
 
 	//необходима оптимизация
 	// узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
-	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $left_join $where ".$department." ".$only_my." ".$call_back." ".$client." ".$flt_manager." ".$flt_department.";") or sqlerr(__FILE__,__LINE__);
+	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $left_join WHERE
+client.delete = '0' ".$department." ".$only_my." ".$call_back." ".$client." ".$flt_manager." ".$flt_department.";") or sqlerr(__FILE__,__LINE__);
 	$row = mysql_fetch_array($res);
 	//всего записей
 	$count = $row[0];

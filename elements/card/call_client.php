@@ -22,7 +22,7 @@
         $add_query = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
     }
 
-    $res = sql_query("SELECT card_client.id, card_client.mobile, card_client.name, department.parent, department.id as d_id FROM  `card_client` LEFT JOIN department ON department.id = card_client.department WHERE card_client.id = '".$id_client."' $add_query;")  or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT card_client.id, card_client.mobile, card_client.name, department.parent, department.id as d_id FROM  `card_client` LEFT JOIN department ON department.id = card_client.department WHERE card_client.delete = '0' AND card_client.id = '".$id_client."' $add_query;")  or sqlerr(__FILE__, __LINE__);
     $data_client = mysql_fetch_array($res);
     if(!$data_client){
         stderr("Ошибка","Такая карта в базе не обнаружена","no");
@@ -49,7 +49,7 @@ if($_POST){
         $department = $CURUSER['department'];
 
 
-    sql_query("INSERT INTO `card_callback`(`id_client`,`id_manager`, `added`, `next_call`,`comment`)
+    sql_query("INSERT INTO `card_callback`(`id_client`,`manager`, `added`, `next_call`,`comment`)
 VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $next_call, $comment
         ))).");")  or sqlerr(__FILE__, __LINE__);
     // получаем ид коллбека
@@ -58,8 +58,8 @@ VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $
     sql_query("UPDATE `card_client` SET `id_callback` = '".$id_callback."',`next_call` = ".$next_call." WHERE id ='".$id_client."';")  or sqlerr(__FILE__, __LINE__);
 
     if($_POST['return_url']){
-        stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены обратно на список карт. <br /> Если вам нужно попасть в профиль клиента, нажмите <a href=\"card.php?action=view&id=".$id_client."\">здесь</a>");
-        safe_redirect($_POST['return_url'],2);
+        //stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены обратно на список карт. <br /> Если вам нужно попасть в профиль клиента, нажмите <a href=\"card.php?action=view&id=".$id_client."\">здесь</a>");
+        safe_redirect($_POST['return_url'],0);
     }
     else {
         stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены на список карт. <br /> Если этого не произошло, нажмите <a href=\"card.php?action=view&id=".$id_client."\">здесь</a>");

@@ -19,15 +19,15 @@
 			<a href="client.php?a=e&amp;id={$id}" tabindex="-1"><i class="fa fa-pencil-square-o"></i>Редактировать</a>
 		</li>
 
-		{*{if $t==view}*}
-		{if $IS_HEAD}
+
+		{if $IS_POWER_USER}
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Действия<span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				
 
 				<li><a href="#change_mgr" tabindex="-1" data-toggle="tab">Сменить менеджера</a></li>
-				<li><a href="client.php?a=delete&amp;id={$id}" tabindex="-1">Удалить</a></li>
+				<li><a href="client.php?a=delete&amp;id={$id}" tabindex="-1"><i class="fa  fa-trash-o"></i> Удалить</a></li>
 
 			</ul>
 		</li>

@@ -97,6 +97,9 @@
 			</div>
 		
 		</div>
+		<div class="margin-bottom-30">
+			<label class="checkbox nomargin"><input type="checkbox" name="vip"{if $data_client.vip}checked="checked"{/if}><i></i>VIP-карта</label>
+		</div>
 		<div class="row">
 			<div class="form-group">
 				<div class="col-md-12 col-sm-12">

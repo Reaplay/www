@@ -693,12 +693,17 @@ function check_mobile($number,$check=true){
 }
 
 	function check_unic($data,$table,$column,$id=""){
-		$res = sql_query("SELECT id FROM ".$table." WHERE ".$column." = '".$data."' ");
+		$res = sql_query("SELECT id, `delete` FROM ".$table." WHERE ".$column." = '".$data."' ");
+
 		if(mysql_num_rows($res) != 0) {
 			if($id){
 				$row = mysql_fetch_array($res);
-				if($row['id'] == $id)
+				if($row['id'] == $id) {
 					return true;
+				}
+				elseif($row['delete'] == '1'){
+					return true;
+				}
 				else
 					return false;
 			}

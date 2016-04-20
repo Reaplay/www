@@ -692,14 +692,21 @@ function check_mobile($number,$check=true){
 	return $mobile;
 }
 
-	function check_unic($data,$table,$column){
+	function check_unic($data,$table,$column,$id=""){
 		$res = sql_query("SELECT id FROM ".$table." WHERE ".$column." = '".$data."' ");
 		if(mysql_num_rows($res) != 0) {
-			return false;
+			if($id){
+				$row = mysql_fetch_array($res);
+				if($row['id'] == $id)
+					return true;
+				else
+					return false;
+			}
+			else
+				return false;
 		}
 		else
 			return true;
-
 	}
 
 	//функция вывода менеджреов отделения

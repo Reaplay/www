@@ -20,6 +20,7 @@
 					<option value="0">Выберите тип контакта</option>
 					<option value="1">Исходящий звонок</option>
 					<option value="2">Встреча</option>
+					<option value="3">Рекомендации</option>
 					
 				</select>
 				<i class="fancy-arrow"></i>

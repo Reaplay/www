@@ -93,7 +93,7 @@ if ($CURUSER['use_card']) {
 }
 
 	//var_dump($activity_log);
-$REL_TPL->assignByRef('activity_log',$activity_log);
+	$REL_TPL->assignByRef('activity_log',$activity_log);
 	$REL_TPL->assignByRef('activity_card',$activity_card);
 /*
 активные (пропущено-сегодня)

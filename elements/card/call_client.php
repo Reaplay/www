@@ -55,7 +55,7 @@ VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $
     // получаем ид коллбека
     $id_callback = mysql_insert_id();
     //обновляем запись
-    sql_query("UPDATE `card_client` SET `id_callback` = '".$id_callback."',`next_call` = ".$next_call." WHERE id ='".$id_client."';")  or sqlerr(__FILE__, __LINE__);
+    sql_query("UPDATE `card_client` SET `id_callback` = '".$id_callback."',`next_call` = '".$next_call."' WHERE id ='".$id_client."';")  or sqlerr(__FILE__, __LINE__);
 
     if($_POST['return_url']){
         //stdmsg("Добавлено","Контакт с клиентом добавлен. Вы будете перенаправлены обратно на список карт. <br /> Если вам нужно попасть в профиль клиента, нажмите <a href=\"card.php?action=view&id=".$id_client."\">здесь</a>");

@@ -30,7 +30,7 @@ WHERE card_client.name LIKE '%".$_GET['s']."%' OR card_client.mobile LIKE '%".$_
 		}
 		else{
         $res = sql_query("
-SELECT client.name, card_client.id, client.mobile, client.equid, department.name as d_name, users.name as u_name
+SELECT client.name, client.id, client.mobile, client.equid, department.name as d_name, users.name as u_name
 FROM `client`
 LEFT JOIN department ON department.id = client.department
 LEFT JOIN users ON users.id = client.manager

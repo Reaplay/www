@@ -29,7 +29,7 @@ if($_POST['action']=="add"){
 	if ($_POST['sale']){
 		$sale = '1';
 	}
-	sql_query("INSERT INTO `result_call` (`text`, `type_contact`,`salw`) VALUES ('".$_POST['text']."', '".$_POST['type_contact']."','".$sale."');");
+	sql_query("INSERT INTO `result_call` (`text`, `type_contact`,`sale`) VALUES ('".$_POST['text']."', '".$_POST['type_contact']."','".$sale."');");
 	$REL_TPL->stdmsg('Выполнено','Контакт добавлен');
 }
 if($_GET['action']=="edit"){

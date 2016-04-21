@@ -120,7 +120,8 @@
         <thead>
         <tr>
             <th>Имя</th>
-            <th>Менеджер</th>
+          {*  <th>Менеджер</th>*}
+              <th>Поступление</th>
             {if $IS_POWER_HEAD}
                 <th>Отделение</th>
             {/if}
@@ -139,8 +140,11 @@
                 <td>
                    <a href="card.php?action=view&amp;id={$card.id}"> {$card.name}</a>	<i class="fa fa-external-link"></i> {if $card.vip}<span class="label label-purple">VIP</span>{/if}
                 </td>
-                <td>
+                {*<td>
                     {$card.manager}
+                </td>*}
+                <td>
+                    {$card.added}
                 </td>
                 {if $IS_POWER_HEAD}
                     <td>
@@ -161,8 +165,7 @@
                 </td>
                 
                 <td>
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                    <a href="#" onclick="issue_card({$card.id},'issue')">Выдать </a> | <a href="#" onclick="issue_card({$card.id},'destroy')">Уничтожить </a> | <a href="card.php?action=call_client&id={$card.id}">Звонок</a>
+                  <a href="#" onclick="issue_card({$card.id},'issue')">Выдать </a> | <a href="#" onclick="issue_card({$card.id},'destroy')">Уничтожить </a> | <a href="card.php?action=call_client&id={$card.id}">Звонок</a>
                 </td>
             </tr>
         {/foreach}

@@ -57,6 +57,7 @@
     $i=0;
     while ($row = mysql_fetch_array($res)){
         $data_card[]=$row;
+        $data_card[$i]['added']=mkprettytime($row['added'],false);
        	if($row['next_call']){
 			$data_card[$i]['next_call']=mkprettytime($row['next_call'],false);
 		}

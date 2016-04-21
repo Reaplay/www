@@ -23,7 +23,7 @@
                     <div class="col-md-6">
                         <label class="input">
                             <i class="ico-prepend fa fa-calendar"></i>
-                            <input type="text" class="form-control datepicker required" data-format="dd/mm/yyyy" data-lang="en" data-RTL="false" name="next_call" placeholder="Дата след. контакта">
+                            <input type="text" class="form-control datepicker required" data-format="dd/mm/yyyy" data-lang="ru" data-RTL="false" name="next_call" placeholder="Дата след. контакта">
                             {* <b class="tooltip tooltip-bottom-left">Назначенный EQUID</b>*}
                         </label>
                     </div>

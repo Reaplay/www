@@ -2145,22 +2145,22 @@
 			<input type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false">
 		 ******************* **/
 		var _container_1 = jQuery('.datepicker');
-		
+
 		if(_container_1.length > 0) {
 			loadScript(plugin_path + 'bootstrap.datepicker/js/bootstrap-datepicker.min.js', function() {
-		
+
 				if(jQuery().datepicker) {
 
 					_container_1.each(function() {
 						var _t 		= jQuery(this),
 							_lang 	=	_t.attr('data-lang') || 'en';
 
-						if(_lang != 'en' && _lang != '') { // load language file
+						/*if(_lang != 'en' && _lang != '') { // load language file
 							loadScript(plugin_path + 'bootstrap.datepicker/locales/bootstrap-datepicker.'+_lang+'.min.js');
-						}
+						}*/
 
 						jQuery(this).datepicker({
-							format:			_t.attr('data-format') 			|| 'yyyy-mm-dd', 
+							format:			_t.attr('data-format') 			|| 'yyyy-mm-dd',
 							language: 		_lang,
 							rtl: 			_t.attr('data-RTL') 			== "true"  ? true  : false,
 							changeMonth: 	_t.attr('data-changeMonth') 	== "false" ? false : true,
@@ -2176,9 +2176,9 @@
 
 							// AJAX POST - OPTIONAL
 
-						}).data('datepicker'); 
+						}).data('datepicker');
 					});
-					
+
 				}
 
 			});

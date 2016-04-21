@@ -55,7 +55,7 @@
 			Дата будущего контакта
 		</div>
 		<div class="col-xs-2">
-			<input type="text" class="form-control datepicker required" data-format="dd/mm/yyyy" data-lang="en" data-RTL="false" name="next_call">
+			<input type="text" class="form-control datepicker required" data-format="dd/mm/yyyy" data-lang="ru" data-RTL="false" name="next_call">
 		</div>
 	</div>
 	{if !$data_client.equid}

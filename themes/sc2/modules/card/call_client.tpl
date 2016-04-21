@@ -51,7 +51,7 @@
             <div class="form-group">
                 <div class="col-md-12 col-sm-12">
                     <label>Комментарий</label>
-                    <textarea class="summernote form-control" data-height="200" data-lang="en-US" name="comment"></textarea>
+                    <textarea name="comment" rows="4" class="form-control required"></textarea>
 
                 </div>
             </div>

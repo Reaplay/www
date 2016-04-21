@@ -93,6 +93,7 @@
 			<div class="col-md-12 col-sm-12">
 				<label>Комментарий</label>
 				<textarea name="comment" rows="4" class="form-control required"></textarea>
+
 			</div>
 		</div>
 	</div>

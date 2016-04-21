@@ -2363,7 +2363,7 @@
 								['color', 		['color']],
 								['para', 		['ul', 'ol', 'paragraph']],
 								['table', 		['table']],
-								['media', 		['link', 'picture', 'video']],
+								/*['media', 		['link', 'picture', 'video']],*/
 								['misc', 		['codeview', 'fullscreen', 'help']]
 							]
 						});

@@ -166,13 +166,13 @@ elseif($_GET['action']=='issue_card'){
 	}
 
 	if($_GET['status']=="issue") {
-		sql_query("INSERT INTO `card_callback`(`id_client`,`id_manager`, `added`,`comment`)VALUES (".implode(",", array_map("sqlesc", array($id, $CURUSER['department'], time(), "Карта выдана"))).");")  or sqlerr(__FILE__, __LINE__);
+		sql_query("INSERT INTO `card_callback`(`id_client`,`manager`, `added`,`comment`)VALUES (".implode(",", array_map("sqlesc", array($id, $CURUSER['department'], time(), "Карта выдана"))).");")  or sqlerr(__FILE__, __LINE__);
 		$id_callback = mysql_insert_id();
 
 		sql_query ("UPDATE `card_client` SET `status` = '1', `id_callback` = '".$id_callback."' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
 	}
 	elseif($_GET['status']=="destroy") {
-		sql_query("INSERT INTO `card_callback`(`id_client`,`id_manager`, `added`,`comment`)VALUES (".implode(",", array_map("sqlesc", array($id, $CURUSER['department'], time(), "Карта уничтожена"))).");")  or sqlerr(__FILE__, __LINE__);
+		sql_query("INSERT INTO `card_callback`(`id_client`,`manager`, `added`,`comment`)VALUES (".implode(",", array_map("sqlesc", array($id, $CURUSER['department'], time(), "Карта уничтожена"))).");")  or sqlerr(__FILE__, __LINE__);
 		$id_callback = mysql_insert_id();
 		sql_query ("UPDATE `card_client` SET `status` = '2', `id_callback` = '".$id_callback."' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
 	}

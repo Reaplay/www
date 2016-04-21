@@ -10,47 +10,49 @@
 
 	<fieldset class="nomargin">
 	
-	<div class="row">
-		<div class="col-xs-2">
-			Тип контакта
-		</div>
-		<div class="col-xs-4">
-			<div class="fancy-form fancy-form-select">
-				<select class="form-control  select2" name="type_contact" onchange="load_r_call(this)">
-					<option value="0">Выберите тип контакта</option>
-					<option value="1">Исходящий звонок</option>
-					<option value="2">Встреча</option>
-					<option value="3">Рекомендации</option>
-					
-				</select>
-				<i class="fancy-arrow"></i>
+		<div class="row">
+			<div class="col-xs-2">
+				Тип контакта
+			</div>
+			<div class="col-xs-4">
+				<div class="fancy-form fancy-form-select">
+					<select class="form-control  select2" name="type_contact" onchange="load_r_call(this)">
+						<option value="0">Выберите тип контакта</option>
+						<option value="1">Исходящий звонок</option>
+						<option value="2">Встреча</option>
+						<option value="3">Рекомендации</option>
+
+					</select>
+					<i class="fancy-arrow"></i>
+				</div>
 			</div>
 		</div>
-	</div>	
-	<div class="row">	
+		<div class="row">
+			<div class="col-xs-2">
+				Результат
+			</div>
+			<div class="col-xs-6">
+				<div class="fancy-form fancy-form-select">
+
+					<select name="result_call" class="form-control  select2">
+						<option value="0">Выберите контакт</option>
+						{*$result*}
+					</select>
+					<i class="fancy-arrow"></i>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
 		<div class="col-xs-2">
 			Продукты
 		</div>
-		<div class="col-xs-6">
+		<div class="col-xs-10">
 			{$product}
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-xs-2">
-			Результат
-		</div>
-		<div class="col-xs-6">
-			<div class="fancy-form fancy-form-select">
-				
-			<select name="result_call" class="form-control  select2"> 
-				<option value="0">Выберите контакт</option>
-				{*$result*}
-			</select>
-			<i class="fancy-arrow"></i>
-			</div>
-		</div>
-	</div>	
-	<div class="row">
+		<div class="row">
 		<div class="col-xs-2">
 			Дата будущего контакта
 		</div>
@@ -93,7 +95,6 @@
 			<div class="col-md-12 col-sm-12">
 				<label>Комментарий</label>
 				<textarea name="comment" rows="4" class="form-control required"></textarea>
-
 			</div>
 		</div>
 	</div>

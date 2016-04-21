@@ -23,7 +23,7 @@
 			 {$result_call.text}
 		</td>
 		<td>
-			{if $result_call.type_contact==0}Не определено{elseif $result_call.type_contact==1}Звонок{elseif $result_call.type_contact==2}Встреча{/if}
+			{if $result_call.type_contact==0}Не определено{elseif $result_call.type_contact==1}Звонок{elseif $result_call.type_contact==2}Встреча{elseif $result_call.type_contact==3}Рекомендации{/if}
 		</td>
 		<td class="center">
 			{if $result_call.disable==0}<span class="label label-sm label-success">Активен</span>{else}<span class="label label-sm label-default">Выключен</span>{/if}

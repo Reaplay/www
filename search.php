@@ -23,7 +23,7 @@ id - идентификатор некоторых значений
 SELECT card_client.name, card_client.id, card_client.mobile, card_client.equid, department.name as d_name, users.name as u_name
 FROM `card_client`
 LEFT JOIN department ON department.id = card_client.department
-LEFT JOIN users ON users.id = card_client.id_manager
+LEFT JOIN users ON users.id = card_client.manager
 WHERE card_client.name LIKE '%".$_GET['s']."%' OR card_client.mobile LIKE '%".$_GET['s']."%' OR card_client.equid LIKE '%".$_GET['s']."%' LIMIT 0 , 30")  or sqlerr(__FILE__,__LINE__);
 		$REL_TPL->assignByRef('type',$_GET['type']);
 			

@@ -4,6 +4,11 @@ require_once("include/connect.php");
 
 dbconn();
 loggedinorreturn();
+
+	if(!$REL_CONFIG['deny_statistic']){
+		stderr("Ошибка","Данный функционал отключен администратором");
+	}
+
 if (!$_GET['type']) {
 	$REL_TPL->stdhead("Общая статистика");
 	require_once("elements/statistics/index.php");

@@ -7,7 +7,7 @@
 <ul class="nav nav-tabs">
 	<li class="active"><a href="#site" data-toggle="tab">Сайт </a></li>
 	<li><a href="#crm" data-toggle="tab">CRM</a></li>
-	<li><a href="#register" data-toggle="tab">Регистрация</a></li>
+	<li><a href="#module" data-toggle="tab">Модули</a></li>
 	<li><a href="#notify" data-toggle="tab">Уведомления</a></li>
 	<li><a href="#limit" data-toggle="tab">Ограничения</a></li>
 	<li><a href="#security" data-toggle="tab">Безопасность</a></li>
@@ -50,7 +50,7 @@
 					</tr>
 					<tr>         
 						<td>Таймзона</td>
-						<td>{* {list_timezones('site_timezone',$REL_CONFIG['site_timezone'])}  если активировать, то добавлять в configadmin.php между верхней и нижней настройкой*}</td>
+						<td> Не готово{* {list_timezones('site_timezone',$REL_CONFIG['site_timezone'])}  если активировать, то добавлять в configadmin.php между верхней и нижней настройкой*}</td>
 					</tr> 
 					<tr>         
 						<td width="35%">Использовать gzip сжатие для страниц:</td>
@@ -100,22 +100,35 @@
 		</div>
 		</form>
 	</div>
-	<div class="tab-pane fade" id="register">
+	<div class="tab-pane fade" id="module">
 		<form method="post" action="action_admin.php?module=configadmin&action=save">
 		<div class="panel-body">
 			<table class="table table-bordered table-striped" >
 				<tbody> 
 					<tr>         
-						<td width="35%">Запретить регистрацию:</td>
-						<td width="65%"><select name="deny_signup"><option value="1" {if $REL_CONFIG['deny_signup']==1}selected="selected"{/if}>Да</option><option value="0" {if $REL_CONFIG['deny_signup']==0}selected="selected"{/if}>Нет</option></select></td>
+						<td width="35%">Включить раздел "Пользователи":</td>
+						<td width="65%"><select name="deny_users"><option value="1" {if $REL_CONFIG['deny_users']==1}selected="selected"{/if}>Да</option><option value="0" {if $REL_CONFIG['deny_users']==0}selected="selected"{/if}>Нет</option></select></td>
+					</tr>
+					<tr>
+						<td width="35%">Включить раздел "Клиенты":</td>
+						<td width="65%"><select name="deny_client"><option value="1" {if $REL_CONFIG['deny_client']==1}selected="selected"{/if}>Да</option><option value="0" {if $REL_CONFIG['deny_client']==0}selected="selected"{/if}>Нет</option></select></td>
+					</tr>
+					<tr>
+						<td width="35%">Включить раздел "Карты":</td>
+						<td width="65%"><select name="deny_card"><option value="1" {if $REL_CONFIG['deny_card']==1}selected="selected"{/if}>Да</option><option value="0" {if $REL_CONFIG['deny_card']==0}selected="selected"{/if}>Нет</option></select></td>
+					</tr>
+					<tr>
+						<td width="35%">Включить раздел "Статистика":</td>
+						<td width="65%"><select name="deny_statistic"><option value="1" {if $REL_CONFIG['deny_statistic']==1}selected="selected"{/if}>Да</option><option value="0" {if $REL_CONFIG['deny_statistic']==0}selected="selected"{/if}>Нет</option></select></td>
 					</tr>
 				</tbody>
 			</table>
-			<input type="hidden" name="type" value="register">
+			<input type="hidden" name="type" value="module">
 			<button type="submit" class="btn btn-3d btn-teal btn-slg btn-block" type="submit">
 				Сохранить изменения
 			</button>
 		</div>
+		</form>
 	</div>
 	<div class="tab-pane fade" id="notify">
 		<form method="post" action="action_admin.php?module=configadmin&action=save">

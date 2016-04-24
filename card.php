@@ -12,6 +12,11 @@
     loggedinorreturn();
     if(!$CURUSER['use_card'])
         stderr("Ошибка","У вас нет доступа к данной странице");
+
+    if(!$REL_CONFIG['deny_card'] AND get_user_class() != UC_ADMINISTRATOR){
+        stderr("Ошибка","Данный функционал отключен администратором");
+    }
+
 /*
 if($_GET['s']){
 		safe_redirect("search.php?type=card&s=".$_GET['s']);

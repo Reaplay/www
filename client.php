@@ -10,6 +10,10 @@ loggedinorreturn();
 if(!$CURUSER['add_client'])
 	stderr("Ошибка","У вас нет доступа к данной странице");
 
+	if(!$REL_CONFIG['deny_client']){
+		stderr("Ошибка","Данный функционал отключен администратором");
+	}
+
 if (!$_GET['a']) {
 	$REL_TPL->stdhead("Список клиентов");
 	require_once("elements/client/index.php");

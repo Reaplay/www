@@ -17,8 +17,8 @@ elseif ($_GET['action'] == 'save'){
 	elseif($_POST['type']=="crm"){
 		$reqparametres=array('per_page_clients','per_page_users','per_page_department','per_page_callback','per_page_card');
 	}
-	elseif($_POST['type']=="register"){
-		$reqparametres=array('deny_signup');
+	elseif($_POST['type']=="module"){
+		$reqparametres=array('deny_users','deny_client','deny_card','deny_statistic');
 	}
 	elseif($_POST['type']=="notify"){
 		$reqparametres=array('default_notifs','default_emailnotifs');
@@ -41,13 +41,6 @@ elseif ($_GET['action'] == 'save'){
 		if (!isset($_POST[$param])) stderr("Ошибка","Некоторые поля не заполнены ($param)");
 		$updateset[] = "UPDATE cache_stats SET cache_value=".sqlesc($_POST[$param])." WHERE cache_name='$param'";
 	}
-/*
-	if ($_POST['use_captcha'] == 1) {
-		foreach ($captcha_param as $param) {
-			if (!$_POST[$param] || !isset($_POST[$param])) stderr($REL_LANG->say_by_key('error'),"Приватный или публичный ключи капчи не определены");
-			$updateset[] = "UPDATE cache_stats SET cache_value=".sqlesc($_POST[$param])." WHERE cache_name='$param'";
-		}
-	}*/
 
 	foreach ($updateset as $query) sql_query($query);
 

@@ -146,6 +146,7 @@
     $REL_TPL->assignByRef('page',$page);
     $REL_TPL->assignByRef('add_link',$add_link);
     $REL_TPL->assignByRef('add_sort',$add_sort);
+    $REL_TPL->assignByRef('count',$count);
     $REL_TPL->assignByRef('max_page',$max_page);
 
     $REL_TPL->output("index","card");

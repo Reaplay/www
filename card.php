@@ -12,11 +12,11 @@
     loggedinorreturn();
     if(!$CURUSER['use_card'])
         stderr("Ошибка","У вас нет доступа к данной странице");
-
+/*
 if($_GET['s']){
 		safe_redirect("search.php?type=card&s=".$_GET['s']);
 		die();
-	}
+	}*/
 	
     if (!$_GET['action']) {
         $REL_TPL->stdhead("Список карт");

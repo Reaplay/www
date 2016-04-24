@@ -34,13 +34,13 @@
             </table>
             {if $mysql_stat.optimize}
                 {$mysql_stat.optimize}
-                <center><font class="option">Оптимизация базы данных: {$mysql_stat.dbname}<br />Общий размер базы данных: {$mysq_stat.totaltotal}<br />Общие накладные расходы: {$mysq_stat.totalfree}<br /><br />
-                <table border="0" cellpadding="3" cellspacing="1" width="100%"><tr><td class="colhead" align="center">№</td><td class="colhead">Таблица</td><td class="colhead">Размер</td><td class="colhead">Статус</td><td class="colhead">Накладные расходы</td></tr>"
+                <center><font class="option">Оптимизация базы данных: {$mysql_stat.dbname}<br />Общий размер базы данных: {$mysql_stat.totaltotal}<br />Общие накладные расходы: {$mysql_stat.totalfree}<br /><br />
+                <table border="0" cellpadding="3" cellspacing="1" width="100%"><tr><td class="colhead" align="center">№</td><td class="colhead">Таблица</td><td class="colhead">Размер</td><td class="colhead">Статус</td><td class="colhead">Накладные расходы</td></tr>
                     {$mysql_stat.optimize}
                 </table>";
             {elseif $mysql_stat.repair}
-                <center><font class="option">Ремонт базы данных: {$mysql_stat.dbname}<br />Общий размер базы данных: {$mysq_stat.totaltotal}<br /><br />
-                    <table border="0" cellpadding="3" cellspacing="1" width="100%"><tr><td class="colhead" align="center">№</td><td class="colhead">Таблица</td><td class="colhead">Размер</td><td class="colhead">Статус</td></tr>"
+                <center><font class="option">Ремонт базы данных: {$mysql_stat.dbname}<br />Общий размер базы данных: {$mysql_stat.totaltotal}<br /><br />
+                    <table border="0" cellpadding="3" cellspacing="1" width="100%"><tr><td class="colhead" align="center">№</td><td class="colhead">Таблица</td><td class="colhead">Размер</td><td class="colhead">Статус</td></tr>
                         {$mysql_stat.repair}
                     </table>
             {/if}

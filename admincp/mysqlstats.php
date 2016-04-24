@@ -1,5 +1,6 @@
 <?php
 
+	// ПЕРЕПИСАТЬ НАХРЕН!!!111
 
 $GLOBALS["byteUnits"] = array('байт', 'КБ', 'МБ', 'ГБ', 'ТБ', 'ПБ', 'EБ');
 
@@ -88,8 +89,9 @@ function localisedDate($timestamp = -1, $format = ''){
 	$mysql_stat['localisedDate']= localisedDate($row[0]);
 
 	$dbname = $mysql_db;
+
 	$result = sql_query("SHOW TABLES FROM ".$dbname."");
-	$mysql_stat['content'] = "";
+	$mysql_stat['dbname'] = $mysql_db;
 	while (list($name) = mysql_fetch_array($result))
 		$mysql_stat['content'] .= "<option value=\"".$name."\" selected>".$name."</option>";
 	if ($_POST['type'] == "Optimize") {
@@ -230,8 +232,7 @@ function localisedDate($timestamp = -1, $format = ''){
 		$mysql_stat['stat_value'] .='</table></td></tr></table></li>';
 	}
 
-	$mysql_stat[''];
-	$mysql_stat[''];
+
 
 
 	$REL_TPL->stdhead("Статистка Mysql");

@@ -364,7 +364,7 @@ function write_log($text, $type = "site") {
 	return;
 }
 */
-function write_log($text, $module = "site") {
+function write_log($text, $module = "site",$action="") {
 	global $CURUSER;
 	if (!$CURUSER['id']) 
 		$id =0; 
@@ -375,7 +375,7 @@ function write_log($text, $module = "site") {
 	$type = sqlesc($type);
 	$text = sqlesc($text);
 	$added = time();
-	sql_query("INSERT INTO sitelog (added, userid, txt, type) VALUES($added, $id, $text, $type)") or sqlerr(__FILE__,__LINE__);
+	sql_query("INSERT INTO sitelog (added, userid, txt, type) VALUES($added, $id, $text, $module,$action)") or sqlerr(__FILE__,__LINE__);
 	return;
 }
 function write_sys_msg($receiver,$msg,$subject) {

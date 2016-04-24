@@ -4,8 +4,16 @@
 </div>
 <div class="row">
 	<div class="col-md-5th">
-		<h4>Работа с базой</h4>
-		<a href="action_admin.php?module=mysqlstats">MySQL status</a>
+		<h4>Логи</h4>
+		<a href="action_admin.php?module=mysqlstats">MySQL status</a><br />
+		<a href="action_admin.php?module=logfile">Логи</a><br />
+
+	</div>
+
+	<div class="col-md-5th">
+		<h4>Конфиг</h4>
+		<a href="action_admin.php?module=changelog">ChangeLog</a><br />
+		<a href="action_admin.php?module=configadmin">Configure</a>
 	</div>
 
 	<div class="col-md-5th">
@@ -13,10 +21,7 @@
 	</div>
 
 	<div class="col-md-5th">
-
-	</div>
-
-	<div class="col-md-5th">
+		<h4>Настройки</h4>
 		<a href="action_admin.php?module=department">Отделения</a><br />
 	</div>
 
@@ -24,8 +29,7 @@
 		<h4>Прочее</h4>
 		<a href="action_admin.php?module=pollsadmin">Опрос</a><br />
 		<a href="action_admin.php?module=poll_admin">Общий опрос (не пользователей)</a><br />
-		<a href="action_admin.php?module=changelog">ChangeLog</a><br />
-		<a href="action_admin.php?module=configadmin">Configure</a>
+
 	</div>
 </div>
 

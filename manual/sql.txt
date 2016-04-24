@@ -9,4 +9,6 @@ ALTER TABLE `card_client` ADD `vip` TINYINT( 1 ) NOT NULL DEFAULT '0';
 ________
 INSERT INTO `cache_stats` (`cache_name` ,`cache_value`)VALUES ('deny_users', '0'), ('deny_client', '0');
 INSERT INTO `cache_stats` (`cache_name` ,`cache_value`)VALUES ('deny_card', '0'), ('deny_statistic', '0');
+ALTER TABLE `sitelog` CHANGE `type` `module` VARCHAR( 80 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'site';
+ALTER TABLE `sitelog` ADD `action` VARCHAR( 255 ) NOT NULL ;
 

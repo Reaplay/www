@@ -104,6 +104,8 @@ $mobile = check_mobile($_POST['mobile']);
 		stderr("Ошибка","В базе уже есть клиент с таким номером. <a href=\"javascript:history.go(-1);\">Назад</a>.","no");
 	}
 
+
+
 if ($_POST["birthday"]) {
 	$birthday = birthday_time($_POST["birthday"]);
 }

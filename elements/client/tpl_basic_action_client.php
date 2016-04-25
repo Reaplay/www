@@ -37,6 +37,10 @@ if ($_GET['a']=="e") {
 	}
 	else
 		$data_client['birthday'] = "";
+
+	if(strlen($data_client['mobile']) == 10){
+		$data_client['mobile'] = "7".$data_client['mobile'];
+	}
 	//$gender = $data_client['gender'];
 	//$REL_TPL->assignByRef('gender',$gender);
 	$REL_TPL->assignByRef('action',$action);

@@ -22,7 +22,7 @@ if($_POST['id']){
     $res = sql_query("SELECT next_call FROM  `card_client` WHERE card_client.delete = '0' AND  `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
     $data_client = mysql_fetch_array($res);
     if(!$data_client){
-        stderr("Ошибка","Такая карта в базе не обнаружена","no");
+        stderr("Ошибка","Такой тип карты в базе не обнаружен","no");
     }
 
 }
@@ -102,9 +102,9 @@ if (strlen($name)<5)
     }
     //телефон
 	$mobile = check_mobile($_POST['mobile'],false);
-    	if (strlen($mobile) < 9 OR strlen($mobile) > 11){
+    	/*if (strlen($mobile) < 9 OR strlen($mobile) > 11){
 		$mobile = 'NULL';
-	}
+	}*/
    /* if (!check_unic($mobile,'client','mobile',$id)){
         stderr("Ошибка","В базе уже есть клиент с таким номером. <a href=\"javascript:history.go(-1);\">Назад</a>.","no");
     }*/

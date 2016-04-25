@@ -698,8 +698,17 @@ function check_mobile($number,$check=true){
 	//сначала убираем все лишние знаки
 	$mobile = preg_replace('~\D+~','',$number);
 // на всякий случай проверяем длинну номера
-	if ($check AND strlen($mobile) != 10)
-		stderr("Ошибка","Слишком короткий номер сотового. <a href=\"javascript:history.go(-1);\">Назад</a>.","no");
+	if(strlen($mobile) == 10){
+		$mobile = "7".$mobile;
+	}
+	if (strlen($mobile) != 11){
+		if ($check)
+			stderr("Ошибка","Слишком короткий номер сотового. <a href=\"javascript:history.go(-1);\">Назад</a>.","no");
+		else
+			return 'NULL';
+	}
+
+
 	return $mobile;
 }
 

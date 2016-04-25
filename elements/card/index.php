@@ -128,7 +128,13 @@
     $list_department = get_department(get_user_class(),$CURUSER['department'],$_GET['department']);
     //необходима оптимизация
     // узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
-    $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.delete = '0' AND card_client.status = '0' ".$department." ".$only_my." ".$flt_manager." ".$flt_department." $flt_card;") or sqlerr(__FILE__,__LINE__);
+    if($_GET['s']){
+        $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.delete = '0' AND card_client.status = '0' AND  card_client.name LIKE '%".$_GET['s']."%' OR card_client.mobile LIKE '%".$_GET['s']."%' OR card_client.equid LIKE '%".$_GET['s']."%'") or sqlerr(__FILE__,__LINE__);
+
+    }
+    else{
+        $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.delete = '0' AND card_client.status = '0' ".$department." ".$only_my." ".$flt_manager." ".$flt_department." $flt_card;") or sqlerr(__FILE__,__LINE__);
+    }
     $row = mysql_fetch_array($res);
     //всего записей
     $count = $row[0];

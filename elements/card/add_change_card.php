@@ -144,11 +144,13 @@ VALUES (".implode(",", array_map("sqlesc", array(
     //обновляем запись
     sql_query("
 UPDATE `card_client` SET `id_callback` = '".$id_callback."' WHERE `id` ='".$id_client."';")  or sqlerr(__FILE__, __LINE__);
+    write_log("Добавлена карта ID:".$id_client."","card","add" );
 }
 else {
 
     sql_query("
 UPDATE `card_client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `equid` = '".$equid."', `comment` = '".$comment."', `mobile` = '".$mobile."', `id_cobrand` = '".$id_card."',`vip` = '".$vip."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+    write_log("Изменена карта ID:".$id,"card","edit" );
 }
 //stdmsg("Выполнено.","Ошибок не обнаружено");
 	safe_redirect("card.php",0);

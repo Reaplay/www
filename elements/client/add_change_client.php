@@ -139,12 +139,12 @@ INSERT INTO `client`(
 VALUES (".implode(",", array_map("sqlesc", array(
 			$name, $department, $manager, $mobile, $email, $birthday, $gender, time(), $CURUSER['id'],$equid, $comment, $status, $vip))).");")  or sqlerr(__FILE__, __LINE__);
 	$id = mysql_insert_id();
-
+	write_log("Добавлен клиент ID:".$id."","client","add" );
 }
 else {
 sql_query("
 UPDATE `client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."', `vip`='".$vip."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
-
+	write_log("Изменен клиент ID:".$id."","client","edit" );
 }
 stdmsg("Выполнено","Вы будете перенаправлены на страницу клиента через пару секунд. <br /> Если этого не произошло, нажмите <a href=\"client.php?a=view&id=".$id."\">здесь</a>");
 

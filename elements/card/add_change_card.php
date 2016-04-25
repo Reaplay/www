@@ -101,8 +101,8 @@ if (strlen($name)<5)
 
     }
     //телефон
-    $mobile = check_mobile($_POST['mobile']);
-    	if (strlen($mobile) < 9){
+	$mobile = check_mobile($_POST['mobile'],false);
+    	if (strlen($mobile) < 9 OR strlen($mobile) > 11){
 		$mobile = 'NULL';
 	}
    /* if (!check_unic($mobile,'client','mobile',$id)){

@@ -13,7 +13,8 @@
 	<div class="col-md-5th">
 		<h4>Конфиг</h4>
 		<a href="action_admin.php?module=changelog">ChangeLog</a><br />
-		<a href="action_admin.php?module=configadmin">Configure</a>
+		<a href="action_admin.php?module=configadmin">Configure</a><br />
+		<a href="action_admin.php?module=faq">FAQ</a>
 	</div>
 
 	<div class="col-md-5th">

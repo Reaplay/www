@@ -11,4 +11,10 @@ INSERT INTO `cache_stats` (`cache_name` ,`cache_value`)VALUES ('deny_users', '0'
 INSERT INTO `cache_stats` (`cache_name` ,`cache_value`)VALUES ('deny_card', '0'), ('deny_statistic', '0');
 ALTER TABLE `sitelog` CHANGE `type` `module` VARCHAR( 80 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'site';
 ALTER TABLE `sitelog` ADD `action` VARCHAR( 255 ) NOT NULL ;
-
+________
+ALTER TABLE `faq` ADD `type` VARCHAR( 255 ) NOT NULL ;
+ALTER TABLE `faq` ADD `added` INT( 10 ) NOT NULL ,
+ADD `edited` INT( 10 ) NOT NULL;
+ALTER TABLE `faq` ADD `status` TINYINT( 1 ) NOT NULL DEFAULT '0';
+ALTER TABLE `faq` CHANGE `edited` `edited` INT( 10 ) NULL DEFAULT NULL ;
+ALTER TABLE `faq` CHANGE `added` `added` INT( 10 ) NULL DEFAULT NULL ;

@@ -28,6 +28,9 @@ WHERE ".$department." card_client.id='".$_GET['id']."' AND card_client.delete = 
         }
 
         $data_card = mysql_fetch_array($res);
+        if(strlen($data_card['mobile']) == 10){
+			$data_card['mobile'] = "7".$data_card['mobile'];
+		}
     }
     // если выше рукля, то можно выбрать отделение
 

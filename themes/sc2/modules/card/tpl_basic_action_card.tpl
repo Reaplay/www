@@ -38,7 +38,7 @@
             <div class="col-md-6">
                 <label class="input">
                     <i class="ico-append fa fa-phone-square"></i>
-                    <input type="text" class="form-control masked required" data-format="(999) 999-99-99" data-placeholder="{$data_card.mobile}" placeholder={if !$data_card.mobile}"Номер сотового телефона"{else}"Нажмите для отображения"{/if} name="mobile" value="{$data_card.mobile}">
+                    <input type="text" class="form-control masked required" data-format="+9 (999) 999-99-99" data-placeholder="{$data_card.mobile}" placeholder={if !$data_card.mobile}"Номер сотового телефона"{else}"Нажмите для отображения"{/if} name="mobile" value="{$data_card.mobile}">
                     <b class="tooltip tooltip-bottom-right">Введите номер сотового телефона</b>
                 </label>
             </div>

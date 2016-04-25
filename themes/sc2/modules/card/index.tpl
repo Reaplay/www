@@ -180,7 +180,7 @@
                     {if $card.next_call}{$card.next_call}{else}N/A{/if}
                 </td>
                 <td>
-                    {if $card.card_comment}{$card.card_comment} ({$card.comment_manager}){/if}
+                    {if $card.card_comment}{$card.card_comment}<br />({$card.comment_manager}){/if}
                 </td>
                 
                 <td>

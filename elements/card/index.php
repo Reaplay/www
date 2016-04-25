@@ -95,6 +95,8 @@
     $i=0;
     while ($row = mysql_fetch_array($res)){
         $data_card[]=$row;
+        $data_card[$i]['comment_manager'] = preg_replace('~^(\S++)\s++(\S)\S++\s++(\S)\S++$~u', '$1 $2.$3.', $row['comment_manager']);
+	//$data_card[$i]['comment_manager'] = preg_replace('#(.*)\s+(.).*\s+(.).*#usi', '$1 $2.$3.', $row['comment_manager']);
         $data_card[$i]['added']=mkprettytime($row['added'],false);
        	if($row['next_call']){
 			$data_card[$i]['next_call']=mkprettytime($row['next_call'],false);

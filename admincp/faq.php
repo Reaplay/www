@@ -60,7 +60,7 @@
     else {
         $res = sql_query ("SELECT * FROM `faq`;") or sqlerr (__FILE__, __LINE__);
         if (mysql_num_rows ($res) == 0) {
-            stderr ("Ошибка", "Вопросы не найдены");
+            stderr ("Ошибка", "Вопросы не найдены","no");
         }
         $i=0;
         while ($row = mysql_fetch_array ($res)) {

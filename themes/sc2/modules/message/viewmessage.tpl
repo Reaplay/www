@@ -5,7 +5,7 @@
             <li class="comment">
 
                 <!-- avatar -->
-                <img height="50" width="50" alt="avatar" src="/assets/images/no_avatar.jpg" class="avatar">
+                <img height="50" width="50" alt="avatar" src="assets/images/no_avatar.jpg" class="avatar">
 
                 <!-- message body -->
                 <div class="comment-body">

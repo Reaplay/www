@@ -2,5 +2,21 @@ Order Allow,Deny
 Allow from all
 AddDefaultCharset utf-8
 php_flag display_errors on
-ErrorDocument 404 http://crm/404.php
-ErrorDocument 500 /500.php
+ErrorDocument 404 http://192.168.210/crm/404.php
+ErrorDocument 500 http://192.168.210/crm/500.php
+
+
+<ifModule mod_headers.c>
+	#кэшировать css, javascript и текстовые файлы на 10 минут
+	<FilesMatch "\.(js|css|txt)$">
+		Header set Cache-Control "max-age=36000"
+	</FilesMatch>
+	#кэшировать флэш и изображения на 10 минут
+	<FilesMatch "\.(flv|swf|ico|gif|jpg|jpeg|png)$">
+		Header set Cache-Control "max-age=36000"
+	</FilesMatch>
+	#отключить кэширование
+	<FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
+		Header unset Cache-Control
+	</FilesMatch>
+</IfModule>

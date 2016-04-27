@@ -61,7 +61,7 @@ WHERE ".$department." users.id='".$_GET['id']."';")  or sqlerr(__FILE__, __LINE_
 	}
 */
 	// спиcок отделений
-	$list_department = get_department(get_user_class(),$CURUSER['department'],$data_user['department']);
+	$list_department = get_department(get_user_class(),$data_user['department'],$data_user['department']);
 
 	function select_class($class_user,$compare_class){
 		if($class_user == $compare_class){

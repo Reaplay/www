@@ -752,7 +752,7 @@ function check_mobile($number,$check=true){
 	}
 
 function get_department($class,$department,$id_select=""){
-	if($class <= UC_POWER_HEAD){
+	if($class == UC_POWER_HEAD){
 		$res=sql_query("SELECT *  FROM `department` WHERE (id ='".$department."' OR parent = '".$department."');")  or sqlerr(__FILE__, __LINE__);
 
 	}

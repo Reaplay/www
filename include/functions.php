@@ -712,12 +712,18 @@ function check_mobile($number,$check=true){
 			return 'NULL';
 	}
 
-
 	return $mobile;
 }
 
 	function check_unic($data,$table,$column,$id=""){
-		$res = sql_query("SELECT id, `delete` FROM ".$table." WHERE ".$column." = '".$data."' ");
+		if(strlen($data) == 10){
+			$data_a = "7".$data;
+		}
+		elseif(strlen($data) == 11){
+			$data_a = substr($data,1);
+		}
+		
+		$res = sql_query("SELECT id, `delete` FROM ".$table." WHERE ".$column." = '".$data."' OR  ".$column." = '".$data_a."'");
 
 		if(mysql_num_rows($res) != 0) {
 			if($id){

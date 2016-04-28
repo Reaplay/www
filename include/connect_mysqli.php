@@ -24,8 +24,8 @@ date_default_timezone_set(date_default_timezone_get());
  */
 define ('ROOT_PATH', str_replace("include","",dirname(__FILE__)));
 
-require_once(ROOT_PATH . 'include/classes.php');
-require_once(ROOT_PATH . 'include/functions.php');
+//require_once(ROOT_PATH . 'include/classes.php');
+//require_once(ROOT_PATH . 'include/functions.php');
 
 // Variables for Start Time
 /**
@@ -36,7 +36,7 @@ $tstart = microtime(true); // Start time
 
 require_once(ROOT_PATH . 'include/secrets.php');
 /* @var object general cache object */
-require_once(ROOT_PATH . 'classes/cache/cache.class.php');
+/*require_once(ROOT_PATH . 'classes/cache/cache.class.php');
 $REL_CACHE=new Cache();
 if (REL_CACHEDRIVER=='native') {
 	require_once(ROOT_PATH .  'classes/cache/fileCacheDriver.class.php');
@@ -58,5 +58,5 @@ require_once(ROOT_PATH . 'include/blocks.php');
 
 // IN AJAX MODE?
 
-ajaxcheck();
+ajaxcheck();*/
 ?>

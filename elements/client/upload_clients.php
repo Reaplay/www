@@ -73,17 +73,17 @@ if($_GET['type']=='upload_client'){
 			// проверяем сотовый
 		$mobile = check_mobile($data['1'],false);
 
-		if (strlen($mobile) != 10){
-			if(strlen($mobile) == 11){
-				$mobile = substr($mobile,1);
+		if(strlen($mobile) == 11){
+				$mobile = $mobile;
 			}
 			else{
 				$num_err['mobile']++;
 				$text_err[$i]['mobile'] = "Некорректная длина";
 
-				$mobile='NULL';
+				//$mobile='NULL';
+				$error = 1;
 			}
-		}
+		
 
 		//проверяем, что номер не повторяется
 		if ($mobile AND !check_unic($mobile,"client","mobile")){

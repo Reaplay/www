@@ -18,3 +18,5 @@ ADD `edited` INT( 10 ) NOT NULL;
 ALTER TABLE `faq` ADD `status` TINYINT( 1 ) NOT NULL DEFAULT '0';
 ALTER TABLE `faq` CHANGE `edited` `edited` INT( 10 ) NULL DEFAULT NULL ;
 ALTER TABLE `faq` CHANGE `added` `added` INT( 10 ) NULL DEFAULT NULL ;
+_________________
+удалить уникальность mobile в client

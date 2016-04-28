@@ -152,10 +152,14 @@ if($_GET['type']=='upload_client'){
 		//print $error;
 if ($error == 0) {
 
-	sql_query ("
+/*	sql_query ("
 INSERT INTO `client` (`name`, `department`,`manager`,`mobile`,`email`,`added`,`who_added`,`comment`,`equid`,`status`,`birthday`)
 VALUES ('" . $name . "','" . $department . "','" . $manager . "'," . $mobile . ",'" . $email . "','" . time () . "','" . $CURUSER['id'] . "'," . $comment . "," . $equid . ",'" . $status . "','" . $birthday . "');
-") or sqlerr (__FILE__, __LINE__);
+") or sqlerr (__FILE__, __LINE__);*/
+	if($i!=1){
+		$task_to_add .= ",";
+	}
+	$task_to_add .= "('" . $name . "','" . $department . "','" . $manager . "'," . $mobile . ",'" . $email . "','" . time () . "','" . $CURUSER['id'] . "'," . $comment . "," . $equid . ",'" . $status . "','" . $birthday . "')";
 	if($text_err[$i]) {
 		$text_err[$i]['fio'] = $name;
 		$text_err[$i]['result'] = 'Добавлен';
@@ -170,6 +174,21 @@ VALUES ('" . $name . "','" . $department . "','" . $manager . "'," . $mobile . "
 
 
 		}
+	 if ($task_to_add){
+	sql_query ("
+INSERT INTO `client` (`name`, `department`,`manager`,`mobile`,`email`,`added`,`who_added`,`comment`,`equid`,`status`,`birthday`)
+VALUES ".$task_to_add.";") or sqlerr (__FILE__, __LINE__);
+	}
+
+	/*
+	 * INSERT INTO `crm`.`client` (
+`id` ,
+
+)
+VALUES (NULL , '2', '', '', NULL , '', '', '', '', '0', '', NULL , '0', '', '0', '0'),
+	(NULL , '2', '', '', NULL , '', '', '', '', '0', '', NULL , '0', '', '0', '0');
+	 *
+	 * */
 //print $text_err;
 	//write_log("Была загрузка отчета. Файл  upload/upload_clients_" . $time.".csv.","upload_people");	
 /*	print "Выгрузка доступна вот тут: <a href=\"summ_test.php?report_id=".$report_id."\">Выгрузить</a></br>";

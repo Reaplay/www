@@ -97,8 +97,9 @@ if($_POST['action']=='add'){
 			stderr("Ошибка","Дата следующего контакта не может быть прошедшей","no");	
 		
 	}
-	
-	
+	else
+		stderr("Ошибка","Должна быть введена дата контакта","no");
+
 	$type_contact = $_POST['type_contact'];
 	$comment = ((string)$_POST["comment"]);
 	$equid = $_POST['equid'];

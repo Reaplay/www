@@ -12,12 +12,9 @@ $now_date = strtotime(date("d.m.Y"));
 */
 // упростим запрос, для удобства чтения
 
-if(get_user_class() == UC_ADMINISTRATOR and $_GET['user_id']){
-	$first_part_sql = "SELECT SUM(1) FROM `callback` LEFT JOIN client ON client.id = callback.id_client WHERE client.delete = '0' AND client.manager='".$_GET['user_id']."' AND callback.status = 0 AND callback.next_call != 0";
-}
-else {
+
 	$first_part_sql = "SELECT SUM(1) FROM `callback` LEFT JOIN client ON client.id = callback.id_client WHERE client.delete = '0' AND client.department='".$CURUSER['department']."' AND callback.status = 0 AND callback.next_call != 0";
-}
+
 $res=sql_query("
 (".$first_part_sql." AND callback.type_contact = 1 AND client.status=1 AND callback.next_call = '".$now_date."') UNION ALL
 (".$first_part_sql." AND callback.type_contact = 1 AND client.status=1 AND callback.next_call < '".$now_date."') UNION ALL
@@ -90,11 +87,23 @@ if ($CURUSER['use_card']) {
 		list($value) = mysql_fetch_array($res);
 		$activity_card[$param] = $value;
 	}
+	$REL_TPL->assignByRef('activity_card',$activity_card);
+
+
+	$res = sql_query("
+	SELECT card_cobrand.name, (SELECT SUM(1) FROM `card_client` WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.department='".$CURUSER['department']."' AND card_client.next_call = '".$now_date."') AS card_now, (SELECT SUM(1) FROM `card_client` WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.department='".$CURUSER['department']."' AND card_client.next_call < '".$now_date."') AS card_lost, (SELECT SUM(1) FROM `card_client` WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.department='".$CURUSER['department']."' AND card_client.next_call > '".$now_date."') AS card_next  FROM card_cobrand") or sqlerr(__FILE__, __LINE__);
+
+	while ($row = mysql_fetch_array($res)) {
+		$data_card[] = $row;
+
+	}
+	$REL_TPL->assignByRef('data_card',$data_card);
+
 }
 
 	//var_dump($activity_log);
-	$REL_TPL->assignByRef('activity_log',$activity_log);
-	$REL_TPL->assignByRef('activity_card',$activity_card);
+
+
 /*
 активные (пропущено-сегодня)
 потенциальные

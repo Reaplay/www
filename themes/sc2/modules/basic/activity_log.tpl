@@ -1,6 +1,11 @@
 <div class="table-responsive">
-	<table class="table table-condensed nomargin">
+
+
 		{if $CURUSER.use_card}
+			<div class="heading-title heading-dotted text-center">
+				<h4>Карты</h4>
+			</div>
+	<table class="table table-condensed nomargin">
 		<thead>
 			<tr>
 				<th>Выдача карт</th>
@@ -12,6 +17,21 @@
 			</tr>
 		</thead>
 		<tbody>
+
+		{foreach from=$data_card item=card}
+			{if ({$card.card_now + $card.card_lost + $card.card_next}) != 0}
+			<tr>
+				<td>
+					{$card.name}: {$card.card_now + $card.card_lost + $card.card_next}
+				</td>
+				<td>{if $card.card_now}{$card.card_now}{else}N/A{/if}</td>
+				<td>{if $card.card_lost}{$card.card_lost}{else}N/A{/if}</td>
+				<td>{if $card.card_next}{$card.card_next}{else}N/A{/if}</td>
+
+			</tr>
+			{/if}
+		{/foreach}
+
 			<tr>
 				<td>
 					Всего: {$activity_card.card_now + $activity_card.card_lost + $activity_card.card_next}
@@ -22,12 +42,18 @@
 
 			</tr>
 		</tbody>
+		</table>
+			<br /><br />
 		{/if}
 
+	<div class="heading-title heading-dotted text-center">
+		<h4>Клиенты</h4>
+	</div>
+	<table class="table table-condensed nomargin">
 		<thead>
 			<tr>
 				<th>Тип действия</th>
-				<th>Перезвоны</th>
+				<th>Звонок</th>
 				<th>Встречи</th>
 				<th>Всего</th>
 				

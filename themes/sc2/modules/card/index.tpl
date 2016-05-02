@@ -112,9 +112,9 @@
             <li><a href="card.php?page={$max_page}{$add_link}{$add_sort}">Последняя</a></li>
         {/if}
         <!--<li><a href="#">След</a></li>-->
-
+    Результаты поиска ({$count} записей)
     </ul>
-Результаты поиска ({$count} записей)
+
 <!-- HTML DATATABLES -->
 <div class="table-responsive">
     <table class="table table-bordered table-striped" id="table">

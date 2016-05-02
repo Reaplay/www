@@ -12,7 +12,7 @@
 	
 		<div class="row">
 			<div class="col-xs-2">
-				Тип контакта
+				Тип контакта *
 			</div>
 			<div class="col-xs-4">
 				<div class="fancy-form fancy-form-select">
@@ -29,7 +29,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-2">
-				Результат
+				Результат *
 			</div>
 			<div class="col-xs-6">
 				<div class="fancy-form fancy-form-select">
@@ -54,7 +54,7 @@
 	</div>
 		<div class="row">
 		<div class="col-xs-2">
-			Дата будущего контакта
+			Дата будущего контакта *
 		</div>
 		<div class="col-xs-2">
 			<input type="text" class="form-control datepicker required" data-format="dd/mm/yyyy" data-lang="ru" data-RTL="false" name="next_call">

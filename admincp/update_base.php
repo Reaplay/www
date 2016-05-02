@@ -17,9 +17,9 @@
         */
         if($_GET['type'] == 'fix_callback_1') {
             $res = sql_query ("SELECT `id`,`id_client` FROM callback WHERE status = '0';");
-            /*if (mysql_num_rows ($res) == 0) {
+           if (mysql_num_rows ($res) == 0) {
                 stderr ("Ошибка", "Данный фикс не требуется", "no");
-            }*/
+            }
             while ($row = mysql_fetch_array ($res)) {
 
                 sql_query("UPDATE client SET id_callback = '".$row['id']."' WHERE id = '".$row['id_client']."'");

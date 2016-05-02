@@ -20,3 +20,14 @@ ALTER TABLE `faq` CHANGE `edited` `edited` INT( 10 ) NULL DEFAULT NULL ;
 ALTER TABLE `faq` CHANGE `added` `added` INT( 10 ) NULL DEFAULT NULL ;
 _________________
 удалить уникальность mobile в client
+ALTER TABLE `client` ADD `id_callback` INT( 10 ) NOT NULL DEFAULT '0';
+CREATE TABLE IF NOT EXISTS `sys_fix_base` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `text` text NOT NULL,
+  `last_update` int(10) NOT NULL,
+  `comment` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+сделать http://crm/action_admin.php?module=update_base&action=start&type=fix_callback_1

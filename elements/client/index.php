@@ -80,10 +80,11 @@
 	}*/
 
 	$res=sql_query("
-SELECT client.*, department.name as d_name, department.id as d_id, department.parent, users.name as u_name, (SELECT callback.next_call FROM callback WHERE callback.id_client=client.id AND callback.status = 0) AS cb_next_call
+SELECT client.*, department.name AS d_name, department.id AS d_id, department.parent, users.name AS u_name, callback.next_call AS cb_next_call, callback.comment AS cb_comment,callback.id_user, (SELECT users.name FROM users WHERE users.id=callback.id_user) AS cb_manager, (SELECT result_call.text FROM result_call WHERE result_call.id=callback.id_result) AS result_call
 FROM `client`
 LEFT JOIN department ON department.id = client.department
 LEFT JOIN users ON users.id = client.manager
+LEFT JOIN callback ON callback.id = client.id_callback
 $left_join
 WHERE
 client.delete = '0'

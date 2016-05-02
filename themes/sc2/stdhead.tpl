@@ -208,17 +208,37 @@
 									{if $IS_POWER_USER AND $CURUSER.add_client}
 									<!-- STATISTICS -->
 									<li class="dropdown">
-										<a class="dropdown-toggle" href="#">
-											Статистика
-										</a>
+										<a class="dropdown-toggle" href="#">Статистика</a>
 										<ul class="dropdown-menu">
 											<li><a href="statistic.php"><i class="et-expand"></i> Общая</a></li>
 											<li><a href="statistic.php?type=department"><i class="et-expand"></i> По отделению</a></li>
 											 {if $IS_HEAD}<li><a href="statistic.php?type=manager"><i class="et-grid"></i> По менеджерам</a></li>{/if}
+
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle">
+													<i class="et-genius"></i> По клиентам
+												</a>
+												<ul class="dropdown-menu">
+													<li><a href="">Воронка продаж</a></li>
+													<li><a href="">Отчет по активности ККО</a></li>
+													<li><a href="">Отчет по рекомендациям</a></li>
+												</ul>
+											</li>
 										</ul>
 									</li>
 									{/if}
-
+{*
+												<li class="dropdown">
+												<a href="#" class="dropdown-toggle">
+													<i class="et-genius"></i> MENU DROPDOWN
+												</a>
+												<ul class="dropdown-menu">
+													<li><a href="feature-menu-dd-light.html">DROPDOWN - LIGHT</a></li>
+													<li><a href="feature-menu-dd-dark.html">DROPDOWN - DARK</a></li>
+													<li><a href="feature-menu-dd-color.html">DROPDOWN - COLOR</a></li>
+												</ul>
+											</li>
+*}
 									{if $CURUSER.add_user}
 									<!-- USERS -->
 									<li class="dropdown">

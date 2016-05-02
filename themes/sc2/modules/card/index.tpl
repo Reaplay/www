@@ -1,8 +1,8 @@
-<div class="alert alert-danger margin-bottom-30">
+{*<div class="alert alert-danger margin-bottom-30">
     <strong>Внимание</strong> Страница в тестовом режиме
 </div>
 
-
+*}
     <div class="text-center">
         {*<a href="card.php?action=add"><button type="submit" class="btn btn-primary"> Добавить</button></a>*}
         <a href="card.php?action=add"> <button type="button" class="btn btn-primary btn-lg  margin-bottom-30" >Добавить карту</button></a>

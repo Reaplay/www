@@ -104,13 +104,13 @@ if($_POST['action']=='add'){
 	$comment = ((string)$_POST["comment"]);
 	$equid = $_POST['equid'];
 	if ($equid) {
-		$update_equid = "equid = ".sqlesc($equid).",";
+		$update_equid = ", equid = ".sqlesc($equid)."";
 	}
 	if ($_POST['status'] != "---") {
-		$update_status = "status = ".$_POST['status'];
+		$update_status = ", status = ".$_POST['status'];
 	}
 	else
-		$update_status = "status = 0";
+		$update_status = ", status = 0";
 
 	//$id_product = "1,2,3";
 	//
@@ -119,8 +119,8 @@ if($_POST['action']=='add'){
 	
 	sql_query("UPDATE `callback` SET status = 1 WHERE id_client = '".$id_client."' AND status = '0' AND id !='".$id_callback."'");
 
-	if($update_equid OR $update_status)
-		sql_query("UPDATE `client` SET ".$update_equid." ".$update_status." WHERE id = '".$id_client."'");
+	//if($update_equid OR $update_status)
+		sql_query("UPDATE `client` SET `id_callback` = '".$id_callback."' ".$update_equid." ".$update_status." WHERE id = '".$id_client."'");
 
 	
 

@@ -143,6 +143,7 @@
 			{/if}
 			<th>Статус</th>
 			<th>След. контакт</th>
+			<th>Посл. комментарий</th>
 			<th>Действия</th>
 		</tr>
 	</thead>
@@ -169,7 +170,10 @@
 				{if $client.time_callback}{$client.time_callback}{else}N/A{/if}
 			</td>
 			<td>
-				<a href="client.php?a=callback&amp;id={$client.id}">Добавить отзвон</a> <i class="fa fa-external-link"></i>
+				{if $client.cb_comment}{$client.cb_comment}{else}{$client.result_call}<br />({$client.cb_manager}){/if}
+			</td>
+			<td>
+				<a href="client.php?a=callback&amp;id={$client.id}">Добавить контакт</a> <i class="fa fa-external-link"></i>
 			</td>
 		</tr>
 		{/foreach}

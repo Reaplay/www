@@ -212,16 +212,27 @@
 										<ul class="dropdown-menu">
 											<li><a href="statistic.php"><i class="et-expand"></i> Общая</a></li>
 											<li><a href="statistic.php?type=department"><i class="et-expand"></i> По отделению</a></li>
-											 {if $IS_HEAD}<li><a href="statistic.php?type=manager"><i class="et-grid"></i> По менеджерам</a></li>{/if}
+											 <!--{if $IS_HEAD}<li><a href="statistic.php?type=manager"><i class="et-grid"></i> По менеджерам</a></li>{/if}-->
 
 											<li class="dropdown">
 												<a href="#" class="dropdown-toggle">
 													<i class="et-genius"></i> По клиентам
 												</a>
 												<ul class="dropdown-menu">
-													<li><a href="">Воронка продаж</a></li>
+
+													<li><a href="statistic.php?type=client&subtype=sales_funnel">Воронка продаж</a></li>
 													<li><a href="">Отчет по активности ККО</a></li>
 													<li><a href="">Отчет по рекомендациям</a></li>
+												</ul>
+											</li>
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle">
+													<i class="et-genius"></i> По картам
+												</a>
+												<ul class="dropdown-menu">
+													<li><a href="">Статистика</a></li>
+													<li><a href="">Отчет по поступившим</a></li>
+													<li><a href="">Отчет выданным/уничтоженным</a></li>
 												</ul>
 											</li>
 										</ul>

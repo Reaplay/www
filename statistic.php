@@ -21,6 +21,12 @@ elseif ($_GET['type'] == "manager") {
 	$REL_TPL->stdhead("Статистика по менеджерам");
 	require_once("elements/statistics/manager.php");
 }
+elseif ($_GET['type'] == "client") {
+	if($_GET['subtype'] == "sales_funnel") {
+		$REL_TPL->stdhead ("Воронка продаж");
+		require_once ("elements/statistics/client/sales_funnel.php");
+	}
+}
 
 $REL_TPL->stdfoot($js_add);
 ?>

@@ -35,7 +35,7 @@
 		if($_GET['status_action']){
 //			$now_date = strtotime(date("d.m.Y"));
 		//	$add_select = "callback.next_call, callback.status, callback.type_contact";
-			$left_join="LEFT JOIN callback ON callback.id_client = client.id";
+			//$left_join="LEFT JOIN callback ON callback.id_client = client.id";
 			if($_GET['status_action']=='miss'){
 				$call_back .="AND callback.next_call < '".$now_date."' ";
 				$call_back .= "AND callback.next_call != '0' ";
@@ -118,7 +118,7 @@ client.delete = '0'
 
 	//необходима оптимизация
 	// узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
-	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager $left_join WHERE
+	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager LEFT JOIN callback ON callback.id = client.id_callback $left_join WHERE
 client.delete = '0' ".$department." ".$only_my." ".$call_back." ".$client." ".$flt_manager." ".$flt_department.";") or sqlerr(__FILE__,__LINE__);
 	$row = mysql_fetch_array($res);
 	//всего записей

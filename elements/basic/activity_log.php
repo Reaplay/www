@@ -12,7 +12,7 @@ $now_date = strtotime(date("d.m.Y"));
 */
 // упростим запрос, для удобства чтения
 
-
+// LEFT JOIN callback ON callback.id = client.id_callback
 	$first_part_sql = "SELECT SUM(1) FROM `callback` LEFT JOIN client ON client.id = callback.id_client WHERE client.delete = '0' AND client.department='".$CURUSER['department']."' AND callback.status = 0 AND callback.next_call != 0";
 
 $res=sql_query("
@@ -69,6 +69,8 @@ foreach ($params as $param) {
 	list($value) = mysql_fetch_array($res);
 	$activity_log[$param] = $value;
 }
+	$REL_TPL->assignByRef('activity_log',$activity_log);
+
 
 if ($CURUSER['use_card']) {
 	$first_part_sql = "SELECT SUM(1) FROM `card_client` WHERE card_client.delete = 0 AND card_client.department='".$CURUSER['department']."' AND card_client.status = 0 AND card_client.next_call != 0";
@@ -149,6 +151,6 @@ $num_client = $block_online['num_client'];
 */
 
 //$REL_TPL->assignByRef('data_callback',$data_callback);
-$REL_TPL->output("activity_log","basic");
 
+	$REL_TPL->output("activity_log","basic");
 ?>

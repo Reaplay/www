@@ -27,6 +27,20 @@ elseif ($_GET['type'] == "client") {
 		require_once ("elements/statistics/client/sales_funnel.php");
 	}
 }
+elseif ($_GET['type'] == "card") {
+	if($_GET['subtype'] == "basic") {
+		$REL_TPL->stdhead ("Общая статистика по картам");
+		require_once ("elements/statistics/card/basic.php");
+	}
+	elseif($_GET['subtype'] == "received") {
+		$REL_TPL->stdhead ("Отчет по поступившим картам");
+		require_once ("elements/statistics/card/received.php");
+	}
+	elseif($_GET['subtype'] == "issued") {
+		$REL_TPL->stdhead ("Отчет по выданным/уничтоженным картам");
+		require_once ("elements/statistics/card/issued.php");
+	}
+}
 
 $REL_TPL->stdfoot($js_add);
 ?>

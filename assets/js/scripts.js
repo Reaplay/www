@@ -2194,38 +2194,41 @@
 		
 		if(_container_2.length > 0) {
 			loadScript(plugin_path + 'bootstrap.daterangepicker/moment.min.js', function() {
-				loadScript(plugin_path + 'bootstrap.daterangepicker/daterangepicker.js', function() {
-			
-					if(jQuery().datepicker) {
+				loadScript(plugin_path + 'bootstrap.datepicker/js/bootstrap-datepicker.min.js', function () {
+					loadScript(plugin_path + 'bootstrap.daterangepicker/daterangepicker.js', function () {
 
-						_container_2.each(function() {
-						
-							var _t 		= jQuery(this),
-								_format = _t.attr('data-format').toUpperCase() || 'YYYY-MM-DD';
+						if (jQuery().datepicker) {
 
-							_t.daterangepicker(
-							{
-								format: 		_format,
-								startDate: 		_t.attr('data-from'),
-								endDate: 		_t.attr('data-to'),
+							_container_2.each(function () {
 
-								ranges: {
-								   'Today': [moment(), moment()],
-								   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-								   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-								   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-								   'This Month': [moment().startOf('month'), moment().endOf('month')],
-								   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-								}
-							}, 
-							function(start, end, label) {
-								// alert("A new date range was chosen: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+								var _t = jQuery(this),
+									_format = _t.attr('data-format').toUpperCase() || 'DD-MM-YYYY',
+									_lang 	=	_t.attr('data-lang') || 'ru';
+
+								_t.daterangepicker(
+									{
+										format: _format,
+										startDate: _t.attr('data-from'),
+										endDate: _t.attr('data-to'),
+
+										ranges: {
+											'Сегодня': [moment(), moment()],
+											'Вчера': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+											'Последние 7 дней': [moment().subtract(6, 'days'), moment()],
+											'Последние 30 дней': [moment().subtract(29, 'days'), moment()],
+											'Этот месяц': [moment().startOf('month'), moment().endOf('month')],
+											'Предыдущий месяц': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+										}
+									},
+									function (start, end, label) {
+										// alert("A new date range was chosen: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+									});
+
 							});
 
-						});
-						
-					}
+						}
 
+					});
 				});
 			});
 		}

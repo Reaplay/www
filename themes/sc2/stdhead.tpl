@@ -230,9 +230,9 @@
 													<i class="et-genius"></i> По картам
 												</a>
 												<ul class="dropdown-menu">
-													<li><a href="">Статистика</a></li>
-													<li><a href="">Отчет по поступившим</a></li>
-													<li><a href="">Отчет выданным/уничтоженным</a></li>
+													<li><a href="statistic.php?type=card&subtype=basic">Статистика</a></li>
+													<li><a href="statistic.php?type=card&subtype=received">Отчет по поступившим</a></li>
+													<li><a href="statistic.php?type=card&subtype=issued">Отчет выданным/уничтоженным</a></li>
 												</ul>
 											</li>
 										</ul>

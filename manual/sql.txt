@@ -29,5 +29,5 @@ CREATE TABLE IF NOT EXISTS `sys_fix_base` (
   `comment` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
+ALTER TABLE `card_client` ADD `last_update` INT( 10 ) NOT NULL ;
 сделать http://crm/action_admin.php?module=update_base&action=start&type=fix_callback_1

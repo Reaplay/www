@@ -140,16 +140,16 @@
             this.applyClass = 'btn-success';
             this.cancelClass = 'btn-default';
 
-            this.format = 'MM/DD/YYYY';
+            this.format = 'DD/MM/YYYY';
             this.separator = ' - ';
 
             this.locale = {
-                applyLabel: 'Apply',
-                cancelLabel: 'Cancel',
-                fromLabel: 'From',
-                toLabel: 'To',
-                weekLabel: 'W',
-                customRangeLabel: 'Custom Range',
+                applyLabel: 'Принять',
+                cancelLabel: 'Отмена',
+                fromLabel: 'С',
+                toLabel: 'До',
+                weekLabel: 'Н',
+                customRangeLabel: 'Выбрать период',
                 daysOfWeek: moment.weekdaysMin(),
                 monthNames: moment.monthsShort(),
                 firstDay: moment.localeData()._week.dow
@@ -965,7 +965,7 @@
                     }
                 } else {
                     //ignore times when comparing dates if time picker is not enabled
-                    if (this.startDate.format('YYYY-MM-DD') == this.ranges[range][0].format('YYYY-MM-DD') && this.endDate.format('YYYY-MM-DD') == this.ranges[range][1].format('YYYY-MM-DD')) {
+                    if (this.startDate.format('DD-MM-YYYY') == this.ranges[range][0].format('DD-MM-YYYY') && this.endDate.format('DD-MM-YYYY') == this.ranges[range][1].format('DD-MM-YYYY')) {
                         customRange = false;
                         this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')')
                             .addClass('active').html();
@@ -1020,11 +1020,11 @@
                 calendar[row][col] = curDate.clone().hour(hour);
                 curDate.hour(12);
 
-                if (this.minDate && calendar[row][col].format('YYYY-MM-DD') == this.minDate.format('YYYY-MM-DD') && calendar[row][col].isBefore(this.minDate) && side == 'left') {
+                if (this.minDate && calendar[row][col].format('DD-MM-YYYY') == this.minDate.format('DD-MM-YYYY') && calendar[row][col].isBefore(this.minDate) && side == 'left') {
                     calendar[row][col] = this.minDate.clone();
                 }
 
-                if (this.maxDate && calendar[row][col].format('YYYY-MM-DD') == this.maxDate.format('YYYY-MM-DD') && calendar[row][col].isAfter(this.maxDate) && side == 'right') {
+                if (this.maxDate && calendar[row][col].format('DD-MM-YYYY') == this.maxDate.format('DD-MM-YYYY') && calendar[row][col].isAfter(this.maxDate) && side == 'right') {
                     calendar[row][col] = this.maxDate.clone();
                 }
 
@@ -1123,12 +1123,12 @@
 
                     if ((minDate && calendar[row][col].isBefore(minDate, 'day')) || (maxDate && calendar[row][col].isAfter(maxDate, 'day'))) {
                         cname = ' off disabled ';
-                    } else if (calendar[row][col].format('YYYY-MM-DD') == selected.format('YYYY-MM-DD')) {
+                    } else if (calendar[row][col].format('DD-MM-YYYY') == selected.format('DD-MM-YYYY')) {
                         cname += ' active ';
-                        if (calendar[row][col].format('YYYY-MM-DD') == this.startDate.format('YYYY-MM-DD')) {
+                        if (calendar[row][col].format('DD-MM-YYYY') == this.startDate.format('DD-MM-YYYY')) {
                             cname += ' start-date ';
                         }
-                        if (calendar[row][col].format('YYYY-MM-DD') == this.endDate.format('YYYY-MM-DD')) {
+                        if (calendar[row][col].format('DD-MM-YYYY') == this.endDate.format('DD-MM-YYYY')) {
                             cname += ' end-date ';
                         }
                     } else if (calendar[row][col] >= this.startDate && calendar[row][col] <= this.endDate) {
@@ -1157,7 +1157,7 @@
                 var min_hour = 0;
                 var max_hour = 23;
 
-                if (minDate && (side == 'left' || this.singleDatePicker) && selected.format('YYYY-MM-DD') == minDate.format('YYYY-MM-DD')) {
+                if (minDate && (side == 'left' || this.singleDatePicker) && selected.format('DD-MM-YYYY') == minDate.format('DD-MM-YYYY')) {
                     min_hour = minDate.hour();
                     if (selected.hour() < min_hour)
                         selected.hour(min_hour);
@@ -1167,7 +1167,7 @@
                         min_hour = 1;
                 }
 
-                if (maxDate && (side == 'right' || this.singleDatePicker) && selected.format('YYYY-MM-DD') == maxDate.format('YYYY-MM-DD')) {
+                if (maxDate && (side == 'right' || this.singleDatePicker) && selected.format('DD-MM-YYYY') == maxDate.format('DD-MM-YYYY')) {
                     max_hour = maxDate.hour();
                     if (selected.hour() > max_hour)
                         selected.hour(max_hour);
@@ -1206,13 +1206,13 @@
                 var min_minute = 0;
                 var max_minute = 59;
 
-                if (minDate && (side == 'left' || this.singleDatePicker) && selected.format('YYYY-MM-DD h A') == minDate.format('YYYY-MM-DD h A')) {
+                if (minDate && (side == 'left' || this.singleDatePicker) && selected.format('DD-MM-YYYY h A') == minDate.format('DD-MM-YYYY h A')) {
                     min_minute = minDate.minute();
                     if (selected.minute() < min_minute)
                         selected.minute(min_minute);
                 }
 
-                if (maxDate && (side == 'right' || this.singleDatePicker) && selected.format('YYYY-MM-DD h A') == maxDate.format('YYYY-MM-DD h A')) {
+                if (maxDate && (side == 'right' || this.singleDatePicker) && selected.format('DD-MM-YYYY h A') == maxDate.format('DD-MM-YYYY h A')) {
                     max_minute = maxDate.minute();
                     if (selected.minute() > max_minute)
                         selected.minute(max_minute);
@@ -1257,11 +1257,11 @@
                     var am_html = '';
                     var pm_html = '';
 
-                    if (minDate && (side == 'left' || this.singleDatePicker) && selected.format('YYYY-MM-DD') == minDate.format('YYYY-MM-DD') && minDate.hour() >= 12) {
+                    if (minDate && (side == 'left' || this.singleDatePicker) && selected.format('DD-MM-YYYY') == minDate.format('DD-MM-YYYY') && minDate.hour() >= 12) {
                         am_html = ' disabled="disabled" class="disabled"';
                     }
 
-                    if (maxDate && (side == 'right' || this.singleDatePicker) && selected.format('YYYY-MM-DD') == maxDate.format('YYYY-MM-DD') && maxDate.hour() < 12) {
+                    if (maxDate && (side == 'right' || this.singleDatePicker) && selected.format('DD-MM-YYYY') == maxDate.format('DD-MM-YYYY') && maxDate.hour() < 12) {
                         pm_html = ' disabled="disabled" class="disabled"';
                     }
 

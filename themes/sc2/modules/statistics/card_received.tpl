@@ -1,4 +1,4 @@
-<form class="<!--validate--> nomargin sky-form boxed" action="statistic.php?type=card&subtype=issued" method="post">
+<form class="<!--validate--> nomargin sky-form boxed" action="statistic.php?type=card&subtype=received" method="post">
         <fieldset class="nomargin">
 
 
@@ -34,6 +34,7 @@
         <tr>
             <th>ФИО</th>
             <th>Всего</th>
+            <th>Получено</th>
             <th>Выдано</th>
             <th>Уничтожено</th>
 
@@ -51,7 +52,9 @@
                 <td>
                     {$user.all}
                 </td>
-
+                <td>
+                    {$user.received}
+                </td>
                 <td>
                     {$user.issued}
                 </td>

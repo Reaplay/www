@@ -190,7 +190,8 @@
         {/foreach}
         </tbody>
     </table>
-    </table>
+
+</div>
     <!--очень кривой вывод номеров страниц. переделать-->
     <ul class="pagination pagination-sm">
         <!--<li class="disabled"><a href="#">Пред</a></li>-->

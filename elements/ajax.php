@@ -6,7 +6,7 @@ dbconn();
 if($CURUSER['only_view']){
 	die("error");
 }
-
+// получаем список результатов контактов
 if($_GET['action']=='getresultcall'){
 	
 	if(!is_valid_id($_GET['type']))
@@ -21,6 +21,7 @@ if($_GET['action']=='getresultcall'){
 		echo json_encode($result);
 		//print_r($result);
 }
+// отключаем пользователя
 elseif($_GET['action']=='disableuser'){
 	
 	if(!is_valid_id($_GET['id']))
@@ -48,6 +49,7 @@ elseif($_GET['action']=='disableuser'){
 	sql_query("UPDATE `users` SET `enable` = '2', `dis_reason` = 'Была отключена пользователем ".$CURUSER['name']."' WHERE `id` = '".$id."';") or sqlerr(__FILE__,__LINE__);
 	die("success");
 }
+	//включаем пользователя
 elseif($_GET['action']=='enableuser'){
 
 	if(!is_valid_id($_GET['id']))
@@ -75,6 +77,7 @@ elseif($_GET['action']=='enableuser'){
 	sql_query("UPDATE `users` SET `enable` = '1', `dis_reason` = '".$CURUSER['name']."' WHERE `id` = '".$id."';") or sqlerr(__FILE__,__LINE__);
 	die("success");
 }
+	//поиск
 elseif($_GET['action']=='search'){
 	if(isset($_REQUEST['search']) && !empty($_REQUEST['search'])) {
 
@@ -94,36 +97,7 @@ elseif($_GET['action']=='search'){
 		$KEYWORD = isset($_REQUEST['search']) ? (string)$_REQUEST['search'] : null;
 
 
-		/**
-		 * Country Array List - Demo Purpose Only!
-		 **/
-		/*$data_search = array(
-			"Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua & Barbuda",
-			"Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain",
-			"Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia",
-			"Bosnia & Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria",
-			"Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Cape Verde", "Cayman Islands", "Chad", "Chile",
-			"China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cruise Ship",
-			"Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador",
-			"Egypt", "El Salvador", "Equatorial Guinea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands",
-			"Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia",
-			"Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey",
-			"Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India",
-			"Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey",
-			"Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyz Republic", "Laos", "Latvia", "Lebanon", "Lesotho",
-			"Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar",
-			"Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Moldova",
-			"Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Namibia", "Nepal", "Netherlands",
-			"Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway",
-			"Oman", "Pakistan", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland",
-			"Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre & Miquelon",
-			"Samoa", "San Marino", "Satellite", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone",
-			"Singapore", "Slovakia", "Slovenia", "South Africa", "South Korea", "Spain", "Sri Lanka", "St Kitts & Nevis",
-			"St Lucia", "St Vincent", "St. Lucia", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria",
-			"Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad & Tobago",
-			"Tunisia", "Turkey", "Turkmenistan", "Turks & Caicos", "Uganda", "Ukraine", "United Arab Emirates",
-			"United Kingdom", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Virgin Islands (US)", "Yemen", "Zambia", "Zimbabwe"
-		);*/
+
 		$res = sql_query("
 SELECT client.name, client.id
 FROM `client`
@@ -142,6 +116,7 @@ WHERE client.name LIKE '%".$_GET['search']."%' OR client.mobile LIKE '%".$_GET['
 		die($json);
 	}
 }
+	//выдаем карту/уничтожаем
 elseif($_GET['action']=='issue_card'){
 	if(!is_valid_id($_GET['id']))
 		die("error");
@@ -164,17 +139,20 @@ elseif($_GET['action']=='issue_card'){
 			die("error");
 		}
 	}
-
+	//выдаем
 	if($_GET['status']=="issue") {
 		sql_query("INSERT INTO `card_callback`(`id_client`,`manager`, `added`,`comment`)VALUES (".implode(",", array_map("sqlesc", array($id, $CURUSER['department'], time(), "Карта выдана"))).");")  or sqlerr(__FILE__, __LINE__);
 		$id_callback = mysql_insert_id();
 
-		sql_query ("UPDATE `card_client` SET `status` = '1', `id_callback` = '".$id_callback."' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
+		sql_query ("UPDATE `card_client` SET `status` = '1', `id_callback` = '".$id_callback."',`last_update` = '".time()."' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
+		write_log("Карта выдана","card","Выдана");
 	}
+	//уничтожаем
 	elseif($_GET['status']=="destroy") {
 		sql_query("INSERT INTO `card_callback`(`id_client`,`manager`, `added`,`comment`)VALUES (".implode(",", array_map("sqlesc", array($id, $CURUSER['department'], time(), "Карта уничтожена"))).");")  or sqlerr(__FILE__, __LINE__);
 		$id_callback = mysql_insert_id();
-		sql_query ("UPDATE `card_client` SET `status` = '2', `id_callback` = '".$id_callback."' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
+		sql_query ("UPDATE `card_client` SET `status` = '2', `id_callback` = '".$id_callback."',`last_update` = '".time()."' WHERE `id` = '" . $id . "';") or sqlerr (__FILE__, __LINE__);
+		write_log("Карта уничтожена","card","Уничтожена");
 	}
 	die("success");
 }

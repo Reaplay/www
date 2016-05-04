@@ -43,7 +43,7 @@ if($_POST['action'] == 'change_mgr'){
 
 
     $manager = $_POST['new_manager'];
-    sql_query("UPDATE `card_client` SET `department` = '".$department['department']."', `manager` =  '".$manager."' WHERE `id` ='".$_POST['id']."';")  or sqlerr(__FILE__, __LINE__);
+    sql_query("UPDATE `card_client` SET `department` = '".$department['department']."', `manager` =  '".$manager."',`last_update` = '".time()."' WHERE `id` ='".$_POST['id']."';")  or sqlerr(__FILE__, __LINE__);
 
     $msg = "Пользователем ".$CURUSER['name']." вам была добавлена новая карта. <a href=\"card.php?a=view&id=".$_POST['id']."\">Перейти</a>";
     $subject = "Назначена новая карта";

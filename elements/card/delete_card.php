@@ -16,7 +16,7 @@
     $id = $_GET['id'];
 
     if(get_user_class() <= UC_HEAD){
-        $addition = "AND client.department = '".$CURUSER['department']."'";
+        $addition = "AND card_client.department = '".$CURUSER['department']."'";
     }
     elseif(get_user_class() == UC_POWER_HEAD){
         $addition = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";

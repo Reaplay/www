@@ -28,28 +28,54 @@
     }
     elseif(get_user_class()==UC_POWER_HEAD){
         $department = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
-        $left_join = "LEFT JOIN department ON department.id = card_client.department";
+        $left_join .= "LEFT JOIN department ON department.id = card_client.department";
     }
     elseif(get_user_class() <= UC_ADMINISTRATOR){
         //$banned = "AND users.banned = '0' ";
     }
+    // фильтруем по типу карты
     if($_GET['type_card'] AND is_valid_id($_GET['type_card'])){
         $flt_card = "AND card_client.id_cobrand = '".$_GET['type_card']."'";
         $add_link .= "&type_card=".$_GET['type_card'];
     }
+    // фильтр по менеджеру
     if($_GET['manager'] AND is_valid_id($_GET['manager'])){
         $flt_manager = "AND card_client.manager = '".$_GET['manager']."'";
         $add_link .= "&manager=".$_GET['manager'];
     }
-    if($_GET['department'] AND is_valid_id($_GET['department'])){
+    //фильтр по отделению
+    if($_GET['department'] AND is_valid_id($_GET['department']) AND get_user_class() >=UC_POWER_HEAD){
         $flt_department = "AND card_client.department = '".$_GET['department']."'";
         $add_link .= "&department=".$_GET['department'];
     }
+    // фильтр по самому себе
     if($_GET['only_my']){
         $only_my = "AND card_client.manager = '".$CURUSER['id']."'";
         $add_link .= "&only_my=1";
     }
-// сортировка
+    // фильтр по статусу выдачи
+    if($_GET['status_action']){
+        // получаем текущую дату
+        $now_date = strtotime(date("d.m.Y"));
+        $add_link .= "&status_client=".$_GET['status_action'];
+       // $left_join .= "LEFT JOIN card_callback ON card_callback.id = card_client.id_callback";
+
+            if($_GET['status_action']=='miss'){
+                $card_callback .="AND card_client.next_call < '".$now_date."' ";
+                $card_callback .= "AND card_client.next_call != '0' ";
+            }
+            elseif($_GET['status_action']=='next'){
+                $card_callback .="AND card_client.next_call > '".$now_date."' ";
+            }
+            elseif($_GET['status_action']=='today'){
+                $card_callback .="AND card_client.next_call = '".$now_date."' ";
+            }
+           // $add_link .= "&status_action=".$_GET['status_action'];
+            //$card_callback .= "AND card_callback.status = '0' ";
+    }
+
+
+    // сортировка
     if($_GET['name']){
         if($_GET['name']=='asc'){
             $sort['name']='asc';
@@ -82,12 +108,15 @@
         $sort['query'] = "ORDER BY card_client.name ".$sort['next_call']."";
 
     }
-// поиск
+
+
+    // поиск
     if($_GET['s']){
         $res = sql_query ("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager, card_callback.comment as card_comment, (SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card, (SELECT `name` FROM users WHERE id = card_callback.manager) as comment_manager FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.manager LEFT JOIN card_callback ON card_callback.id = card_client.id_callback WHERE card_client.delete = '0' AND card_client.status = '0' AND  card_client.name LIKE '%".$_GET['s']."%' OR card_client.mobile LIKE '%".$_GET['s']."%' OR card_client.equid LIKE '%".$_GET['s']."%' ".$sort['query']." ".$limit.";") or sqlerr (__FILE__, __LINE__);
     }
     else {
-        $res = sql_query ("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager, card_callback.comment as card_comment, (SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card, (SELECT `name` FROM users WHERE id = card_callback.manager) as comment_manager FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.manager LEFT JOIN card_callback ON card_callback.id = card_client.id_callback WHERE card_client.delete = '0' AND card_client.status = '0'  " . $department . " " . $only_my . " " . $flt_manager . " " . $flt_department . " " . $flt_card . " " . $sort['query'] . " " . $limit . ";") or sqlerr (__FILE__, __LINE__);
+
+        $res = sql_query ("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager, card_callback.comment as card_comment, (SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card, (SELECT `name` FROM users WHERE id = card_callback.manager) as comment_manager FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.manager LEFT JOIN card_callback ON card_callback.id = card_client.id_callback WHERE card_client.delete = '0' AND card_client.status = '0'  " . $department . " " . $only_my . " " . $flt_manager . " " . $flt_department . " " . $flt_card . " ".$card_callback." " . $sort['query'] . " " . $limit . ";") or sqlerr (__FILE__, __LINE__);
     }
     if(mysql_num_rows($res) == 0){
         stderr("Ошибка","Карты не найдены","no");
@@ -133,7 +162,7 @@
 
     }
     else{
-        $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.delete = '0' AND card_client.status = '0' ".$department." ".$only_my." ".$flt_manager." ".$flt_department." $flt_card;") or sqlerr(__FILE__,__LINE__);
+        $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.delete = '0' AND card_client.status = '0' ".$department." ".$only_my." ".$flt_manager." ".$flt_department." $flt_card $card_callback;") or sqlerr(__FILE__,__LINE__);
     }
     $row = mysql_fetch_array($res);
     //всего записей

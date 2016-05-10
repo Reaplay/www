@@ -44,6 +44,18 @@
                     </div>
                     <div class="row margin-bottom-10">
                         <div class="col-md-6">
+                            <h4>Статус выдачи</h4>
+                            <div class="fancy-form fancy-form-select">
+                                <select class="form-control" name="status_action">
+                                    <option value="">Все</option>
+                                    <option value="miss">Пропущенные</option>
+                                    <option value="today">Сегодня</option>
+                                    <option value="next">Дальнейшие</option>
+                                </select>
+                                <i class="fancy-arrow"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             {if $IS_POWER_HEAD}
                                 <h4>Фильтр по отделениям</h4>
                                 <div class="fancy-form fancy-form-select">
@@ -54,9 +66,6 @@
                                     <i class="fancy-arrow"></i>
                                 </div>
                             {/if}
-                        </div>
-                        <div class="col-md-6">
-
                         </div>
                     </div>
                     <div class="row margin-bottom-10">

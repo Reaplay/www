@@ -25,8 +25,25 @@
         $end_date = mktime( 23,59,59,$arr_cur_time['1'],$arr_cur_time['0'],$arr_cur_time['2']);
        // $data_range = date("d-m-Y",time()) ." - ".date("d-m-Y",time());
     }
+
+    if(get_user_class()<UC_POWER_HEAD){
+        //$left_join_client = "";
+        $department_users = "AND users.department = '".$CURUSER['department']."'";
+
+        //$left_join_card = "";
+        $department_card = "AND card_client.department = '".$CURUSER['department']."'";
+
+    }
+    elseif(get_user_class()== UC_POWER_HEAD){
+        $left_join_users = "LEFT JOIN department ON department.id=users.department";
+        $department_users = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
+
+        $left_join_card = "LEFT JOIN department ON department.id=card_client.department";
+        $department_card = "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
+    }
+
     //получаем инфу по пользователям
-    $res_user=sql_query("SELECT users.name, users.department, (SELECT SUM(1) FROM card_client WHERE card_client.manager = users.id AND card_client.status = 1 AND card_client.last_update >= '".$start_date."' AND card_client.last_update <= '".$end_date."') AS issued, (SELECT SUM(1) FROM card_client WHERE card_client.manager = users.id AND card_client.status = 2 AND card_client.last_update >= '".$start_date."' AND card_client.last_update <= '".$end_date."') AS destroy FROM users WHERE users.use_card = 1 AND users.department = '".$CURUSER['department']."'") or sqlerr(__FILE__, __LINE__);
+    $res_user=sql_query("SELECT users.name, users.department, (SELECT SUM(1) FROM card_client WHERE card_client.manager = users.id AND card_client.status = 1 AND card_client.last_update >= '".$start_date."' AND card_client.last_update <= '".$end_date."') AS issued, (SELECT SUM(1) FROM card_client WHERE card_client.manager = users.id AND card_client.status = 2 AND card_client.last_update >= '".$start_date."' AND card_client.last_update <= '".$end_date."') AS destroy FROM users $left_join_users WHERE users.use_card = 1 $department_users") or sqlerr(__FILE__, __LINE__);
     $i=0;
     while ($row_user = mysql_fetch_array($res_user)){
         if (($row_user['issued'] + $row_user['destroy']) == 0)
@@ -37,7 +54,9 @@
     }
 
     //получаем инфу по картам
-    $res_card=sql_query("SELECT card_cobrand.name, (SELECT SUM(1) FROM card_client WHERE card_client.id_cobrand = card_cobrand.id AND card_client.status = 1 AND card_client.last_update >= '".$start_date."' AND card_client.last_update <= '".$end_date."' AND card_client.department = '".$CURUSER['department']."') AS issued, (SELECT SUM(1) FROM card_client WHERE card_client.id_cobrand = card_cobrand.id AND card_client.status = 2 AND card_client.last_update >= '".$start_date."' AND card_client.last_update <= '".$end_date."' AND card_client.department = '".$CURUSER['department']."') AS destroy FROM card_cobrand ") or sqlerr(__FILE__, __LINE__);
+    $res_card=sql_query("SELECT card_cobrand.name,
+(SELECT SUM(1) FROM card_client $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.status = 1 AND card_client.last_update >= '".$start_date."' AND card_client.last_update <= '".$end_date."' $department_card) AS issued,
+(SELECT SUM(1) FROM card_client $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.status = 2 AND card_client.last_update >= '".$start_date."' AND card_client.last_update <= '".$end_date."' $department_card) AS destroy FROM card_cobrand ") or sqlerr(__FILE__, __LINE__);
     $i=0;
     while ($row_card = mysql_fetch_array($res_card)){
         if (($row_card['issued'] + $row_card['destroy']) == 0)

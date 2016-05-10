@@ -6,6 +6,7 @@
 		<li class="filter" data-filter="client"><a href="#">Клиенты</a></li>
 		<li class="filter" data-filter="card"><a href="#">Карты</a></li>
 		<li class="filter" data-filter="user"><a href="#">Пользователи</a></li>
+		<li class="filter" data-filter="other"><a href="#">Прочее</a></li>
 	</ul>
 	<!-- /FILTER -->
 

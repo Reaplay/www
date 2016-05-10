@@ -17,6 +17,7 @@
                                 <option value="client">Клиент</option>
                                 <option value="card">Карта</option>
                                 <option value="user">Пользователь</option>
+                                <option value="other">Прочее</option>
 
                             </select>
                             <i class="fancy-arrow"></i>

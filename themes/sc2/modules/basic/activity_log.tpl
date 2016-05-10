@@ -36,9 +36,9 @@
 				<td>
 					Всего: {$activity_card.card_now + $activity_card.card_lost + $activity_card.card_next}
 				</td>
-				<td>{if $activity_card.card_now}{$activity_card.card_now}{else}N/A{/if}</td>
-				<td>{if $activity_card.card_lost}{$activity_card.card_lost}{else}N/A{/if}</td>
-				<td>{if $activity_card.card_next}{$activity_card.card_next}{else}N/A{/if}</td>
+				<td>{if $activity_card.card_now}<a class="text-success" href="card.php?status_action=today">{$activity_card.card_now}</a>{else}N/A{/if}</td>
+				<td>{if $activity_card.card_lost}<a class="text-success" href="card.php?status_action=miss">{$activity_card.card_lost}</a>{else}N/A{/if}</td>
+				<td>{if $activity_card.card_next}<a class="text-success" href="card.php?status_action=next">{$activity_card.card_next}</a>{else}N/A{/if}</td>
 
 			</tr>
 		</tbody>

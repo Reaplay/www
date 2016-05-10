@@ -73,6 +73,7 @@
         <tr>
             <th>Карта</th>
             <th>Всего</th>
+            <th>Получено</th>
             <th>Выдано</th>
             <th>Уничтожено</th>
 
@@ -90,7 +91,9 @@
                 <td>
                     {$card.all}
                 </td>
-
+                <td>
+                    {$card.received}
+                </td>
                 <td>
                     {$card.issued}
                 </td>

@@ -205,7 +205,7 @@
 											</ul>
 										</li>
 									{/if}
-									{if $IS_POWER_USER AND $CURUSER.add_client}
+
 									<!-- STATISTICS -->
 									<li class="dropdown">
 										<a class="dropdown-toggle" href="#">Статистика</a>
@@ -237,7 +237,7 @@
 											</li>
 										</ul>
 									</li>
-									{/if}
+									
 {*
 												<li class="dropdown">
 												<a href="#" class="dropdown-toggle">

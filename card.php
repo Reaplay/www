@@ -56,6 +56,10 @@ if($_GET['s']){
     elseif ($_GET['action']=="delete") {
         require_once("elements/card/delete_card.php");
     }
+    elseif ($_GET['action']=="upload_cards") {
+        $REL_TPL->stdhead("Массовая загрузка карт");
+        require_once("elements/card/upload_cards.php");
+    }
      else{
         stderr("Ошибка","В доступе отказано");
         //запись в лог

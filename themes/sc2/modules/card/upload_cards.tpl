@@ -1,9 +1,9 @@
 <div class="alert alert-danger margin-bottom-30">
-	<strong>Внимание</strong> Все загруженные клиенты будут прикреплены к вашей учетной записи.<br>
-	Шаблон для загрузки: <a href="{$REL_CONFIG.defaultbaseurl}/manual/shablon_upload_client.csv">Скачать</a>
+	<strong>Внимание</strong> Все загруженные карты будут прикреплены к вашей учетной записи.<br>
+	Шаблон для загрузки: <a href="{$REL_CONFIG.defaultbaseurl}/manual/shablon_upload_card.csv">Скачать</a>
 </div>
 
-<form enctype="multipart/form-data" action="client.php?a=upload&type=upload_client" method="POST" accept-charset="utf-8">
+<form enctype="multipart/form-data" action="card.php?action=upload_cards&type=upload_cards" method="POST" accept-charset="utf-8">
 <input class="custom-file-upload" type="file" id="file" name="attachment" id="contact:attachment" data-btn-text="Выберите файл" />
 <small class="text-muted block">Максимальный размер файла: 2Mb (только .csv)</small>
 <button  class="btn btn-info">Загрузить</button>
@@ -48,7 +48,7 @@
 						<th>Имя</th>
 						<th>Сотовый</th>
 
-						<th>E-mail</th>
+						<th>Карта</th>
 						<th>Менеджер</th>
 						<th>Результат</th>
 					</tr>
@@ -66,7 +66,7 @@
 									{$text.mobile}
 								</td>
 								<td>
-									{$text.email}
+									{$text.cobrand_id}
 								</td>
 								<td class="center">
 									{$text.manager}

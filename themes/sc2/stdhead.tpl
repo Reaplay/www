@@ -202,6 +202,7 @@
 											<ul class="dropdown-menu">
 												<li><a href="card.php">Список карт</a></li>
 												<li><a href="card.php?action=add">Добавить карту</a></li>
+												{if $IS_HEAD}<li><a href="card.php?action=upload_cards">Массовая загрузка</a></li>{/if}
 											</ul>
 										</li>
 									{/if}

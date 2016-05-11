@@ -32,7 +32,7 @@
     }
     elseif(get_user_class() <= UC_ADMINISTRATOR){
         //$banned = "AND users.banned = '0' ";
-    }
+    }/*
     // фильтруем по типу карты
     if($_GET['type_card'] AND is_valid_id($_GET['type_card'])){
         $flt_card = "AND card_client.id_cobrand = '".$_GET['type_card']."'";
@@ -74,6 +74,8 @@
             //$card_callback .= "AND card_callback.status = '0' ";
     }
 
+*/
+    $filter = filter_index($_GET,"card");
 
     // сортировка
     if($_GET['name']){
@@ -116,7 +118,7 @@
     }
     else {
 
-        $res = sql_query ("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager, card_callback.comment as card_comment, (SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card, (SELECT `name` FROM users WHERE id = card_callback.manager) as comment_manager FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.manager LEFT JOIN card_callback ON card_callback.id = card_client.id_callback WHERE card_client.delete = '0' AND card_client.status = '0'  " . $department . " " . $only_my . " " . $flt_manager . " " . $flt_department . " " . $flt_card . " ".$card_callback." " . $sort['query'] . " " . $limit . ";") or sqlerr (__FILE__, __LINE__);
+        $res = sql_query ("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager, card_callback.comment as card_comment, (SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card, (SELECT `name` FROM users WHERE id = card_callback.manager) as comment_manager FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.manager LEFT JOIN card_callback ON card_callback.id = card_client.id_callback WHERE card_client.delete = '0' AND card_client.status = '0'  ".$filter['add_where']." " . $sort['query'] . " " . $limit . ";") or sqlerr (__FILE__, __LINE__);
     }
     if(mysql_num_rows($res) == 0){
         stderr("Ошибка","Карты не найдены","no");
@@ -162,7 +164,7 @@
 
     }
     else{
-        $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.delete = '0' AND card_client.status = '0' ".$department." ".$only_my." ".$flt_manager." ".$flt_department." $flt_card $card_callback;") or sqlerr(__FILE__,__LINE__);
+        $res = sql_query("SELECT SUM(1) FROM card_client $left_join WHERE card_client.delete = '0' AND card_client.status = '0' ".$filter['add_where'].";") or sqlerr(__FILE__,__LINE__);
     }
     $row = mysql_fetch_array($res);
     //всего записей
@@ -181,7 +183,7 @@
     $REL_TPL->assignByRef('sort',$sort);
     $REL_TPL->assignByRef('cpp',$cpp);
     $REL_TPL->assignByRef('page',$page);
-    $REL_TPL->assignByRef('add_link',$add_link);
+    $REL_TPL->assignByRef('add_link',$filter['add_link']);
     $REL_TPL->assignByRef('add_sort',$add_sort);
     $REL_TPL->assignByRef('count',$count);
     $REL_TPL->assignByRef('max_page',$max_page);

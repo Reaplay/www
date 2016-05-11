@@ -779,4 +779,75 @@ function get_department($class,$department,$id_select=""){
 
 	return $list_department;
 }
+
+	//фильтр для карт и клиентов
+	function filter_index($data,$page){
+		global $CURUSER;
+		// подготовка данных
+		if($page=="client"){
+			$base = "client";
+		}
+		elseif($page=="card"){
+			$base = "card_client";
+		}
+
+		// прописываем фильтры
+		// фильтр по самому себе
+		if($data['only_my'] AND is_valid_id($data['only_my'])){
+			$add_where .= "AND ".$base.".manager = '".$CURUSER['id']."'";
+			$add_link .= "&only_my=1";
+		}
+		//фильтр по отделеию
+		// если фильтр в клиентах, то по отделению доступен только для повер_хеадов
+		if((($page =="client" AND  get_user_class() >=UC_POWER_HEAD) OR $page == "card") AND $data['department'] AND is_valid_id($data['department'])){
+
+			$add_where .= "AND ".$base.".department = '".$data['department']."'";
+			$add_link .= "&department=".$data['department'];
+		}
+		//фильтр по менеджерам
+		if($data['manager'] AND is_valid_id($data['manager'])){
+			$add_where .= "AND ".$base.".manager = '".$data['manager']."'";
+			$add_link .= "&manager=".$data['manager'];
+		}
+		/*ФИЛЬТР ТОЛЬКО ДЛЯ КЛИЕНТОВ*/
+
+		/*ФИЛЬТР ТОЛЬКО ДЛЯ КАРТ*/
+		if($page=="card"){
+			// фильтруем по типу карты
+			if($data['type_card'] AND is_valid_id($data['type_card'])){
+				$add_where = "AND ".$base.".id_cobrand = '".$data['type_card']."'";
+				$add_link .= "&type_card=".$data['type_card'];
+			}
+
+			//фильтр по отделению
+
+
+			// фильтр по статусу выдачи
+			if($data['status_action']){
+				// получаем текущую дату
+				$now_date = strtotime(date("d.m.Y"));
+				$add_link .= "&status_action=".$data['status_action'];
+
+
+				if($data['status_action']=='miss'){
+					$add_where .="AND ".$base.".next_call < '".$now_date."' ";
+					$add_where .= "AND ".$base.".next_call != '0' ";
+				}
+				elseif($data['status_action']=='next'){
+					$add_where .="AND ".$base.".next_call > '".$now_date."' ";
+				}
+				elseif($data['status_action']=='today'){
+					$add_where .="AND ".$base.".next_call = '".$now_date."' ";
+				}
+				// $add_link .= "&status_action=".$_GET['status_action'];
+				//$card_callback .= "AND card_callback.status = '0' ";
+			}
+		}
+		$return['add_link'] = $add_link;
+		$return['add_where'] = $add_where;
+		return $return;
+
+
+	}
+
 ?>

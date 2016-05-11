@@ -33,3 +33,4 @@ ALTER TABLE `card_client` ADD `last_update` INT( 10 ) NOT NULL ;
 сделать http://crm/action_admin.php?module=update_base&action=start&type=fix_callback_1
 _______________
 ALTER TABLE `card_client` ADD `who_added` INT NOT NULL DEFAULT '0';
+ALTER TABLE `client` ADD `next_call` INT( 10 ) NOT NULL DEFAULT '0';

@@ -24,9 +24,9 @@
 				<td>
 					{$card.name}: {$card.card_now + $card.card_lost + $card.card_next}
 				</td>
-				<td>{if $card.card_now}{$card.card_now}{else}N/A{/if}</td>
-				<td>{if $card.card_lost}{$card.card_lost}{else}N/A{/if}</td>
-				<td>{if $card.card_next}{$card.card_next}{else}N/A{/if}</td>
+				<td>{if $card.card_now}{$card.card_now}{else}<b>0</b>{/if}</td>
+				<td>{if $card.card_lost}{$card.card_lost}{else}<b>0</b>{/if}</td>
+				<td>{if $card.card_next}{$card.card_next}{else}<b>0</b>{/if}</td>
 
 			</tr>
 			{/if}
@@ -36,9 +36,9 @@
 				<td>
 					Всего: {$activity_card.card_now + $activity_card.card_lost + $activity_card.card_next}
 				</td>
-				<td>{if $activity_card.card_now}<a class="text-success" href="card.php?status_action=today">{$activity_card.card_now}</a>{else}N/A{/if}</td>
-				<td>{if $activity_card.card_lost}<a class="text-success" href="card.php?status_action=miss">{$activity_card.card_lost}</a>{else}N/A{/if}</td>
-				<td>{if $activity_card.card_next}<a class="text-success" href="card.php?status_action=next">{$activity_card.card_next}</a>{else}N/A{/if}</td>
+				<td>{if $activity_card.card_now}<a class="text-success" href="card.php?status_action=today">{$activity_card.card_now}</a>{else}<b>0</b>{/if}</td>
+				<td>{if $activity_card.card_lost}<a class="text-success" href="card.php?status_action=miss">{$activity_card.card_lost}</a>{else}<b>0</b>{/if}</td>
+				<td>{if $activity_card.card_next}<a class="text-success" href="card.php?status_action=next">{$activity_card.card_next}</a>{else}<b>0</b>{/if}</td>
 
 			</tr>
 		</tbody>
@@ -73,8 +73,8 @@
 					<div>Пропущенные действия</div>
 					<!--<small>small text</small>-->
 				</td>
-				<td>{if $activity_log.act_mt_lost}<a class="text-success" href="client.php?status_client=2&status_action=miss&type=1">{$activity_log.act_mt_lost}</a>{else}N/A{/if}</td>
-				<td>{if $activity_log.act_call_lost}<a class="text-success" href="client.php?status_client=2&status_action=miss&type=2">{$activity_log.act_call_lost}</a>{else}N/A{/if}</td>
+				<td>{if $activity_log.act_mt_lost}<a class="text-success" href="client.php?status_client=2&status_action=miss&type=1">{$activity_log.act_mt_lost}</a>{else}<b>0</b>{/if}</td>
+				<td>{if $activity_log.act_call_lost}<a class="text-success" href="client.php?status_client=2&status_action=miss&type=2">{$activity_log.act_call_lost}</a>{else}<b>0</b>{/if}</td>
 				<td>{$activity_log.act_mt_lost + $activity_log.act_call_lost}</td>
 			</tr>
 			<tr>
@@ -82,8 +82,8 @@
 					<div>Действия на сегодня</div>
 					
 				</td>
-				<td>{if $activity_log.act_mt_now}{$activity_log.act_mt_now}{else}N/A{/if}</td>
-				<td>{if $activity_log.act_call_now}{$activity_log.act_call_now}{else}N/A{/if}</td>
+				<td>{if $activity_log.act_mt_now}{$activity_log.act_mt_now}{else}<b>0</b>{/if}</td>
+				<td>{if $activity_log.act_call_now}{$activity_log.act_call_now}{else}<b>0</b>{/if}</td>
 				<td>{$activity_log.act_mt_now + $activity_log.act_call_now}</td>
 				
 			</tr>
@@ -91,8 +91,8 @@
 				<td>
 					<div>Дальнейшие действия</div>
 				</td>
-				<td>{if $activity_log.act_mt_next}{$activity_log.act_mt_next}{else}N/A{/if}</td>
-				<td>{if $activity_log.act_call_next}{$activity_log.act_call_next}{else}N/A{/if}</td>
+				<td>{if $activity_log.act_mt_next}{$activity_log.act_mt_next}{else}<b>0</b>{/if}</td>
+				<td>{if $activity_log.act_call_next}{$activity_log.act_call_next}{else}<b>0</b>{/if}</td>
 				<td>{$activity_log.act_mt_next + $activity_log.act_call_next}</td>
 				
 			</tr>
@@ -110,8 +110,8 @@
 					<div>Пропущенные действия</div>
 					<!--<small>small text</small>-->
 				</td>
-				<td>{if $activity_log.pot_mt_lost}<a class="text-success" href="client.php?status_client=1&status_action=miss&type=1">{$activity_log.pot_mt_lost}</a>{else}N/A{/if}</td>
-				<td>{if $activity_log.pot_call_lost}<a class="text-success" href="client.php?status_client=1&status_action=miss&type=2">{$activity_log.pot_call_lost}{else}N/A{/if}</td>
+				<td>{if $activity_log.pot_mt_lost}<a class="text-success" href="client.php?status_client=1&status_action=miss&type=1">{$activity_log.pot_mt_lost}</a>{else}<b>0</b>{/if}</td>
+				<td>{if $activity_log.pot_call_lost}<a class="text-success" href="client.php?status_client=1&status_action=miss&type=2">{$activity_log.pot_call_lost}{else}<b>0</b>{/if}</td>
 				<td>{$activity_log.pot_mt_lost + $activity_log.pot_call_lost}</td>
 			</tr>
 			<tr>
@@ -119,8 +119,8 @@
 					<div>Действия на сегодня</div>
 					
 				</td>
-				<td>{if $activity_log.pot_mt_now}<a class="text-success" href="client.php?status_client=1&status_action=today&type=1">{$activity_log.pot_mt_now}</a>{else}N/A{/if}</td>
-				<td>{if $activity_log.pot_call_now}<a class="text-success" href="client.php?status_client=1&status_action=today&type=2">{$activity_log.pot_call_now}</a>{else}N/A{/if}</td>
+				<td>{if $activity_log.pot_mt_now}<a class="text-success" href="client.php?status_client=1&status_action=today&type=1">{$activity_log.pot_mt_now}</a>{else}<b>0</b>{/if}</td>
+				<td>{if $activity_log.pot_call_now}<a class="text-success" href="client.php?status_client=1&status_action=today&type=2">{$activity_log.pot_call_now}</a>{else}<b>0</b>{/if}</td>
 				<td>{$activity_log.pot_mt_now + $activity_log.pot_call_now}</td>
 				
 			</tr>
@@ -128,8 +128,8 @@
 				<td>
 					<div>Дальнейшие действия</div>
 				</td>
-				<td>{if $activity_log.pot_mt_next}<a class="text-success" href="client.php?status_client=1&status_action=next&type=1">{$activity_log.pot_mt_next}</a>{else}N/A{/if}</td>
-				<td>{if $activity_log.pot_call_next}<a class="text-success" href="client.php?status_client=1&status_action=next&type=2">{$activity_log.pot_call_next}</a>{else}N/A{/if}</td>
+				<td>{if $activity_log.pot_mt_next}<a class="text-success" href="client.php?status_client=1&status_action=next&type=1">{$activity_log.pot_mt_next}</a>{else}<b>0</b>{/if}</td>
+				<td>{if $activity_log.pot_call_next}<a class="text-success" href="client.php?status_client=1&status_action=next&type=2">{$activity_log.pot_call_next}</a>{else}<b>0</b>{/if}</td>
 				<td>{$activity_log.pot_mt_next + $activity_log.pot_call_next}</td>
 				
 			</tr>

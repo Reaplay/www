@@ -68,7 +68,7 @@ VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $
 }
     else {
 
-        if(!stristr($_SERVER['HTTP_REFERER'],"=")){
+        if(!stristr($_SERVER['HTTP_REFERER'],"action=view")){
             $return_url = $_SERVER['HTTP_REFERER'];
         }
 

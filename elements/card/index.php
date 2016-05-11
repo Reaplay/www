@@ -57,7 +57,7 @@
     if($_GET['status_action']){
         // получаем текущую дату
         $now_date = strtotime(date("d.m.Y"));
-        $add_link .= "&status_client=".$_GET['status_action'];
+        $add_link .= "&status_action=".$_GET['status_action'];
        // $left_join .= "LEFT JOIN card_callback ON card_callback.id = card_client.id_callback";
 
             if($_GET['status_action']=='miss'){

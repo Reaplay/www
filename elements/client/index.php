@@ -25,7 +25,7 @@
 		$department = " AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."') ";
 		//$department = "  client.department = department.id ";
 	}
-
+/*
 	$now_date = strtotime(date("d.m.Y"));
 	if($_GET['status_client']){
 		$status = (int)($_GET['status_client'] - 1);
@@ -74,7 +74,8 @@
 	if($_GET['department'] AND is_valid_id($_GET['department'])){
 		$flt_department = "AND client.department = '".$_GET['department']."'";
 		$add_link .= "&department=".$_GET['department'];
-	}
+	}*/
+	$filter = filter_index($_GET,"client");
 /*	if ($client OR $department){
 		$where = "WHERE";
 	}*/
@@ -88,7 +89,7 @@ LEFT JOIN callback ON callback.id = client.id_callback
 $left_join
 WHERE
 client.delete = '0'
-".$department." ".$only_my." ".$client." ".$call_back." ".$flt_manager." ".$flt_department." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
+".$filter['add_where']." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
 
 	if(mysql_num_rows($res) == 0){
@@ -119,7 +120,7 @@ client.delete = '0'
 	//необходима оптимизация
 	// узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
 	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager LEFT JOIN callback ON callback.id = client.id_callback $left_join WHERE
-client.delete = '0' ".$department." ".$only_my." ".$call_back." ".$client." ".$flt_manager." ".$flt_department.";") or sqlerr(__FILE__,__LINE__);
+client.delete = '0' ".$filter['add_where'].";") or sqlerr(__FILE__,__LINE__);
 	$row = mysql_fetch_array($res);
 	//всего записей
 	$count = $row[0];
@@ -135,7 +136,7 @@ client.delete = '0' ".$department." ".$only_my." ".$call_back." ".$client." ".$f
 	$REL_TPL->assignByRef('list_department',$list_department);
 	$REL_TPL->assignByRef('cpp',$cpp);
 	$REL_TPL->assignByRef('page',$page);
-	$REL_TPL->assignByRef('add_link',$add_link);
+	$REL_TPL->assignByRef('add_link',$filter['add_link']);
 	$REL_TPL->assignByRef('max_page',$max_page);
 	//$REL_TPL->assignByRef('count',$count);
 	$REL_TPL->output("index","client");

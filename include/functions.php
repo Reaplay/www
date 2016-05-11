@@ -784,10 +784,10 @@ function get_department($class,$department,$id_select=""){
 	function filter_index($data,$page){
 		global $CURUSER;
 		// подготовка данных
-		if($page=="client"){
+		if($page == "client"){
 			$base = "client";
 		}
-		elseif($page=="card"){
+		elseif($page == "card"){
 			$base = "card_client";
 		}
 
@@ -809,39 +809,61 @@ function get_department($class,$department,$id_select=""){
 			$add_where .= "AND ".$base.".manager = '".$data['manager']."'";
 			$add_link .= "&manager=".$data['manager'];
 		}
+
+		// по дате след. звонка/выдаче
+		if($data['status_action']){
+			$now_date = strtotime(date("d.m.Y"));
+			$add_link .= "&status_action=".$data['status_action'];
+
+
+			if($data['status_action']=='miss'){
+				$add_where .="AND ".$base.".next_call < '".$now_date."' ";
+				$add_where .= "AND ".$base.".next_call != '0' ";
+			}
+			elseif($data['status_action']=='next'){
+				$add_where .="AND ".$base.".next_call > '".$now_date."' ";
+			}
+			elseif($data['status_action']=='today'){
+				$add_where .="AND ".$base.".next_call = '".$now_date."' ";
+			}
+			if($page=="client") {
+				$add_where .= "AND callback.status = '0' ";
+			}
+		}
+
 		/*ФИЛЬТР ТОЛЬКО ДЛЯ КЛИЕНТОВ*/
+		if($page == "client"){
+			// по статусу клиента
+			if($data['status_client']) {
+				$status = (int)($data['status_client'] - 1);
+				$add_where = " AND client.status='" . $status . "'";
+				$add_link .= "&status_client=" . $data['status_client'];
+			}
+
+			// по типу контакта
+			if($data['type']){
+				if($data['type']=='1'){
+					$add_where .="AND callback.type_contact = 1 ";
+				}
+				elseif($data['type']=='2'){
+					$add_where .="AND callback.type_contact = 2 ";
+				}
+				$add_link .= "&type=".$data['type'];
+			}
+
+
+		}
+
 
 		/*ФИЛЬТР ТОЛЬКО ДЛЯ КАРТ*/
-		if($page=="card"){
+		if($page == "card"){
 			// фильтруем по типу карты
 			if($data['type_card'] AND is_valid_id($data['type_card'])){
 				$add_where = "AND ".$base.".id_cobrand = '".$data['type_card']."'";
 				$add_link .= "&type_card=".$data['type_card'];
 			}
 
-			//фильтр по отделению
 
-
-			// фильтр по статусу выдачи
-			if($data['status_action']){
-				// получаем текущую дату
-				$now_date = strtotime(date("d.m.Y"));
-				$add_link .= "&status_action=".$data['status_action'];
-
-
-				if($data['status_action']=='miss'){
-					$add_where .="AND ".$base.".next_call < '".$now_date."' ";
-					$add_where .= "AND ".$base.".next_call != '0' ";
-				}
-				elseif($data['status_action']=='next'){
-					$add_where .="AND ".$base.".next_call > '".$now_date."' ";
-				}
-				elseif($data['status_action']=='today'){
-					$add_where .="AND ".$base.".next_call = '".$now_date."' ";
-				}
-				// $add_link .= "&status_action=".$_GET['status_action'];
-				//$card_callback .= "AND card_callback.status = '0' ";
-			}
 		}
 		$return['add_link'] = $add_link;
 		$return['add_where'] = $add_where;

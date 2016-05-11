@@ -24,7 +24,7 @@
 			<div class="col col-md-6">
 				<div class="fancy-form">
 					<i class="fa fa-calendar"></i>
-					<input type="text" class="form-control datepicker" data-format="dd/mm/yyyy" data-lang="en" data-RTL="false" value="{$data_changelog.date}" name="date">
+					<input type="text" class="form-control datepicker" data-format="dd/mm/yyyy" data-lang="ru" data-RTL="false" value="{$data_changelog.date}" name="date">
 			
 				</div>
 			</div>

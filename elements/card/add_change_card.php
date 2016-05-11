@@ -126,9 +126,9 @@ if (!$id){
 // добавляем в базу
         $ret = sql_query("
 INSERT INTO `card_client`(
-`name`,`manager`, `department`, `equid`,`added`,`comment`,`next_call`,`mobile`,`id_cobrand`,`id_callback`,`vip`)
+`name`,`manager`, `department`, `equid`,`added`,`who_added`,`comment`,`next_call`,`mobile`,`id_cobrand`,`id_callback`,`vip`)
 VALUES (".implode(",", array_map("sqlesc", array(
-$name, $manager, $department, $equid, time(), $comment, $next_call, $mobile, $id_card, $id_callback, $vip
+$name, $manager, $department, $equid, time(),$CURUSER['id'], $comment, $next_call, $mobile, $id_card, $id_callback, $vip
 ))).");")  or sqlerr(__FILE__, __LINE__);
     // получаем ид
     $id_client = mysql_insert_id();

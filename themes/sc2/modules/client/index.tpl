@@ -170,7 +170,7 @@
 				{if $client.time_callback}{$client.time_callback}{else}<span class="label label-danger">Не задана</span>{/if}
 			</td>
 			<td>
-				{if $client.cb_comment}{$client.cb_comment}{else}{$client.result_call}<br />({$client.cb_manager}){/if}
+				{if $client.cb_comment}{$client.cb_comment}{elseif $client.result_call}{$client.result_call}<br />({$client.cb_manager}){/if}
 			</td>
 			<td>
 				<a href="client.php?a=callback&amp;id={$client.id}">Добавить контакт</a> <i class="fa fa-external-link"></i>

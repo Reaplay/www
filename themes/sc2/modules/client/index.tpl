@@ -164,10 +164,10 @@
 			</td>
 			{/if}
 			<td class="center">
-				 {if $client.status == 0}<span class="label label-sm label-danger">Не клиент</span>{elseif $client.status == 1}<span class="label label-sm label-success">Клиент</span>{elseif $client.status == 2}<span class="label label-sm label-warning">Отказ</span>{/if}
+				 {if $client.status == 0}<span class="label label-sm label-default">Не клиент</span>{elseif $client.status == 1}<span class="label label-sm label-success">Клиент</span>{elseif $client.status == 2}<span class="label label-sm label-warning">Отказ</span>{/if}
 			</td>
 			<td>
-				{if $client.time_callback}{$client.time_callback}{else}N/A{/if}
+				{if $client.time_callback}{$client.time_callback}{else}<span class="label label-danger">Не задана</span>{/if}
 			</td>
 			<td>
 				{if $client.cb_comment}{$client.cb_comment}{else}{$client.result_call}<br />({$client.cb_manager}){/if}

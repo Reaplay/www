@@ -186,7 +186,7 @@
                     {$card.name_card}
                 </td>
                 <td>
-                    {if $card.next_call}{$card.next_call}{else}N/A{/if}
+                    {if $card.next_call}{$card.next_call}{else}<span class="label label-danger">Не задано</span>{/if}
                 </td>
                 <td>
                     {if $card.card_comment}{$card.card_comment}<br />({$card.comment_manager}){/if}

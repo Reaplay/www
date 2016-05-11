@@ -1,5 +1,6 @@
 <div class="alert alert-danger margin-bottom-30">
 	<strong>Внимание</strong> Все загруженные карты будут прикреплены к вашей учетной записи.<br>
+	Инструкция по загрузке: <a href="{$REL_CONFIG.defaultbaseurl}/manual/manual_upload.docx">Скачать</a><br>
 	Шаблон для загрузки: <a href="{$REL_CONFIG.defaultbaseurl}/manual/shablon_upload_card.csv">Скачать</a>
 </div>
 

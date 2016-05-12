@@ -89,7 +89,7 @@ LEFT JOIN callback ON callback.id = client.id_callback
 $left_join
 WHERE
 client.delete = '0'
-".$filter['add_where']." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
+".$filter['add_where']." ".$department." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
 
 	if(mysql_num_rows($res) == 0){
@@ -120,7 +120,7 @@ client.delete = '0'
 	//необходима оптимизация
 	// узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
 	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager LEFT JOIN callback ON callback.id = client.id_callback $left_join WHERE
-client.delete = '0' ".$filter['add_where'].";") or sqlerr(__FILE__,__LINE__);
+client.delete = '0' ".$filter['add_where']." ".$department.";") or sqlerr(__FILE__,__LINE__);
 	$row = mysql_fetch_array($res);
 	//всего записей
 	$count = $row[0];

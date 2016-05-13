@@ -86,6 +86,15 @@ if($_POST['action']=='add'){
 	//$id_client = $_POST['id'];
 	$id_result = $_POST['result_call'];
 	
+		
+	// статус клиента
+	$status = (int)$_POST['status'];
+	if ($_POST['status'] != "---") {
+		$update_status = ", status = ".$status;
+	}
+	else
+		$update_status = ", status = 0";
+	
 	if ($_POST["next_call"]) {
 		$call  = explode("/",$_POST["next_call"]);
 		$next_call = mktime( 0,0,0,$call['1'],$call['0'],$call['2']);
@@ -97,7 +106,8 @@ if($_POST['action']=='add'){
 			stderr("Ошибка","Дата следующего контакта не может быть прошедшей","no");	
 		
 	}
-	else
+	// Если клиент отказался от всех услуг банка
+	elseif($status != 2)
 		stderr("Ошибка","Должна быть введена дата контакта","no");
 
 	$type_contact = $_POST['type_contact'];
@@ -106,11 +116,7 @@ if($_POST['action']=='add'){
 	if ($equid) {
 		$update_equid = ", equid = ".sqlesc($equid)."";
 	}
-	if ($_POST['status'] != "---") {
-		$update_status = ", status = ".$_POST['status'];
-	}
-	else
-		$update_status = ", status = 0";
+
 
 	//$id_product = "1,2,3";
 	//

@@ -22,6 +22,10 @@
 				<div class="copyright">
 					<div class="container">
 						<ul class="pull-right nomargin list-inline mobile-block">
+							{if $IS_ADMINISTRATOR}
+							<li><a href="action_admin.php?module=online">Кто онлайн</a></li>
+							<li>&bull;</li>
+							{/if}
 							<li><a href="faq.php">Список вопросов</a></li>
 							<li>&bull;</li>
 							<li><a href="changelog.php">Список изменений</a></li>

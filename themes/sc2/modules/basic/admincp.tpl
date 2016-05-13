@@ -23,11 +23,12 @@
 
 	<div class="col-md-5th">
 		<h4>Настройки</h4>
-		<a href="action_admin.php?module=department">Отделения</a><br />
+		<a href="action_admin.php?module=update_base">Исправления в базе</a><br />
 	</div>
 
 	<div class="col-md-5th">
 		<h4>Прочее</h4>
+		<a href="action_admin.php?module=online">Кто онлайн</a><br />
 		<a href="action_admin.php?module=pollsadmin">Опрос</a><br />
 		<a href="action_admin.php?module=poll_admin">Общий опрос (не пользователей)</a><br />
 
@@ -54,6 +55,7 @@
 	</div>
 
 	<div class="col-md-5th">
+		<a href="action_admin.php?module=department">Отделения</a><br />
 		<a href="action_admin.php?module=cobrand">Кобрендовые карты</a>
 	</div>
 

@@ -75,10 +75,11 @@
     }
 
 */
-    $filter = filter_index($_GET,"card");
+    $filter = filter_index($_GET,"card_client");
 
     // сортировка
-    if($_GET['name']){
+    $sort = sort_index($_GET,"card_client");
+  /*  if($_GET['name']){
         if($_GET['name']=='asc'){
             $sort['name']='asc';
         }
@@ -109,7 +110,7 @@
         $add_sort .= "&next_call=".$sort['next_call'];
         $sort['query'] = "ORDER BY card_client.name ".$sort['next_call']."";
 
-    }
+    }*/
 
 
     // поиск
@@ -118,7 +119,7 @@
     }
     else {
 
-        $res = sql_query ("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager, card_callback.comment as card_comment, (SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card, (SELECT `name` FROM users WHERE id = card_callback.manager) as comment_manager FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.manager LEFT JOIN card_callback ON card_callback.id = card_client.id_callback WHERE card_client.delete = '0' AND card_client.status = '0'  ".$filter['add_where']." " . $sort['query'] . " ".$department." " . $limit . ";") or sqlerr (__FILE__, __LINE__);
+        $res = sql_query ("SELECT card_client.*, department.name as d_name, department.parent, users.name as manager, card_callback.comment as card_comment, (SELECT `name` FROM card_cobrand WHERE id = card_client.id_cobrand) as name_card, (SELECT `name` FROM users WHERE id = card_callback.manager) as comment_manager FROM `card_client` LEFT JOIN department ON department.id = card_client.department LEFT JOIN users ON users.id = card_client.manager LEFT JOIN card_callback ON card_callback.id = card_client.id_callback WHERE card_client.delete = '0' AND card_client.status = '0'  ".$filter['add_where']." ".$sort['query']." ".$department." " . $limit . ";") or sqlerr (__FILE__, __LINE__);
     }
     if(mysql_num_rows($res) == 0){
         stderr("Ошибка","Карты не найдены","no");
@@ -175,18 +176,25 @@
 
 
 
-
+    //данные по картам
     $REL_TPL->assignByRef('data_card',$data_card);
+
+    //спислк для фильтра
     $REL_TPL->assignByRef('list_manager',$list_manager);
     $REL_TPL->assignByRef('list_card',$list_card);
     $REL_TPL->assignByRef('list_department',$list_department);
-    $REL_TPL->assignByRef('sort',$sort);
+
+    // формируем переход между страниц
     $REL_TPL->assignByRef('cpp',$cpp);
     $REL_TPL->assignByRef('page',$page);
-    $REL_TPL->assignByRef('add_link',$filter['add_link']);
-    $REL_TPL->assignByRef('add_sort',$add_sort);
-    $REL_TPL->assignByRef('count',$count);
     $REL_TPL->assignByRef('max_page',$max_page);
+    //доп. данные для перехода сортировки и фильтров
+    $REL_TPL->assignByRef('add_link',$filter['add_link']);
+    $REL_TPL->assignByRef('add_sort',$sort['link']);
+    $REL_TPL->assignByRef('sort',$sort);
+
+    //счетчик записей
+    $REL_TPL->assignByRef('count',$count);
 
     $REL_TPL->output("index","card");
 

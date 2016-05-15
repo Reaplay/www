@@ -132,30 +132,34 @@
             <th>{if $sort.name}
                     {if $sort.name == "asc"}<a href="card.php?page=1{$add_link}&name=desc"><i class="fa fa-caret-up" aria-hidden="true"></i>
                     {elseif $sort.name == "desc"}<a href="card.php?page=1{$add_link}&name=asc"><i class="fa fa-caret-down" aria-hidden="true"></i>
-
                     {/if}
                 {else}
                         <a href="card.php?page=1{$add_link}&name=asc"><i class="fa fa-arrows-v" aria-hidden="true"></i>
                 {/if}
-                Имя</a></th>
+                Имя</a>
+            </th>
           {*  <th>Менеджер</th>*}
-              <th>{if $sort.added}
-                  {if $sort.added == "asc"}<a href="card.php?page=1{$add_link}&added=desc"><i class="fa fa-caret-up" aria-hidden="true"></i>
-                      {elseif $sort.added == "desc"}<a href="card.php?page=1{$add_link}&added=asc"><i class="fa fa-caret-down" aria-hidden="true"></i>
-
-                          {/if}
-                  {else} <a href="card.php?page=1{$add_link}&added=asc"><i class="fa fa-arrows-v" aria-hidden="true"></i>{/if} Поступление</a></th>
+            <th>{if $sort.added}
+                    {if $sort.added == "asc"}<a href="card.php?page=1{$add_link}&added=desc"><i class="fa fa-caret-up" aria-hidden="true"></i>
+                    {elseif $sort.added == "desc"}<a href="card.php?page=1{$add_link}&added=asc"><i class="fa fa-caret-down" aria-hidden="true"></i>
+                    {/if}
+                {else}
+                        <a href="card.php?page=1{$add_link}&added=asc"><i class="fa fa-arrows-v" aria-hidden="true"></i>
+                {/if} Поступление</a>
+            </th>
             {if $IS_POWER_HEAD}
                 <th>Отделение</th>
             {/if}
             <th>EQUID</th>
             <th>Тип карты</th>
             <th>{if $sort.next_call}
-                {if $sort.next_call == "asc"}<a href="card.php?page=1{$add_link}&next_call=desc"><i class="fa fa-caret-up" aria-hidden="true"></i>
+                    {if $sort.next_call == "asc"}<a href="card.php?page=1{$add_link}&next_call=desc"><i class="fa fa-caret-up" aria-hidden="true"></i>
                     {elseif $sort.next_call == "desc"}<a href="card.php?page=1{$add_link}&next_call=asc"><i class="fa fa-caret-down" aria-hidden="true"></i>
-
-                        {/if}
-                {else} <a href="card.php?page=1{$add_link}&next_call=asc"><i class="fa fa-arrows-v" aria-hidden="true"></i>{/if} След. звонок</a></th>
+                     {/if}
+                {else} <a href="card.php?page=1{$add_link}&next_call=asc"><i class="fa fa-arrows-v" aria-hidden="true"></i>
+                {/if}
+                След. звонок</a>
+            </th>
             <th>Послед. комментарий</th>
             <th>Действие</th>
         </tr>

@@ -783,30 +783,24 @@ function get_department($class,$department,$id_select=""){
 	//фильтр для карт и клиентов
 	function filter_index($data,$page){
 		global $CURUSER;
-		// подготовка данных
-		if($page == "client"){
-			$base = "client";
-		}
-		elseif($page == "card"){
-			$base = "card_client";
-		}
+
 
 		// прописываем фильтры
 		// фильтр по самому себе
 		if($data['only_my'] AND is_valid_id($data['only_my'])){
-			$add_where .= "AND ".$base.".manager = '".$CURUSER['id']."'";
+			$add_where .= "AND ".$page.".manager = '".$CURUSER['id']."'";
 			$add_link .= "&only_my=1";
 		}
 		//фильтр по отделеию
 		// если фильтр в клиентах, то по отделению доступен только для повер_хеадов
-		if((($page =="client" AND  get_user_class() >=UC_POWER_HEAD) OR $page == "card") AND $data['department'] AND is_valid_id($data['department'])){
+		if((($page =="client" AND  get_user_class() >=UC_POWER_HEAD) OR $page == "card_client") AND $data['department'] AND is_valid_id($data['department'])){
 
-			$add_where .= "AND ".$base.".department = '".$data['department']."'";
+			$add_where .= "AND ".$page.".department = '".$data['department']."'";
 			$add_link .= "&department=".$data['department'];
 		}
 		//фильтр по менеджерам
 		if($data['manager'] AND is_valid_id($data['manager'])){
-			$add_where .= "AND ".$base.".manager = '".$data['manager']."'";
+			$add_where .= "AND ".$page.".manager = '".$data['manager']."'";
 			$add_link .= "&manager=".$data['manager'];
 		}
 
@@ -817,14 +811,14 @@ function get_department($class,$department,$id_select=""){
 
 
 			if($data['status_action']=='miss'){
-				$add_where .="AND ".$base.".next_call < '".$now_date."' ";
-				$add_where .= "AND ".$base.".next_call != '0' ";
+				$add_where .="AND ".$page.".next_call < '".$now_date."' ";
+				$add_where .= "AND ".$page.".next_call != '0' ";
 			}
 			elseif($data['status_action']=='next'){
-				$add_where .="AND ".$base.".next_call > '".$now_date."' ";
+				$add_where .="AND ".$page.".next_call > '".$now_date."' ";
 			}
 			elseif($data['status_action']=='today'){
-				$add_where .="AND ".$base.".next_call = '".$now_date."' ";
+				$add_where .="AND ".$page.".next_call = '".$now_date."' ";
 			}
 			if($page=="client") {
 				$add_where .= "AND callback.status = '0' ";
@@ -856,10 +850,10 @@ function get_department($class,$department,$id_select=""){
 
 
 		/*ФИЛЬТР ТОЛЬКО ДЛЯ КАРТ*/
-		if($page == "card"){
+		if($page == "card_client"){
 			// фильтруем по типу карты
 			if($data['type_card'] AND is_valid_id($data['type_card'])){
-				$add_where = "AND ".$base.".id_cobrand = '".$data['type_card']."'";
+				$add_where = "AND ".$page.".id_cobrand = '".$data['type_card']."'";
 				$add_link .= "&type_card=".$data['type_card'];
 			}
 
@@ -872,4 +866,44 @@ function get_department($class,$department,$id_select=""){
 
 	}
 
+	// сортировка карт и клиентов
+	function sort_index($data,$page){
+
+		// карты фильтры по имени, дате поступления/добавления и след. звонку
+		// клиенты фильры по имени, дате контакта
+
+		if($data['name']){
+			if($data['name']=='asc'){
+				$sort['name']='asc';
+			}
+			elseif($data['name']=='desc'){
+				$sort['name']='desc';
+			}
+			$sort['link'] .= "&name=".$sort['name'];
+			$sort['query'] = "ORDER BY $page.name ".$sort['name']."";
+		}
+		elseif($data['added']){
+			if($data['added']=='asc'){
+				$sort['added']='asc';
+			}
+			elseif($data['added']=='desc'){
+				$sort['added']='desc';
+			}
+			$sort['link'] .= "&added=".$sort['added'];
+			$sort['query'] = "ORDER BY $page.added ".$sort['added']."";
+
+		}
+		elseif($data['next_call']){
+			if($data['next_call']=='asc'){
+				$sort['next_call']='asc';
+			}
+			elseif($data['next_call']=='desc'){
+				$sort['next_call']='desc';
+			}
+			$sort['link'] .= "&next_call=".$sort['next_call'];
+			$sort['query'] = "ORDER BY $page.next_call ".$sort['next_call']."";
+
+		}
+	return $sort;
+	}
 ?>

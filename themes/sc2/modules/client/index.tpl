@@ -136,13 +136,29 @@
 	<table class="table table-bordered table-striped">
 	<thead>
 		<tr>
-			<th>Имя</th>
+			<th>{if $sort.name}
+					{if $sort.name == "asc"}<a href="client.php?page=1{$add_link}&name=desc"><i class="fa fa-caret-up" aria-hidden="true"></i>
+					{elseif $sort.name == "desc"}<a href="client.php?page=1{$add_link}&name=asc"><i class="fa fa-caret-down" aria-hidden="true"></i>
+					{/if}
+				{else}
+					<a href="client.php?page=1{$add_link}&name=asc"><i class="fa fa-arrows-v" aria-hidden="true"></i>
+				{/if}
+				Имя</a>
+			</th>
 			<th>Менеджер</th>
 			{if $IS_POWER_HEAD}
 			<th>Отделение</th>
 			{/if}
 			<th>Статус</th>
-			<th>След. контакт</th>
+			<th>{if $sort.next_call}
+					{if $sort.next_call == "asc"}<a href="client.php?page=1{$add_link}&next_call=desc"><i class="fa fa-caret-up" aria-hidden="true"></i>
+					{elseif $sort.next_call == "desc"}<a href="client.php?page=1{$add_link}&next_call=asc"><i class="fa fa-caret-down" aria-hidden="true"></i>
+					{/if}
+				{else}
+						<a href="client.php?page=1{$add_link}&next_call=asc"><i class="fa fa-arrows-v" aria-hidden="true"></i>
+				{/if}
+				След. контакт</a>
+			</th>
 			<th>Посл. комментарий</th>
 			<th>Действия</th>
 		</tr>
@@ -184,19 +200,19 @@
 <ul class="pagination pagination-sm">
 	<!--<li class="disabled"><a href="#">Пред</a></li>-->
 	{if ($page > 2)}
-	<li><a href="client.php?page=1{$add_link}">Первая</a></li>
-	<li><a href="client.php?page={$page - 2}{$add_link}">{$page - 2}</a></li>
+	<li><a href="client.php?page=1{$add_link}{$add_sort}">Первая</a></li>
+	<li><a href="client.php?page={$page - 2}{$add_link}{$add_sort}">{$page - 2}</a></li>
 	{/if}
 	{if ($page > 1)}
-	<li><a href="client.php?page={$page - 1}{$add_link}">{$page - 1}</a></li>
+	<li><a href="client.php?page={$page - 1}{$add_link}{$add_sort}">{$page - 1}</a></li>
 	{/if}
 	<li class="active"><a href="#">{$page}</a></li>
 	{if ($page < ($max_page + 1) AND $page < $max_page)}
-	<li><a href="client.php?page={$page + 1}{$add_link}">{$page + 1}</a></li>
+	<li><a href="client.php?page={$page + 1}{$add_link}{$add_sort}">{$page + 1}</a></li>
 	{/if}
 	{if ($page < ($max_page + 2)  AND ($page+1) < $max_page)}
-	<li><a href="client.php?page={$page + 2}{$add_link}">{$page + 2}</a></li>
-	<li><a href="client.php?page={$max_page}{$add_link}">Последняя</a></li>
+	<li><a href="client.php?page={$page + 2}{$add_link}{$add_sort}">{$page + 2}</a></li>
+	<li><a href="client.php?page={$max_page}{$add_link}{$add_sort}">Последняя</a></li>
 	{/if}
 	<!--<li><a href="#">След</a></li>-->
 </ul>

@@ -76,6 +76,8 @@
 		$add_link .= "&department=".$_GET['department'];
 	}*/
 	$filter = filter_index($_GET,"client");
+	$sort = sort_index($_GET,"client");
+
 /*	if ($client OR $department){
 		$where = "WHERE";
 	}*/
@@ -89,7 +91,7 @@ LEFT JOIN callback ON callback.id = client.id_callback
 $left_join
 WHERE
 client.delete = '0'
-".$filter['add_where']." ".$department." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
+".$filter['add_where']." ".$sort['query']." ".$department." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
 
 	if(mysql_num_rows($res) == 0){
@@ -128,19 +130,24 @@ client.delete = '0' ".$filter['add_where']." ".$department.";") or sqlerr(__FILE
 	$max_page = ceil($count / $cpp);
 	//print $cpp;
 
-
+	// данные по клиенту, текущая дата
 	$REL_TPL->assignByRef('data_client',$data_client);
 	$REL_TPL->assignByRef('now_date',$now_date);
-	//$REL_TPL->assignByRef('js_add',$js_add);
+	//формируем список для фильтров
 	$REL_TPL->assignByRef('list_manager',$list_manager);
 	$REL_TPL->assignByRef('list_department',$list_department);
+	// формируем переход между страниц
 	$REL_TPL->assignByRef('cpp',$cpp);
 	$REL_TPL->assignByRef('page',$page);
-	$REL_TPL->assignByRef('add_link',$filter['add_link']);
 	$REL_TPL->assignByRef('max_page',$max_page);
+	//доп. данные для перехода сортировки и фильтров
+	$REL_TPL->assignByRef('add_link',$filter['add_link']);
+	$REL_TPL->assignByRef('add_sort',$sort['link']);
+	$REL_TPL->assignByRef('sort',$sort);
+
+
 	//$REL_TPL->assignByRef('count',$count);
+	//$REL_TPL->assignByRef('js_add',$js_add);
+
 	$REL_TPL->output("index","client");
-
-
-
 ?>

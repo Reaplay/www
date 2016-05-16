@@ -784,6 +784,13 @@ function get_department($class,$department,$id_select=""){
 	function filter_index($data,$page){
 		global $CURUSER;
 
+		if(get_user_class()<=UC_HEAD){
+			$add_where .= "AND ".$page.".department = '".$CURUSER['department']."' ";
+		}
+		elseif(get_user_class()==UC_POWER_HEAD){
+			$add_where .= "AND (department.parent = '".$CURUSER['department']."' OR department.id = '".$CURUSER['department']."')";
+
+		}
 
 		// прописываем фильтры
 		// фильтр по самому себе
@@ -861,6 +868,9 @@ function get_department($class,$department,$id_select=""){
 		}
 		$return['add_link'] = $add_link;
 		$return['add_where'] = $add_where;
+		//$return['left_join'] = $left_join;
+
+
 		return $return;
 
 

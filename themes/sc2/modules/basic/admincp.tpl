@@ -60,7 +60,8 @@
 	</div>
 
 	<div class="col-md-5th">
-		<h4>Five Columns</h4>
+		<h4>Страница</h4>
+		<a href="action_admin.php?module=page">Страницы</a><br />
 	</div>
 
 	<div class="col-md-5th">

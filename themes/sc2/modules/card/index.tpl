@@ -145,7 +145,7 @@
                     {/if}
                 {else}
                         <a href="card.php?page=1{$add_link}&added=asc"><i class="fa fa-arrows-v" aria-hidden="true"></i>
-                {/if} Поступление</a>
+                {/if} Добавлена</a>
             </th>
             {if $IS_POWER_HEAD}
                 <th>Отделение</th>

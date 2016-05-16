@@ -263,6 +263,11 @@
 										</ul>
 									</li>
 									{/if}
+									<li>
+										<a href="page.php">
+											Страницы
+										</a>
+									</li>
 									{if $IS_ADMINISTRATOR}
 									<!-- ADMINISTRATOR -->
 									<li class="dropdown active">
@@ -274,6 +279,7 @@
 										</ul>
 									</li>
 									{/if}
+
 									<!-- COMMENT -->
 									<!--<li class="dropdown mega-menu">
 										<a class="dropdown-toggle" href="#">

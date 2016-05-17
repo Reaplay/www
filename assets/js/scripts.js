@@ -2967,11 +2967,11 @@ function issue_card(id,action){
 		if (data == "success") {
 			if(action == "issue") {
 				_toastr("Карта выдана", "top-right", "info", false);
-				document.getElementById("card_"+id).remove();
+				$('#card_'+id).remove();
 			}
 			else if(action == "destroy") {
 				_toastr("Карта уничтожена", "top-right", "info", false);
-				document.getElementById("card_"+id).remove();
+				$('#card_'+id).remove();
 			}
 			else{
 				_toastr("Ошибка выполнения", "top-right", "error", false);

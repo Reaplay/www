@@ -21,17 +21,13 @@
             
             
                     <div class="col-md-6">
-                        <label class="input">
-                            <i class="ico-prepend fa fa-calendar"></i>
-                            <input type="text" class="form-control datepicker required" data-format="dd/mm/yyyy" data-lang="ru" data-RTL="false" name="next_call" placeholder="Дата след. контакта">
-                            {* <b class="tooltip tooltip-bottom-left">Назначенный EQUID</b>*}
-                        </label>
+                        <b>ФИО:</b> {$data_client.name} <br />
+                        <b>Номер телефона:</b> {$data_client.mobile}
                     </div>
             
             
             <div class="col-md-6">
-                    <b>ФИО:</b> {$data_client.name} <br />
-				<b>Номер телефона:</b> {$data_client.mobile}
+
                    
                 </div>
             {* {if $IS_HEAD}
@@ -74,6 +70,23 @@
 
             </div>
           </div>
+        <div class="row margin-bottom-10">
+
+
+            <div class="col-md-6">
+                <label class="input">
+                    <i class="ico-prepend fa fa-calendar"></i>
+                    <input type="text" class="form-control datepicker required" data-format="dd/mm/yyyy" data-lang="ru" data-RTL="false" name="next_call" placeholder="Дата след. контакта">
+                    {* <b class="tooltip tooltip-bottom-left">Назначенный EQUID</b>*}
+                </label>
+            </div>
+
+
+            <div class="col-md-6">
+
+            </div>
+
+        </div>
         <div class="row">
             <div class="form-group">
                 <div class="col-md-12 col-sm-12">

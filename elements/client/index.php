@@ -91,7 +91,7 @@ LEFT JOIN callback ON callback.id = client.id_callback
 
 WHERE
 client.delete = '0'
-".$filter['add_where']." ".$sort['query']."".$limit.";")  or sqlerr(__FILE__, __LINE__);
+".$filter['add_where']." ".$sort['query']." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
 
 	if(mysql_num_rows($res) == 0){

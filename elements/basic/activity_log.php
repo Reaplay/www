@@ -39,12 +39,20 @@ $now_date = strtotime(date("d.m.Y"));
 	(".$first_part_sql." AND callback.type_contact = 2 AND client.status=1 AND callback.next_call = '".$now_date."') UNION ALL
 	(".$first_part_sql." AND callback.type_contact = 2 AND client.status=1 AND callback.next_call < '".$now_date."') UNION ALL
 	(".$first_part_sql." AND callback.type_contact = 2 AND client.status=1 AND callback.next_call > '".$now_date."') UNION ALL
+
+	(".$first_part_sql." AND callback.type_contact = 3 AND client.status=1 AND callback.next_call = '".$now_date."') UNION ALL
+	(".$first_part_sql." AND callback.type_contact = 3 AND client.status=1 AND callback.next_call < '".$now_date."') UNION ALL
+	(".$first_part_sql." AND callback.type_contact = 3 AND client.status=1 AND callback.next_call > '".$now_date."') UNION ALL
+
 	(".$first_part_sql." AND callback.type_contact = 1 AND client.status=0 AND callback.next_call = '".$now_date."') UNION ALL
 	(".$first_part_sql." AND callback.type_contact = 1 AND client.status=0 AND callback.next_call < '".$now_date."') UNION ALL
 	(".$first_part_sql." AND callback.type_contact = 1 AND client.status=0 AND callback.next_call > '".$now_date."') UNION ALL
 	(".$first_part_sql." AND callback.type_contact = 2 AND client.status=0 AND callback.next_call = '".$now_date."') UNION ALL
 	(".$first_part_sql." AND callback.type_contact = 2 AND client.status=0 AND callback.next_call < '".$now_date."') UNION ALL
-	(".$first_part_sql." AND callback.type_contact = 2 AND client.status=0 AND callback.next_call > '".$now_date."')
+	(".$first_part_sql." AND callback.type_contact = 2 AND client.status=0 AND callback.next_call > '".$now_date."') UNION ALL
+	(".$first_part_sql." AND callback.type_contact = 3 AND client.status=0 AND callback.next_call = '".$now_date."') UNION ALL
+	(".$first_part_sql." AND callback.type_contact = 3 AND client.status=0 AND callback.next_call < '".$now_date."') UNION ALL
+	(".$first_part_sql." AND callback.type_contact = 3 AND client.status=0 AND callback.next_call > '".$now_date."')
 
 	;")
 	or sqlerr(__FILE__, __LINE__);
@@ -57,6 +65,7 @@ $now_date = strtotime(date("d.m.Y"));
 
 	mt - встреча
 	call - звонок
+	rec - рекомендация
 
 	now  - на сегодня
 	lost - пропущены
@@ -76,12 +85,18 @@ $now_date = strtotime(date("d.m.Y"));
 	'act_call_now',
 	'act_call_lost',
 	'act_call_next',
+	'act_rec_now',
+	'act_rec_lost',
+	'act_rec_next',
 	'pot_mt_now',
 	'pot_mt_lost',
 	'pot_mt_next',
 	'pot_call_now',
 	'pot_call_lost',
-	'pot_call_next');
+	'pot_call_next',
+	'pot_rec_now',
+	'pot_rec_lost',
+	'pot_rec_next');
 	foreach ($params as $param) {
 		list($value) = mysql_fetch_array($res);
 		$activity_log[$param] = $value;
@@ -111,9 +126,18 @@ if ($CURUSER['use_card']) {
 
 	$res = sql_query("
 	SELECT card_cobrand.name, card_cobrand.id,
-	(SELECT SUM(1) FROM `card_client` $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call = '".$now_date."' $department_card) AS card_now,
-	(SELECT SUM(1) FROM `card_client` $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call < '".$now_date."' $department_card) AS card_lost,
-	(SELECT SUM(1) FROM `card_client` $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call > '".$now_date."' $department_card) AS card_next  FROM card_cobrand") or sqlerr(__FILE__, __LINE__);
+	(SELECT SUM(1) FROM `card_client` LEFT JOIN card_callback ON card_callback.id = card_client.id_callback $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call = '".$now_date."' AND card_callback.type_contact = 1 $department_card) AS card_now_mt,
+	(SELECT SUM(1) FROM `card_client` LEFT JOIN card_callback ON card_callback.id = card_client.id_callback $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call = '".$now_date."' AND card_callback.type_contact = 2 $department_card) AS card_now_call,
+	(SELECT SUM(1) FROM `card_client` LEFT JOIN card_callback ON card_callback.id = card_client.id_callback $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call = '".$now_date."' AND card_callback.type_contact = 0 $department_card) AS card_now_na,
+
+	(SELECT SUM(1) FROM `card_client` LEFT JOIN card_callback ON card_callback.id = card_client.id_callback $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call < '".$now_date."'  AND card_callback.type_contact = 1 $department_card) AS card_lost_mt,
+	(SELECT SUM(1) FROM `card_client` LEFT JOIN card_callback ON card_callback.id = card_client.id_callback $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call < '".$now_date."'  AND card_callback.type_contact = 2 $department_card) AS card_lost_call,
+	(SELECT SUM(1) FROM `card_client` LEFT JOIN card_callback ON card_callback.id = card_client.id_callback $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call < '".$now_date."'  AND card_callback.type_contact = 0 $department_card) AS card_lost_na,
+
+	(SELECT SUM(1) FROM `card_client` LEFT JOIN card_callback ON card_callback.id = card_client.id_callback $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call > '".$now_date."' AND card_callback.type_contact = 1 $department_card) AS card_next_mt,
+	(SELECT SUM(1) FROM `card_client` LEFT JOIN card_callback ON card_callback.id = card_client.id_callback $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call > '".$now_date."' AND card_callback.type_contact = 2 $department_card) AS card_next_call,
+	(SELECT SUM(1) FROM `card_client` LEFT JOIN card_callback ON card_callback.id = card_client.id_callback $left_join_card WHERE card_client.id_cobrand = card_cobrand.id AND card_client.delete = 0 AND card_client.status = 0 AND card_client.next_call != 0 AND card_client.next_call > '".$now_date."' AND card_callback.type_contact = 0 $department_card) AS card_next_na
+	FROM card_cobrand") or sqlerr(__FILE__, __LINE__);
 
 	while ($row = mysql_fetch_array($res)) {
 		$data_card[] = $row;

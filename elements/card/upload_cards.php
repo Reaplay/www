@@ -144,7 +144,7 @@ if($_GET['type']=='upload_cards'){
 
 
 		$data_vip = trim($data["6"]);
-		if(strlen($data_vip) > 0){
+		if($data_vip){
 			$vip = '1';
 		}
 		else{

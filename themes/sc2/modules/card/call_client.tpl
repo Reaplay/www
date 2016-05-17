@@ -47,6 +47,33 @@
             {/if}
             *}
         </div>
+        <div class="row margin-bottom-10">
+
+
+            <div class="col-md-6">
+                <div class="fancy-form fancy-form-select">
+                    <select class="form-control  select2" name="type_contact" onchange="load_r_call(this)">
+                        <option value="0">Выберите тип контакта *</option>
+                        <option value="1">Исходящий звонок</option>
+                        <option value="2">Встреча</option>
+                    </select>
+                    <i class="fancy-arrow"></i>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="fancy-form fancy-form-select">
+
+                    <select name="result_call" class="form-control  select2">
+                        <option value="0">Выберите контакт *</option>
+                        {*$result*}
+                    </select>
+                    <i class="fancy-arrow"></i>
+                </div>
+
+            </div>
+          </div>
         <div class="row">
             <div class="form-group">
                 <div class="col-md-12 col-sm-12">

@@ -116,6 +116,8 @@
                         <thead>
                         <tr>
                             <th>Дата</th>
+                            <th>Тип контакта</th>
+                            <th>Результат контакта</th>
                             <th>Сотрудник</th>
                             <th>След. звонок</th>
                         </tr>
@@ -126,6 +128,12 @@
                             <tr data-id="{$callback.id}">
                                 <td>
                                     {$callback.added}
+                                </td>
+                                <td>
+                                    {if $callback.type_contact == 1}Звонок{elseif $callback.type_contact == 2}Встреча{else}Не известно{/if}
+                                </td>
+                                <td>
+                                    {$callback.rc_name}
                                 </td>
                                 <td>
                                     {$callback.u_name}

@@ -37,10 +37,10 @@ WHERE card_client.delete = '0' AND card_client.id = '".$_GET['id']."'  ".$depart
     $data_card['next_call'] = mkprettytime($data_card['next_call'],false);
     $data_card['added'] = mkprettytime($data_card['added'],false);
     $res=sql_query("
-SELECT card_callback.*, users.name as u_name
+SELECT card_callback.*, users.name as u_name,result_call.text as rc_name
 FROM `card_callback`
 LEFT JOIN users ON users.id = card_callback.manager
-
+LEFT JOIN result_call ON result_call.id = card_callback.id_result
 WHERE  card_callback.id_client = '".$_GET['id']."'
 ORDER BY `added` DESC
 LIMIT 0,15

@@ -50,10 +50,17 @@ if($_POST){
 
         $manager = $CURUSER['id'];
         $department = $CURUSER['department'];
-
-
-    sql_query("INSERT INTO `card_callback`(`id_client`,`manager`, `added`, `next_call`,`comment`)
-VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $next_call, $comment
+    //тип контакта
+    if(!is_valid_id($_POST['type_contact'])){
+        stderr("Ошибка","Не правильное значение типа контакта","no");		//запись в лог
+    }
+    if($_POST['type_contact']<0 OR $_POST['type_contact']>1){
+        stderr("Ошибка","Некорректный ID типа контакта","no");		//запись в лог
+    }
+    $type_contact = (int)$_POST['type_contact'];
+    $id_result = (int)$_POST['result_call'];
+    sql_query("INSERT INTO `card_callback`(`id_client`,`manager`, `added`, `next_call`,`comment`,`type_contact`,`id_result`)
+VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $next_call, $comment, $type_contact,$id_result
         ))).");")  or sqlerr(__FILE__, __LINE__);
     // получаем ид коллбека
     $id_callback = mysql_insert_id();
@@ -74,7 +81,11 @@ VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $
         if(!stristr($_SERVER['HTTP_REFERER'],"action=view")){
             $return_url = $_SERVER['HTTP_REFERER'];
         }
-
+        //результат обзвона
+        $res=sql_query("SELECT * FROM  `result_call`;")  or sqlerr(__FILE__, __LINE__);
+        while ($row = mysql_fetch_array($res)) {
+            $result .= " <option value = \"".$row['id']."\">".$row['text']."</option>";
+        }
 
 
       /*  if(get_user_class() >= UC_HEAD){
@@ -92,6 +103,7 @@ VALUES (".implode(",", array_map("sqlesc", array($id_client, $manager, time(), $
         $REL_TPL->assignByRef('manager',$manager);*/
         $REL_TPL->assignByRef('id',$id_client);
         $REL_TPL->assignByRef('data_client',$data_client);
+        $REL_TPL->assignByRef('result_call',$result_call);
         $REL_TPL->assignByRef('return_url',$return_url);
         $REL_TPL->output ("call_client", "card");
     }

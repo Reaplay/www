@@ -9,7 +9,7 @@
 if (!defined("IN_SITE")) die("Direct access to this page not allowed");
 define ("BETA", true);
 define ("BETA_NOTICE", " This isn't complete release of source!");
-define("RELVERSION","0.2.3.1");
+define("RELVERSION","0.2.4");
 
 /**
  * Checks that page is loading with ajax and defines boolean constant REL_AJAX
@@ -837,7 +837,7 @@ function get_department($class,$department,$id_select=""){
 			// по статусу клиента
 			if($data['status_client']) {
 				$status = (int)($data['status_client'] - 1);
-				$add_where = " AND client.status='" . $status . "'";
+				$add_where .= " AND client.status='" . $status . "'";
 				$add_link .= "&status_client=" . $data['status_client'];
 			}
 
@@ -860,7 +860,7 @@ function get_department($class,$department,$id_select=""){
 		if($page == "card_client"){
 			// фильтруем по типу карты
 			if($data['type_card'] AND is_valid_id($data['type_card'])){
-				$add_where = "AND ".$page.".id_cobrand = '".$data['type_card']."'";
+				$add_where .= "AND ".$page.".id_cobrand = '".$data['type_card']."'";
 				$add_link .= "&type_card=".$data['type_card'];
 			}
 

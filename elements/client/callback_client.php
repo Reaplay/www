@@ -68,7 +68,7 @@ if($_POST['action']=='add'){
 	if(!is_valid_id($_POST['type_contact'])){
 		stderr("Ошибка","Не правильное значение типа контакта","no");		//запись в лог
 	}
-	if($_POST['type_contact']<0 OR $_POST['type_contact']>2){
+	if($_POST['type_contact']<0 OR $_POST['type_contact']>3){
 		stderr("Ошибка","Некорректный ID типа контакта","no");		//запись в лог
 	}
 	

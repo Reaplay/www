@@ -100,7 +100,7 @@
 										 {$callback.added}
 									</td>
 									<td>
-										 {if $callback.type_contact == 1}Звонок{elseif $callback.type_contact == 2}Встреча{else}Не известно{/if}
+										 {if $callback.type_contact == 1}Звонок{elseif $callback.type_contact == 2}Встреча{elseif $callback.type_contact == 3}Рекомендация{else}Не известно{/if}
 									</td>
 									<td>
 										 {$callback.u_name}

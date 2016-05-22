@@ -800,7 +800,7 @@ function get_department($class,$department,$id_select=""){
 		}
 		//фильтр по отделеию
 		// если фильтр в клиентах, то по отделению доступен только для повер_хеадов
-		if((($page =="client" AND  get_user_class() >=UC_POWER_HEAD) OR $page == "card_client") AND $data['department'] AND is_valid_id($data['department'])){
+		if((($page =="client" AND  get_user_class() >=UC_POWER_HEAD) OR $page == "card_client" OR $page == "users") AND $data['department'] AND is_valid_id($data['department'])){
 
 			$add_where .= "AND ".$page.".department = '".$data['department']."'";
 			$add_link .= "&department=".$data['department'];

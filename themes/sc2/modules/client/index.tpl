@@ -131,6 +131,27 @@
 	</div>
 </div>
 
+<ul class="pagination pagination-sm">
+	<!--<li class="disabled"><a href="#">Пред</a></li>-->
+	{if ($page > 2)}
+		<li><a href="client.php?page=1{$add_link}{$add_sort}">Первая</a></li>
+		<li><a href="client.php?page={$page - 2}{$add_link}{$add_sort}">{$page - 2}</a></li>
+	{/if}
+	{if ($page > 1)}
+		<li><a href="client.php?page={$page - 1}{$add_link}{$add_sort}">{$page - 1}</a></li>
+	{/if}
+	<li class="active"><a href="#">{$page}</a></li>
+	{if ($page < ($max_page + 1) AND $page < $max_page)}
+		<li><a href="client.php?page={$page + 1}{$add_link}{$add_sort}">{$page + 1}</a></li>
+	{/if}
+	{if ($page < ($max_page + 2)  AND ($page+1) < $max_page)}
+		<li><a href="client.php?page={$page + 2}{$add_link}{$add_sort}">{$page + 2}</a></li>
+		<li><a href="client.php?page={$max_page}{$add_link}{$add_sort}">Последняя</a></li>
+	{/if}
+	<!--<li><a href="#">След</a></li>-->
+	Результаты поиска ({$count} записей)
+</ul>
+
 <!-- HTML DATATABLES -->
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">

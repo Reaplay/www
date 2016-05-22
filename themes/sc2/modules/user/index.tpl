@@ -1,3 +1,77 @@
+{if $IS_POWER_HEAD}
+<div class="text-center">
+	{*<a href="card.php?action=add"><button type="submit" class="btn btn-primary"> Добавить</button></a>*}
+	<a href="users.php?action=add"> <button type="button" class="btn btn-primary btn-lg  margin-bottom-30" >Добавить пользователя</button></a>
+	<button type="button" class="btn btn-primary btn-lg  margin-bottom-30" data-toggle="modal" data-target="#filter">Фильтр</button>
+</div>
+
+<div id="filter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form  action="user.php" method="get">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Фильтр</h4>
+				</div>
+
+				<!-- Modal Body -->
+				<div class="modal-body">
+
+					<div class="row margin-bottom-10">
+						<div class="col-md-6">
+
+								<h4>Фильтр по отделениям</h4>
+								<div class="fancy-form fancy-form-select">
+									<select class="form-control" name="department">
+										<option value="">Выберите отделение</option>
+										{$list_department}
+									</select>
+									<i class="fancy-arrow"></i>
+								</div>
+
+						</div>
+						<div class="col-md-6">
+
+						</div>
+					</div>
+
+
+				</div>
+
+				<!-- Modal Footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+					<button type="submit" class="btn btn-primary">Применить</button>
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{/if}
+<ul class="pagination pagination-sm">
+	<!--<li class="disabled"><a href="#">Пред</a></li>-->
+	{if ($page > 2)}
+		<li><a href="card.php?page=1{$add_link}{$add_sort}">Первая</a></li>
+		<li><a href="card.php?page={$page - 2}{$add_link}{$add_sort}">{$page - 2}</a></li>
+	{/if}
+	{if ($page > 1)}
+		<li><a href="card.php?page={$page - 1}{$add_link}{$add_sort}">{$page - 1}</a></li>
+	{/if}
+	<li class="active"><a href="#">{$page}</a></li>
+	{if ($page < ($max_page + 1) AND $page < $max_page)}
+		<li><a href="card.php?page={$page + 1}{$add_link}{$add_sort}">{$page + 1}</a></li>
+	{/if}
+	{if ($page < ($max_page + 2)  AND ($page+1) < $max_page)}
+		<li><a href="card.php?page={$page + 2}{$add_link}{$add_sort}">{$page + 2}</a></li>
+		<li><a href="card.php?page={$max_page}{$add_link}{$add_sort}">Последняя</a></li>
+	{/if}
+	<!--<li><a href="#">След</a></li>-->
+	Результаты поиска ({$count} записей)
+</ul>
+
+
 <!-- HTML DATATABLES -->
 <div class="table-responsive">
 	<table class="table table-bordered table-striped" id="table">

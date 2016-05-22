@@ -146,7 +146,7 @@ client.delete = '0' ".$filter['add_where']." ;") or sqlerr(__FILE__,__LINE__);
 	$REL_TPL->assignByRef('sort',$sort);
 
 
-	//$REL_TPL->assignByRef('count',$count);
+	$REL_TPL->assignByRef('count',$count);
 	//$REL_TPL->assignByRef('js_add',$js_add);
 
 	$REL_TPL->output("index","client");

@@ -87,3 +87,9 @@
 
 
 </div>
+
+{foreach from=$data_card item=data}
+	Отделение: {$data.name_department}<br>
+	Карты<br>
+	Добавлено:{$data.all_added} звонков:{$data.all_call} Выдано:{$data.all_issue} уничтожено:{$data.all_destroy}<br><br>
+{/foreach}

@@ -130,7 +130,8 @@
 		</div>
 	</div>
 </div>
-
+{paginator page='client' add_link=$add_link add_sort=$add_sort  num_page=$page max_page=$max_page count=$count}
+{*
 <ul class="pagination pagination-sm">
 	<!--<li class="disabled"><a href="#">Пред</a></li>-->
 	{if ($page > 2)}
@@ -151,7 +152,7 @@
 	<!--<li><a href="#">След</a></li>-->
 	Результаты поиска ({$count} записей)
 </ul>
-
+*}
 <!-- HTML DATATABLES -->
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
@@ -217,6 +218,8 @@
 	</tbody>
 	</table>
 </div>
+{paginator page='client' add_link=$add_link add_sort=$add_sort  num_page=$page max_page=$max_page count=$count}
+{*
 <!--очень кривой вывод номеров страниц. переделать-->
 <ul class="pagination pagination-sm">
 	<!--<li class="disabled"><a href="#">Пред</a></li>-->
@@ -237,7 +240,7 @@
 	{/if}
 	<!--<li><a href="#">След</a></li>-->
 </ul>
-
+*}
 
 
 

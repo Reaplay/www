@@ -59,11 +59,12 @@ if($_POST['action']=='add'){
 	if(!is_valid_id($_POST['result_call'])){
 		stderr("Ошибка","Не правильное значение результата звонка/встречи","no");		//запись в лог
 	}
-	$res=sql_query("SELECT id FROM  `result_call` WHERE `id` = '".$_POST['result_call']."';")  or sqlerr(__FILE__, __LINE__);
+	$res=sql_query("SELECT id FROM, sale  `result_call` WHERE `id` = '".$_POST['result_call']."';")  or sqlerr(__FILE__, __LINE__);
 	if(mysql_num_rows($res) == 0){
 		stderr("Ошибка","Не правильное значение результата обзвона","no");
 		//запись в логи
 	}
+	$row_result_call = mysql_fetch_array($res);
 	//проверяем ид типа контакта (звонок или встреча)
 	if(!is_valid_id($_POST['type_contact'])){
 		stderr("Ошибка","Не правильное значение типа контакта","no");		//запись в лог
@@ -106,8 +107,8 @@ if($_POST['action']=='add'){
 			stderr("Ошибка","Дата следующего контакта не может быть прошедшей","no");	
 		
 	}
-	// Если клиент не отказался от услуг банка
-	elseif($status != 2)
+	// Если клиент не отказался от услуг банка (отказ = 2) или если у типа контакта получилась продажа
+	elseif($status != 2 AND $row_result_call['sale'] != 1)
 		stderr("Ошибка","Должна быть введена дата контакта","no");
 
 	$type_contact = $_POST['type_contact'];

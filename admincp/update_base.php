@@ -39,6 +39,18 @@
 
             }
         }
+        //если EQ определен, то ставим статус клиент
+        if($_GET['type'] == 'fix_callback_3') {
+            $res = sql_query ("SELECT `id` FROM client WHERE status != '1' AND equid !='';");
+            if (mysql_num_rows ($res) == 0) {
+                stderr ("Ошибка", "Данный фикс не требуется", "no");
+            }
+            while ($row = mysql_fetch_array ($res)) {
+
+                sql_query("UPDATE client SET `status` = '1' WHERE status != '1' AND equid !='';");
+
+            }
+        }
     }
 
     $REL_TPL->output("update_base","admincp");

@@ -103,7 +103,7 @@
 										 {if $callback.type_contact == 1}Звонок{elseif $callback.type_contact == 2}Встреча{elseif $callback.type_contact == 3}Рекомендация{else}Не известно{/if}
 									</td>
 									<td>
-										 {$callback.u_name}
+										{if $callback.id_user==0}Система{else}{$callback.u_name}{/if}
 									</td>
 									<td class="center">
 										 {$callback.product}
@@ -131,55 +131,7 @@
 				</div>
 			</p>
 		</div>
-	{*	<div id="tab_b" class="tab-pane">
-			<h4>История контактов</h4>
-			<a href="client.php?a=callback&amp;id={$data_client.id}" tabindex="-1">Добавить контакт</a>
-			<p>
-				{if !$data_callback}
-					История пуста
-				{else}
-				Фильтр:
-				<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-				<thead>
-					<tr>
-						<th>Дата</th>
-						<th>Тип контакта</th>
-						<th>Сотрудник</th>
-						<th>Продукты</th>
-						<th>Результат</th>
-						<th>След. звонок</th>
-					</tr>
-				</thead>
 
-				<tbody data-w="callback">
-				{foreach from=$data_callback item=callback}
-					<tr data-id="{$callback.id}">
-						<td>
-							 {$callback.added}
-						</td>
-						<td>
-							 {if $callback.type_contact == 1}Звонок{elseif $callback.type_contact == 2}Встреча{else}Не известно{/if}
-						</td>
-						<td>
-							 {$callback.u_name}
-						</td>
-						<td class="center">
-							 {$callback.product}
-						</td>
-						<td>
-							{$callback.rc_name}
-						</td>
-						<td>
-							{$callback.next_call}
-						</td>
-					</tr>
-				{/foreach}
-					
-				</tbody>
-				</table>
-				{/if}
-			</p>
-		</div>*}
 		{if $IS_POWER_USER}
 		<div id="change_mgr" class="tab-pane">
 			<h4>Изменить менеджера</h4>

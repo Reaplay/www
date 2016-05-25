@@ -140,6 +140,12 @@ VALUES (".implode(",", array_map("sqlesc", array(
 			$name, $department, $manager, $mobile, $email, $birthday, $gender, time(), $CURUSER['id'],$equid, $comment, $status, $vip))).");")  or sqlerr(__FILE__, __LINE__);
 	$id_client = mysql_insert_id();
 	write_log("Добавлен клиент ID:".$id_client."","client","add" );
+	//дата след. звонка
+	$next_call = $now_date = strtotime(date("d.m.Y"))+60*60*24;
+	sql_query("INSERT INTO `callback`(`id_client`, `id_user`, `added`, `next_call`, `status`)
+VALUES ('".$id_client."','0','".time()."','".$next_call."', 0);")  or sqlerr(__FILE__, __LINE__);
+	$id_callback = mysql_insert_id();
+	sql_query("UPDATE `client` SET `id_callback` = '".$id_callback."', `next_call`='".$next_call."'");
 }
 else {
 sql_query("

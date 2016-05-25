@@ -120,18 +120,18 @@ if ($_POST['gender'] != "---") {
 
 $equid = $_POST['equid'];
 $comment = ((string)$_POST["comment"]);
-	if ($_POST['status'] != "---") {
+	if ($_POST['status'] != "---" AND !$equid) {
 		$status = $_POST['status'];
 	}
-
+	elseif ($equid) {
+		$status = 1;
+	}
 	if($_POST['vip']){
 		$vip = 1;
 	}
 	else
 		$vip = 0;
-/*if ($equid AND $status) {
-	$status = 1;
-}*/
+
 if (!$id){
 	sql_query("
 INSERT INTO `client`(

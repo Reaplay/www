@@ -59,7 +59,7 @@ if($_POST['action']=='add'){
 	if(!is_valid_id($_POST['result_call'])){
 		stderr("Ошибка","Не правильное значение результата звонка/встречи","no");		//запись в лог
 	}
-	$res=sql_query("SELECT id FROM, sale  `result_call` WHERE `id` = '".$_POST['result_call']."';")  or sqlerr(__FILE__, __LINE__);
+	$res=sql_query("SELECT id, sale FROM  `result_call` WHERE `id` = '".$_POST['result_call']."';")  or sqlerr(__FILE__, __LINE__);
 	if(mysql_num_rows($res) == 0){
 		stderr("Ошибка","Не правильное значение результата обзвона","no");
 		//запись в логи
@@ -86,16 +86,20 @@ if($_POST['action']=='add'){
 	}
 	//$id_client = $_POST['id'];
 	$id_result = $_POST['result_call'];
-	
-		
+
+	$equid = $_POST['equid'];
+	if ($equid) {
+		$update_equid = ", equid = ".sqlesc($equid)."";
+	}
 	// статус клиента
 	$status = (int)$_POST['status'];
-	if ($_POST['status'] != "---") {
-		$update_status = ", status = ".$status;
+	if ($equid) {
+		$update_status = ", status = 1";
 	}
-	else
-		$update_status = ", status = 0";
-	
+	else {
+		$update_status = ", status = '".$status."'";
+	}
+
 	if ($_POST["next_call"]) {
 		$call  = explode("/",$_POST["next_call"]);
 		$next_call = mktime( 0,0,0,$call['1'],$call['0'],$call['2']);
@@ -113,10 +117,7 @@ if($_POST['action']=='add'){
 
 	$type_contact = $_POST['type_contact'];
 	$comment = ((string)$_POST["comment"]);
-	$equid = $_POST['equid'];
-	if ($equid) {
-		$update_equid = ", equid = ".sqlesc($equid)."";
-	}
+
 
 
 	//$id_product = "1,2,3";

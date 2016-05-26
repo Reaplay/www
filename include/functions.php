@@ -170,12 +170,18 @@ function userlogin() {
 	//таймзона на дефолт
 	$row['timezone'] = $REL_CONFIG['site_timezone'];
 
+	if (isset($_COOKIE['override_department'])) {
+		$override_department = (int)$_COOKIE['override_department'];
+		if ($row['class'] >= UC_POWER_HEAD AND $override_department>=1)
 
-	if (isset($_COOKIE['override_class'])) {
-		$override = (int)$_COOKIE['override_class'];
-		if ($row['class'] >= UC_ADMINISTRATOR && $override<$row['class'] && $override>=0)
-		$row['class'] = $override;
+			$row['department'] = $override_department;
 	}
+	if (isset($_COOKIE['override_class'])) {
+		$override_class = (int)$_COOKIE['override_class'];
+		if ($row['class'] >= UC_POWER_HEAD AND $override_class<$row['class'] AND $override_class>=0)
+			$row['class'] = $override_class;
+	}
+
 	/* @var array Not full yet array of variables of current user
 	 * @see $REL_TPL->stdhead()
 	 */

@@ -86,7 +86,7 @@
 					<!-- right -->
 					<ul class="top-links list-inline pull-right">
 						{if $CURUSER}
-						<li class="text-welcome">Приветствуем в Smarty, <strong>{$CURUSER['name']}</strong></li>
+						<li class="text-welcome">Приветствуем в Smarty, <strong>{$CURUSER['name']}</strong></li>{if $smarty.cookies.override_class OR $smarty.cookies.departmnet}<li><a href="setclass.php">Отменить фейковый доступ</a></li>{/if}
 						<li>
 							<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs"></i> Мой аккаунт</a>
 							<ul class="dropdown-menu">
@@ -96,6 +96,7 @@
 								{*<li><a tabindex="-1" href="#"><i class="fa fa-bookmark"></i> Закладки</a></li>
 								<li><a tabindex="-1" href="userdetails.php"><i class="fa fa-edit"></i> Мой профиль</a></li>*}
 								<li><a tabindex="-1" href="my_setting.php"><i class="fa fa-cog"></i> Мои настройки</a></li>
+
 								<li class="divider"></li>
 								<li><a tabindex="-1" href="logout.php"><i class="glyphicon glyphicon-off"></i> Выйти</a></li>
 							</ul>

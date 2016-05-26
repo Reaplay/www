@@ -24,6 +24,7 @@
 	<div class="col-md-5th">
 		<h4>Настройки</h4>
 		<a href="action_admin.php?module=update_base">Исправления в базе</a><br />
+		<a href="setclass.php">Ложный аккаунт</a><br />
 	</div>
 
 	<div class="col-md-5th">

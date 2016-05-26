@@ -88,8 +88,32 @@
 
 </div>
 
-{foreach from=$data_card item=data}
-	Отделение: {$data.name_department}<br>
-	Карты<br>
-	Добавлено:{$data.all_added} звонков:{$data.all_call} Выдано:{$data.all_issue} уничтожено:{$data.all_destroy}<br><br>
-{/foreach}
+<div class="table-responsive">
+	<table class="table table-bordered table-striped" id="table">
+		<thead>
+		<tr>
+			<th>Отделение</th>
+			<th>Карт поступило</th>
+			<th>Звонков совершено</th>
+			<th>Карт выдано</th>
+			<th>Карт уничтожено</th>
+		</tr>
+		</thead>
+
+		<tbody data-w="department">
+		{foreach from=$data_card item=data}
+
+			<tr data-id="{$data.id}" id="card_{$data.id}" >
+				<td>{$data.name_department}</td>
+				<td>{$data.all_added}</td>
+				<td>{$data.all_call}</td>
+				<td>{$data.all_issue}</td>
+				<td>{$data.all_destroy}</td>
+			</tr>
+		{/foreach}
+		</tbody>
+	</table>
+
+</div>
+
+

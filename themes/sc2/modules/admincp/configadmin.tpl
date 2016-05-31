@@ -221,6 +221,10 @@
 					<td width="35%">Время жизни кеша общей статистики</td>
 					<td width="65%"><input name="cache_statistic_all" size="3" value="{$REL_CONFIG['cache_statistic_all']}"> Секунд</td>
 				</tr>
+				<tr>
+					<td width="35%">Время жизни кеша статистики карты отделения</td>
+					<td width="65%"><input name="cache_statistic_card" size="3" value="{$REL_CONFIG['cache_statistic_card']}"> Секунд</td>
+				</tr>
 				</tbody>
 			</table>
 			<input type="hidden" name="type" value="cache">

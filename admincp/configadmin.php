@@ -30,7 +30,7 @@ elseif ($_GET['action'] == 'save'){
 		$reqparametres=array('debug_mode','debug_template');
 	}
 	elseif($_POST['type']="cache"){
-		$reqparametres=array('cache_template','cache_template_time','cache_statistic_all');
+		$reqparametres=array('cache_template','cache_template_time','cache_statistic_all','cache_statistic_card');
 	}
 
 	//$captcha_param = array('re_publickey','re_privatekey');

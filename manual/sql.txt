@@ -51,3 +51,6 @@ INSERT INTO `page` (`id`, `title`, `text`, `added`, `edited`, `status`) VALUES
 ________________
 ALTER TABLE `card_callback` ADD `id_result` TINYINT( 1 ) NOT NULL DEFAULT '0';
 ALTER TABLE `card_callback` ADD `type_contact` TINYINT( 1 ) NOT NULL DEFAULT '0';
+________________
+сделать http://crm/action_admin.php?module=update_base&action=start&type=fix_callback_3
+INSERT INTO `cache_stats` (`cache_name` ,`cache_value`) VALUES ('cache_statistic_card', '3600');

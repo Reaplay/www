@@ -96,7 +96,9 @@
 								{*<li><a tabindex="-1" href="#"><i class="fa fa-bookmark"></i> Закладки</a></li>
 								<li><a tabindex="-1" href="userdetails.php"><i class="fa fa-edit"></i> Мой профиль</a></li>*}
 								<li><a tabindex="-1" href="my_setting.php"><i class="fa fa-cog"></i> Мои настройки</a></li>
-
+								{if $IS_POWER_HEAD}
+								<li><a tabindex="-1" href="setclass.php"><i class="fa fa-cog"></i> Ложный доступ</a></li>
+								{/if}
 								<li class="divider"></li>
 								<li><a tabindex="-1" href="logout.php"><i class="glyphicon glyphicon-off"></i> Выйти</a></li>
 							</ul>
@@ -224,7 +226,7 @@
 													<li><a href="statistic.php?type=department"">Отчет по активности ККО</a></li>
 													<li><a href="statistic.php?type=client&subtype=sales_funnel">Воронка продаж</a></li>
 
-													<li><a href="">Отчет по рекомендациям</a></li>
+													{*<li><a href="">Отчет по рекомендациям</a></li>*}
 												</ul>
 											</li>
 											<li class="dropdown">

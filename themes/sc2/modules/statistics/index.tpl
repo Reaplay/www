@@ -92,7 +92,7 @@
 	<table class="table table-bordered table-striped" id="all">
 
 
-		<tbody data-w="department">
+		<tbody data-w="all">
 			<tr>
 				<td>Всего клиентов в базе: <b>{$statistics.all_client}</b></td>
 				<td>Стали клиентами: <b>{$statistics.client}</b></td>

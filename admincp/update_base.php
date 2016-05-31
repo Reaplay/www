@@ -47,7 +47,7 @@
             }
             while ($row = mysql_fetch_array ($res)) {
 
-                sql_query("UPDATE client SET `status` = '1' WHERE status != '1' AND equid !='';");
+                sql_query("UPDATE client SET `status` = '1' WHERE status == '0' AND equid !='';");
 
             }
         }

@@ -16,7 +16,8 @@
 		(SELECT SUM(1) FROM callback WHERE status=0) UNION ALL
 		(SELECT SUM(1) FROM callback WHERE status=1) UNION ALL
 		(SELECT SUM(1) FROM callback WHERE status=0 and type_contact = 1) UNION ALL
-		(SELECT SUM(1) FROM callback WHERE status=0 and type_contact = 2)
+		(SELECT SUM(1) FROM callback WHERE status=0 and type_contact = 2) UNION ALL
+		(SELECT SUM(1) FROM callback WHERE type_contact = 3)
       ");
 
 		$params = array(
@@ -30,7 +31,8 @@
 			'callback_held',
 			'callback_planed',
 			'callback_planned_call',
-			'callback_planned_meeting'
+			'callback_planned_meeting',
+			'callback_recomend'
 		);
 		foreach ($params as $param) {
 			list($value) = mysql_fetch_array($res);

@@ -9,7 +9,7 @@
 	В системе <span class="countTo text-danger font-raleway" data-speed="3000">{$statistics.users}</span> пользователей и <span class="countTo font-raleway" data-speed="3000">{$statistics.departments}</span> разных отделений
 </p>
 
-
+{*
 <div class="row countTo-md text-center">
 
 	<div class="col-xs-6 col-sm-3">
@@ -87,9 +87,39 @@
 
 
 </div>
+*}
+<div class="table-responsive">
+	<table class="table table-bordered table-striped" id="all">
+
+
+		<tbody data-w="department">
+			<tr>
+				<td>Всего клиентов в базе: <b>{$statistics.all_client}</b></td>
+				<td>Стали клиентами: <b>{$statistics.client}</b></td>
+				<td>Еще не клиентов: <b>{$statistics.not_client}</b></td>
+				<td>Отказались: <b>{$statistics.client_failure}</b></td>
+
+			</tr>
+
+			<tr>
+
+				<td>Контактов в базе: <b>{$statistics.callback}</b></td>
+				<td>Проведено контактов: <b>{$statistics.callback_held}</b></td>
+				<td>Запланировано: <b>{$statistics.callback_planed}</b></td>
+			</tr>
+			<tr>
+
+				<td>Ожидается звонков: <b>{$statistics.callback_planned_call}</b></td>
+				<td>Ожидается встреч: <b>{$statistics.callback_planned_meeting}</b></td>
+				<td>Рекомендаций: <b>{$statistics.callback_recomend}</b></td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
 
 <div class="table-responsive">
-	<table class="table table-bordered table-striped" id="table">
+	<table class="table table-bordered table-striped" id="department">
 		<thead>
 		<tr>
 			<th>Отделение</th>

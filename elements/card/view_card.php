@@ -34,7 +34,11 @@ WHERE card_client.delete = '0' AND card_client.id = '".$_GET['id']."'  ".$depart
         stderr("Ошибка","Клиент не найден или у вас нет доступа","no");
     }
     $data_card = mysql_fetch_array($res);
-    $data_card['next_call'] = mkprettytime($data_card['next_call'],false);
+    if ($data_card['next_call']) {
+        $data_card['next_call'] = mkprettytime ($data_card['next_call'], false);
+    }
+    else
+        $data_card['next_call'] = "N/A";
     $data_card['added'] = mkprettytime($data_card['added'],false);
     $res=sql_query("
 SELECT card_callback.*, users.name as u_name,result_call.text as rc_name

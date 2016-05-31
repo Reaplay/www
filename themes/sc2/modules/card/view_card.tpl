@@ -67,7 +67,7 @@
                     <li class="footer-sprite fa fa-calendar-times-o  fa-fw"></li>Следующий звонок
                 </div>
                 <div class="col-md-5">
-                    {$data_card.next_call}
+                   {$data_card.next_call}
                 </div>
             </div>
             <div class="row">
@@ -140,7 +140,7 @@
                                 </td>
 
                                 <td>
-                                    {$callback.next_call}
+                                  {$callback.next_call}
                                 </td>
                             </tr>
                             {if {$callback.comment}}

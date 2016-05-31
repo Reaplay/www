@@ -9,7 +9,7 @@
 if (!defined("IN_SITE")) die("Direct access to this page not allowed");
 define ("BETA", true);
 define ("BETA_NOTICE", " This isn't complete release of source!");
-define("RELVERSION","0.2.4");
+define("RELVERSION","0.2.4.1");
 
 /**
  * Checks that page is loading with ajax and defines boolean constant REL_AJAX

@@ -7,7 +7,7 @@
      */
      //stderr("Ошибка","Данный функционал еще в разработке и поэтому не доступен","no");
 
-     $card_department=$REL_CACHE->get('statistics', 'card_department',$REL_CONFIG['cache_statistic_card']);
+     $card_department=$REL_CACHE->get('statistics', 'card_department'.$CURUSER['department'],$REL_CONFIG['cache_statistic_card']);
 
      // UPDATE CACHES:
      if ($card_department===false) {
@@ -35,7 +35,7 @@
           }
 
           $card_department['all_avg_time'] = date("H:i:s", mktime(0, 0, $avg_time/$i));
-          $REL_CACHE->set('statistics', 'index', $card_department);
+          $REL_CACHE->set('statistics', 'card_department'.$CURUSER['department'], $card_department);
 
      }
      /*

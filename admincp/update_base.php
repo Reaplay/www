@@ -51,6 +51,17 @@
 
             }
         }
+        if($_GET['type'] == 'fix_callback_4') {
+            $res = sql_query ("SELECT `card_callback`.`id` FROM `card_client` LEFT JOIN card_callback on card_callback.id = card_client.id_callback WHERE `card_client`.`status` != 0 AND card_callback.id_client = card_client.id AND `card_callback`.`manager` < 15 AND `card_callback`.`added` < 1465396200 AND `card_callback`.`manager` != 0;");
+            if (mysql_num_rows ($res) == 0) {
+                stderr ("Ошибка", "Данный фикс не требуется", "no");
+            }
+            while ($row = mysql_fetch_array ($res)) {
+
+                sql_query("UPDATE `card_callback` SET `manager` = '0' WHERE id= '".$row['id']."';");
+
+            }
+        }
     }
 
     $REL_TPL->output("update_base","admincp");

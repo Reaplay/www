@@ -136,7 +136,7 @@
                                     {$callback.rc_name}
                                 </td>
                                 <td>
-                                    {$callback.u_name}
+                                   {if $callback.u_name}{$callback.u_name}{else}Система{/if}
                                 </td>
 
                                 <td>

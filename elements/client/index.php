@@ -99,7 +99,7 @@ client.delete = '0'
 	}
 	$i=0;
 	while ($row = mysql_fetch_array($res)){
-		$data_client[]=$row;
+		$data_client[$i]=$row;
 		if ($row['cb_next_call']){
 			$data_client[$i]['time_callback']=mkprettytime($row['cb_next_call'],false);
 		}

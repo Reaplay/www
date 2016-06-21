@@ -1,23 +1,3 @@
-<!--<div class="alert alert-danger margin-bottom-30">
-	<strong>Внимание</strong> Страница в тестовом режиме
-</div>-->
-{*
-<form action="" method="post" class="row clearfix">
-	<div class="col-lg-7 col-sm-7">
-		<div>
-			<h4>Фильтр</h4>
-		</div>
-	
-			<div class="row">
-				<div class="col-md-3 col-sm-3">
-					<label for="">text</label>
-					<input type="text" class="" name="" id="">
-				</div>
-			</div>
-		
-	</div>
-</form>*}
-<!-- Bootstrap Modal >-->
 <button type="button" class="btn btn-primary btn-lg btn-block margin-bottom-30" data-toggle="modal" data-target="#filter">
 	Фильтр клиентов
 </button>
@@ -131,28 +111,7 @@
 	</div>
 </div>
 {paginator page='client' add_link=$add_link add_sort=$add_sort  num_page=$page max_page=$max_page count=$count}
-{*
-<ul class="pagination pagination-sm">
-	<!--<li class="disabled"><a href="#">Пред</a></li>-->
-	{if ($page > 2)}
-		<li><a href="client.php?page=1{$add_link}{$add_sort}">Первая</a></li>
-		<li><a href="client.php?page={$page - 2}{$add_link}{$add_sort}">{$page - 2}</a></li>
-	{/if}
-	{if ($page > 1)}
-		<li><a href="client.php?page={$page - 1}{$add_link}{$add_sort}">{$page - 1}</a></li>
-	{/if}
-	<li class="active"><a href="#">{$page}</a></li>
-	{if ($page < ($max_page + 1) AND $page < $max_page)}
-		<li><a href="client.php?page={$page + 1}{$add_link}{$add_sort}">{$page + 1}</a></li>
-	{/if}
-	{if ($page < ($max_page + 2)  AND ($page+1) < $max_page)}
-		<li><a href="client.php?page={$page + 2}{$add_link}{$add_sort}">{$page + 2}</a></li>
-		<li><a href="client.php?page={$max_page}{$add_link}{$add_sort}">Последняя</a></li>
-	{/if}
-	<!--<li><a href="#">След</a></li>-->
-	Результаты поиска ({$count} записей)
-</ul>
-*}
+
 <!-- HTML DATATABLES -->
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
@@ -219,28 +178,7 @@
 	</table>
 </div>
 {paginator page='client' add_link=$add_link add_sort=$add_sort  num_page=$page max_page=$max_page count=$count}
-{*
-<!--очень кривой вывод номеров страниц. переделать-->
-<ul class="pagination pagination-sm">
-	<!--<li class="disabled"><a href="#">Пред</a></li>-->
-	{if ($page > 2)}
-	<li><a href="client.php?page=1{$add_link}{$add_sort}">Первая</a></li>
-	<li><a href="client.php?page={$page - 2}{$add_link}{$add_sort}">{$page - 2}</a></li>
-	{/if}
-	{if ($page > 1)}
-	<li><a href="client.php?page={$page - 1}{$add_link}{$add_sort}">{$page - 1}</a></li>
-	{/if}
-	<li class="active"><a href="#">{$page}</a></li>
-	{if ($page < ($max_page + 1) AND $page < $max_page)}
-	<li><a href="client.php?page={$page + 1}{$add_link}{$add_sort}">{$page + 1}</a></li>
-	{/if}
-	{if ($page < ($max_page + 2)  AND ($page+1) < $max_page)}
-	<li><a href="client.php?page={$page + 2}{$add_link}{$add_sort}">{$page + 2}</a></li>
-	<li><a href="client.php?page={$max_page}{$add_link}{$add_sort}">Последняя</a></li>
-	{/if}
-	<!--<li><a href="#">След</a></li>-->
-</ul>
-*}
+
 
 
 

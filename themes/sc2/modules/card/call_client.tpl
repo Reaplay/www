@@ -1,6 +1,3 @@
-<div class="alert alert-danger margin-bottom-30">
-    <strong>Внимание</strong> Страница в тестовом режиме
-</div>
 {if !$IS_HEAD}
     <div class="alert alert-warning margin-bottom-30">
         <!-- WARNING -->

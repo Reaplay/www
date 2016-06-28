@@ -8,14 +8,15 @@
 
 
 $id_promo = (int)$_POST['promo'];
-    $row = sql_query("SELECT COUNT(*) AS num , client.status
+    if($id_promo) {
+        $row = sql_query ("SELECT COUNT(*) AS num , client.status
 FROM client
-WHERE id_promo_actio = $id_promo AND `delete` = 0 and client.department = '".$CURUSER['department']."'
+WHERE id_promo_actio = $id_promo AND `delete` = 0 and client.department = '" . $CURUSER['department'] . "'
 GROUP BY client.status");
-    while($res = mysql_fetch_array($row)){
-        $data[$res['status']] = $res['num'];
+        while ($res = mysql_fetch_array ($row)) {
+            $data[$res['status']] = $res['num'];
+        }
     }
-
 
 
     $row_promo = sql_query("SELECT id,name FROM promo_actio WHERE status = 0");

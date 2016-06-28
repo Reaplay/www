@@ -14,9 +14,10 @@ if(!is_valid_id($_GET['id'])){
 //а выше рукля - всех могут
 	
 $res=sql_query("
-	SELECT client.*, users.name as u_name, users.id as u_id, department.name as d_name
+	SELECT client.*, users.name as u_name, users.id as u_id, department.name as d_name, promo_actio.name as name_promo
 	FROM `client`  
-	LEFT JOIN users ON users.id = client.manager  
+	LEFT JOIN users ON users.id = client.manager
+	LEFT JOIN promo_actio ON promo_actio.id = client.id_promo_actio
 	LEFT JOIN department ON department.id = client.department  
 	WHERE  client.delete = '0' AND client.id = '".$_GET['id']."' ".$add_query.";")
 	or sqlerr(__FILE__, __LINE__);

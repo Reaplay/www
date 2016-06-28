@@ -3,6 +3,7 @@
 if(!$CURUSER['add_client'])
 	stderr("Ошибка","У вас нет доступа к данной странице","no");
 
+
 if($_GET['type']=='upload_client'){
 		//начинаем проверку загрузку файла
 	$allowedExts = array("CSV","csv"); 
@@ -46,6 +47,7 @@ if($_GET['type']=='upload_client'){
 	// загружаем файло в переменную
 	$mass = file("upload/upload_clients_" . $time.".csv");
 	// первую строчку пропускаем, т.к. там просто инфа
+	$id_promo = (int)$_POST['promo'];
 
 	for ($i = 1; $i < count($mass); $i++) {
 		$num_err['all']++;
@@ -159,7 +161,7 @@ VALUES ('" . $name . "','" . $department . "','" . $manager . "'," . $mobile . "
 	if($i!=1){
 		$task_to_add .= ",";
 	}
-	$task_to_add .= "('" . $name . "','" . $department . "','" . $manager . "'," . $mobile . ",'" . $email . "','" . time () . "','" . $CURUSER['id'] . "'," . $comment . "," . $equid . ",'" . $status . "','" . $birthday . "')";
+	$task_to_add .= "('".$name."', '".$department."', '".$manager."', ".$mobile.", '".$email."', '".time()."', '".$CURUSER['id']."', ".$comment.", ".$equid.", '".$status."', '".$birthday."', '".$id_promo."')";
 	if($text_err[$i]) {
 		$text_err[$i]['fio'] = $name;
 		$text_err[$i]['result'] = 'Добавлен';
@@ -176,7 +178,7 @@ VALUES ('" . $name . "','" . $department . "','" . $manager . "'," . $mobile . "
 		}
 	 if ($task_to_add){
 	sql_query ("
-INSERT INTO `client` (`name`, `department`,`manager`,`mobile`,`email`,`added`,`who_added`,`comment`,`equid`,`status`,`birthday`)
+INSERT INTO `client` (`name`, `department`,`manager`,`mobile`,`email`,`added`,`who_added`,`comment`,`equid`,`status`,`birthday`,`id_promo_actio`)
 VALUES ".$task_to_add.";") or sqlerr (__FILE__, __LINE__);
 	}
 
@@ -202,8 +204,14 @@ VALUES (NULL , '2', '', '', NULL , '', '', '', '', '0', '', NULL , '0', '', '0',
 	print $content;*/
 }
 
+$row_promo = sql_query("SELECT id,name FROM promo_actio WHERE status = 0");
+	while($res_promo = mysql_fetch_array($row_promo)){
+		$data_promo .= '<option value="'.$res_promo['id'].'">'.$res_promo['name'].'</option>';
+	}
+
 $REL_TPL->assignByRef('num_err',$num_err);
 	$REL_TPL->assignByRef('text_err',$text_err);
+	$REL_TPL->assignByRef('data_promo',$data_promo);
 $REL_TPL->output("upload_clients","client");
 	
 

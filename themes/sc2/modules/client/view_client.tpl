@@ -65,6 +65,14 @@
 						 {$data_client.equid} {if !$data_client.equid}Отсутствует{/if}
 					</div>
 				</div>
+			<div class="row">
+				<div class="col-md-3">
+					<li class="footer-sprite fa fa-product-hunt  fa-fw"></li>Промоакция:
+				</div>
+				<div class="col-md-5">
+					{$data_client.name_promo} {if !$data_client.name_promo}Отсутствует{/if}
+				</div>
+			</div>
 				
 				<div class="row">
 					<div class="col-md-12">

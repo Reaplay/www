@@ -5,9 +5,24 @@
 </div>
 
 <form enctype="multipart/form-data" action="client.php?a=upload&type=upload_client" method="POST" accept-charset="utf-8">
-<input class="custom-file-upload" type="file" id="file" name="attachment" id="contact:attachment" data-btn-text="Выберите файл" />
+<input class="custom-file-upload" type="file" id="file" name="attachment" id="contact:attachment" data-btn-text="Выберите файл"  accept=".csv" />
 <small class="text-muted block">Максимальный размер файла: 2Mb (только .csv)</small>
-<button  class="btn btn-info">Загрузить</button>
+
+	<div class="col-md-4">
+
+		<div class="fancy-form fancy-form-select">
+			<select class="form-control select2 pointer required" name="promo">
+				<option value="---">Выберите промоакцию</option>
+				{$data_promo}
+			</select>
+			<i class="fancy-arrow"></i>
+		</div>
+	</div>
+		<div class="col-md-4">
+			<button  class="btn btn-info">Загрузить</button>
+		</div>
+
+
 </form>
 
 {if $text_err}{*

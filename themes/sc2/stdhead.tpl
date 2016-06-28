@@ -225,6 +225,7 @@
 												<ul class="dropdown-menu">
 													<li><a href="statistic.php?type=department"">Отчет по активности ККО</a></li>
 													<li><a href="statistic.php?type=client&subtype=sales_funnel">Воронка продаж</a></li>
+													<li><a href="statistic.php?type=client&subtype=promo_actio">Промоакции</a></li>
 
 													{*<li><a href="">Отчет по рекомендациям</a></li>*}
 												</ul>

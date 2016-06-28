@@ -26,6 +26,10 @@ elseif ($_GET['type'] == "client") {
 		$REL_TPL->stdhead ("Воронка продаж");
 		require_once ("elements/statistics/client/sales_funnel.php");
 	}
+	elseif($_GET['subtype'] == "promo_actio") {
+		$REL_TPL->stdhead ("Статистика промоакций");
+		require_once ("elements/statistics/client/promo_actio.php");
+	}
 }
 elseif ($_GET['type'] == "card") {
 	if($_GET['subtype'] == "basic") {

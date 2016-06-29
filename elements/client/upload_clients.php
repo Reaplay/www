@@ -158,7 +158,7 @@ if ($error == 0) {
 INSERT INTO `client` (`name`, `department`,`manager`,`mobile`,`email`,`added`,`who_added`,`comment`,`equid`,`status`,`birthday`)
 VALUES ('" . $name . "','" . $department . "','" . $manager . "'," . $mobile . ",'" . $email . "','" . time () . "','" . $CURUSER['id'] . "'," . $comment . "," . $equid . ",'" . $status . "','" . $birthday . "');
 ") or sqlerr (__FILE__, __LINE__);*/
-	if($i!=1){
+	if($task_to_add){
 		$task_to_add .= ",";
 	}
 	$task_to_add .= "('".$name."', '".$department."', '".$manager."', ".$mobile.", '".$email."', '".time()."', '".$CURUSER['id']."', ".$comment.", ".$equid.", '".$status."', '".$birthday."', '".$id_promo."')";

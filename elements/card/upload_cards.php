@@ -153,7 +153,7 @@ if($_GET['type']=='upload_cards'){
 		//print $error;
 if ($error == 0) {
 
-	if($i!=1){
+	if($task_to_add){
 		$task_to_add .= ",";
 	}
 	$task_to_add .= "('".$name."','".$department."','".$manager."',".$mobile.",'".$cobrand_id."','".time()."','".$CURUSER['id']."',".$comment.",".$equid.",'".$vip."')";

@@ -71,6 +71,16 @@
 			</div>
 				<div class="row margin-bottom-10">
 					<div class="col-md-6">
+						<h4>Фильтр по промоакциям</h4>
+						<div class="fancy-form fancy-form-select">
+							<select class="form-control" name="promo_actio">
+								<option value="">Выберите промоакцию</option>
+								{$list_promo_actio}
+							</select>
+							<i class="fancy-arrow"></i>
+						</div>
+					</div>
+					<div class="col-md-6">
 						<h4>Опции</h4>
 						<label class="checkbox">
 							<input type="checkbox" name="only_my" value="1">
@@ -81,9 +91,7 @@
                             <i></i> Без запланированных контактов
                         </label>*}
 					</div>
-					<div class="col-md-6">
 
-					</div>
 				</div>
 			<!--	<h4>Статус клиента</h4>
 				<p><div class="row margin-bottom-10">

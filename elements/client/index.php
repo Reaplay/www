@@ -119,6 +119,16 @@ client.delete = '0'
 	// спиcок отделений для фильтра
 	$list_department = get_department(get_user_class(),$CURUSER['department'],$_GET['department']);
 
+	//формируем список промоакций
+	$get_promo =sql_query("SELECT id, name FROM promo_actio WHERE status = 0;");
+	while ($promo = mysql_fetch_array($get_promo)) {
+		$select = "";
+		if ($promo['id'] == $_GET['promo_actio']){
+			$select = "selected = \"selected\"";
+		}
+		$list_promo_actio .= " <option ".$select." value = ".$promo['id'].">".$promo['name']."</option>";
+	}
+
 	//необходима оптимизация
 	// узнаем сколько клиентов можно отобразить, что бы правильно сформировать переключатель страниц
 	$res = sql_query("SELECT SUM(1) FROM client LEFT JOIN department ON department.id = client.department LEFT JOIN  users ON users.id = client.manager LEFT JOIN callback ON callback.id = client.id_callback WHERE
@@ -136,6 +146,7 @@ client.delete = '0' ".$filter['add_where']." ;") or sqlerr(__FILE__,__LINE__);
 	//формируем список для фильтров
 	$REL_TPL->assignByRef('list_manager',$list_manager);
 	$REL_TPL->assignByRef('list_department',$list_department);
+	$REL_TPL->assignByRef('list_promo_actio',$list_promo_actio);
 	// формируем переход между страниц
 	$REL_TPL->assignByRef('cpp',$cpp);
 	$REL_TPL->assignByRef('page',$page);

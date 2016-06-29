@@ -857,6 +857,11 @@ function get_department($class,$department,$id_select=""){
 				}
 				$add_link .= "&type=".$data['type'];
 			}
+			if($data['promo_actio']){
+				$id_promo = (int)$data['promo_actio'];
+				$add_where .= " AND client.id_promo_actio='" . $id_promo . "'";
+				$add_link .= "&promo_actio=" . $id_promo;
+			}
 
 
 		}

@@ -19,7 +19,7 @@ if($_POST['id']){
        // write_log("Попытка изменения поступаемого ID при добавлении изменений (специально)","edit_user");
     }
     $id = $_POST['id'];
-    $res = sql_query("SELECT next_call FROM  `card_client` WHERE card_client.delete = '0' AND  `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT department, next_call FROM  `card_client` WHERE card_client.delete = '0' AND  `id` = '".$id."';")  or sqlerr(__FILE__, __LINE__);
     $data_client = mysql_fetch_array($res);
     if(!$data_client){
         stderr("Ошибка","Такой тип карты в базе не обнаружен","no");

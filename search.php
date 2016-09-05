@@ -4,7 +4,7 @@ require_once("include/connect.php");
 
 dbconn();
 $REL_TPL->stdhead("Поиск");
-
+loggedinorreturn();
 /*
 сначала пишем поиск по клиентам
 искать по:

@@ -44,6 +44,14 @@ if($_POST['change_password'] == "yes") {
         $msg['class'] = "success";
         $msg['text'] = "Настройки изменены";
     }
+$viev_client = (int)$_POST['viev_client'];
+
+            sql_query("UPDATE `users` SET `viev_client` = '".$viev_client."' WHERE `id` ='".$CURUSER['id']."';")  or sqlerr(__FILE__, __LINE__);
+            $GLOBALS["CURUSER"]['viev_client']=$viev_client;
+
+        $msg['class'] = "success";
+        $msg['text'] = "Настройки изменены";
+
 
 
 $REL_TPL->stdhead("Настройки");

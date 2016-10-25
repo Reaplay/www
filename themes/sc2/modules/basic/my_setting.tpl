@@ -86,6 +86,17 @@
 														</label>
 													</td>
 												</tr>
+												<tr>
+													<td>Показывать клиентов</td>
+													<td>
+
+															<select name="viev_client">
+																<option value="0" {if $CURUSER['viev_client'] == 0}selected="selected"{/if}">Всех</option>
+																<option value="1" {if $CURUSER['viev_client'] == 1}selected="selected"{/if}>Кому еще надо позвонить</option>
+															</select>
+
+													</td>
+												</tr>
 												{*<tr>
 													<td>Уведомления</td>
 													<td>

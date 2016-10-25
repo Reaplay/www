@@ -67,3 +67,6 @@ CREATE TABLE IF NOT EXISTS `promo_actio` (
 INSERT INTO `promo_actio` (`id`, `name`, `added`, `status`) VALUES
 (1, 'World of Tanks', 0, 0);
 ALTER TABLE `client` ADD `id_promo_actio` MEDIUMINT( 5 ) NOT NULL DEFAULT '0';
+_______________
+ALTER TABLE `users` ADD `viev_client` TINYINT( 1 ) NOT NULL DEFAULT '0';
+ALTER TABLE `client` ADD `dont_call` TINYINT( 1 ) NOT NULL DEFAULT '0';

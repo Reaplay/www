@@ -93,7 +93,16 @@ WHERE
 client.delete = '0'
 ".$filter['add_where']." ".$sort['query']." ".$limit.";")  or sqlerr(__FILE__, __LINE__);
 
+print "
+SELECT client.*, department.name AS d_name, department.id AS d_id, department.parent, users.name AS u_name, callback.next_call AS cb_next_call, callback.comment AS cb_comment,callback.id_user, (SELECT users.name FROM users WHERE users.id=callback.id_user) AS cb_manager, (SELECT result_call.text FROM result_call WHERE result_call.id=callback.id_result) AS result_call
+FROM `client`
+LEFT JOIN department ON department.id = client.department
+LEFT JOIN users ON users.id = client.manager
+LEFT JOIN callback ON callback.id = client.id_callback
 
+WHERE
+client.delete = '0'
+".$filter['add_where']." ".$sort['query']." ".$limit.";";
 	if(mysql_num_rows($res) == 0){
 		stderr("Ошибка","Клиенты не найдены","no");
 	}

@@ -24,7 +24,7 @@ elseif(get_user_class()==UC_POWER_HEAD){
 	
 	
 	$res=sql_query("
-	SELECT client.equid, department.parent, department.id
+	SELECT client.equid,client.dont_call, department.parent, department.id
 	FROM `client`
 	LEFT JOIN department ON department.id = client.department
 	WHERE client.delete = '0' AND client.id = '".$id_client."' ".$add_query.";")
@@ -118,6 +118,11 @@ if($_POST['action']=='add'){
 	$type_contact = $_POST['type_contact'];
 	$comment = ((string)$_POST["comment"]);
 
+	if($_POST['dont_call']){
+		$dont_call = 1;
+	}
+	else
+		$dont_call = 0;
 
 
 	//$id_product = "1,2,3";
@@ -128,7 +133,7 @@ if($_POST['action']=='add'){
 	sql_query("UPDATE `callback` SET status = 1 WHERE id_client = '".$id_client."' AND status = '0' AND id !='".$id_callback."'");
 
 	//if($update_equid OR $update_status)
-		sql_query("UPDATE `client` SET `id_callback` = '".$id_callback."', `next_call` = '".$next_call."' ".$update_equid." ".$update_status." WHERE id = '".$id_client."'");
+		sql_query("UPDATE `client` SET `id_callback` = '".$id_callback."', `next_call` = '".$next_call."',`dont_call` = '".$dont_call."' ".$update_equid." ".$update_status."  WHERE id = '".$id_client."'");
 
 	
 

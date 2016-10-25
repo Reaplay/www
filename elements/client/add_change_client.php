@@ -132,12 +132,21 @@ $comment = ((string)$_POST["comment"]);
 	else
 		$vip = 0;
 
+	if($_POST['dont_call']){
+		$dont_call = 1;
+	}
+	else
+		$dont_call = 0;
+
+
+
+
 if (!$id){
 	sql_query("
 INSERT INTO `client`(
-`name`, `department`, `manager`, `mobile`, `email`, `birthday`, `gender`, `added`, `who_added`, `equid`, `comment`,`status`,`vip`)
+`name`, `department`, `manager`, `mobile`, `email`, `birthday`, `gender`, `added`, `who_added`, `equid`, `comment`,`status`,`vip`,`dont_call`)
 VALUES (".implode(",", array_map("sqlesc", array(
-			$name, $department, $manager, $mobile, $email, $birthday, $gender, time(), $CURUSER['id'],$equid, $comment, $status, $vip))).");")  or sqlerr(__FILE__, __LINE__);
+			$name, $department, $manager, $mobile, $email, $birthday, $gender, time(), $CURUSER['id'],$equid, $comment, $status, $vip,$dont_call))).");")  or sqlerr(__FILE__, __LINE__);
 	$id_client = mysql_insert_id();
 	write_log("Добавлен клиент ID:".$id_client."","client","add" );
 	//дата след. звонка
@@ -149,8 +158,9 @@ VALUES ('".$id_client."','0','".time()."','".$next_call."', 0);")  or sqlerr(__F
 }
 else {
 sql_query("
-UPDATE `client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."', `vip`='".$vip."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
+UPDATE `client` SET `name` = '".$name."', `manager` = '".$manager."', `department` = '".$department."', `mobile` = '".$mobile."', `email` = '".$email."',`birthday` = '".$birthday."', `gender` = '".$gender."', `comment` = '".$comment."', `last_update` = '".time()."', `status` = '".$status."', `vip`='".$vip."', `dont_call` = '".$dont_call."' WHERE `id` ='".$id."';")  or sqlerr(__FILE__, __LINE__);
 	write_log("Изменен клиент ID:".$id."","client","edit" );
+	$id_client = $id;
 }
 stdmsg("Выполнено","Вы будете перенаправлены на страницу клиента через пару секунд. <br /> Если этого не произошло, нажмите <a href=\"client.php?a=view&id=".$id_client."\">здесь</a>");
 

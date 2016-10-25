@@ -31,7 +31,7 @@ $now_date = strtotime(date("d.m.Y"));
 // LEFT JOIN callback ON callback.id = client.id_callback
 	if ($CURUSER['add_client']) {
 		$first_part_sql = "SELECT SUM(1) FROM `callback` LEFT JOIN client ON client.id = callback.id_client $left_join_client WHERE client.delete = '0' AND callback.status = 0 AND callback.next_call != 0 $department_client";
-print "".$first_part_sql." AND callback.type_contact = 1 AND client.status=1 AND callback.next_call = '".$now_date."'";
+
 	$res=sql_query("
 	(".$first_part_sql." AND callback.type_contact = 1 AND client.status=1 AND callback.next_call = '".$now_date."') UNION ALL
 	(".$first_part_sql." AND callback.type_contact = 1 AND client.status=1 AND callback.next_call < '".$now_date."') UNION ALL
